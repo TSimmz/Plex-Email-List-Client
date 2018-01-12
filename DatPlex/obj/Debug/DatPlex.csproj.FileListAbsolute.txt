@@ -12,3 +12,6 @@ c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\
 c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.csproj.GenerateResource.Cache
 c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.exe
 c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.pdb
+C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\bin\Debug\DatPlex.exe.config
+C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.exe
+C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.pdb
