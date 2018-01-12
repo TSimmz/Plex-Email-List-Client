@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:DatPlex"
         mc:Ignorable="d"
         Title="Dat Plex" Height="400" Width="600"
+        Icon="C:\Users\simoni\Pictures\plex.jpg"
         BorderBrush="Black" BorderThickness="4"
         ResizeMode="NoResize">
     <Grid Background="#202020">
