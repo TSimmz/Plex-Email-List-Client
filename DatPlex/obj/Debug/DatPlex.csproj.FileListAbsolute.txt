@@ -1,0 +1,14 @@
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\bin\Debug\DatPlex.exe.config
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\bin\Debug\DatPlex.exe
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\bin\Debug\DatPlex.pdb
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.csprojResolveAssemblyReference.cache
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\MainWindow.g.cs
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\App.g.cs
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex_MarkupCompile.cache
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex_MarkupCompile.lref
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\MainWindow.baml
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.g.resources
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.Properties.Resources.resources
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.csproj.GenerateResource.Cache
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.exe
+c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.pdb
