@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/plex.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/plex_icon.png")]
 
 
