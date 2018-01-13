@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DatPlex"
         mc:Ignorable="d"
         Title="Dat Plex" Height="400" Width="600"
-        Icon="C:\Users\simoni\Pictures\plex.jpg"
+        Icon="Images\plex_icon.png"
         BorderBrush="Black" BorderThickness="4"
         ResizeMode="NoResize">
     <Grid Background="#202020">
@@ -15,7 +15,7 @@
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Image Source="C:\Users\simoni\Pictures\plex.jpg"
+            <Image Source="Images\plex.jpg"
               Height="100"
               Width="175"
               VerticalAlignment="Center"
