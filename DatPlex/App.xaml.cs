@@ -5,6 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using DatPlex.View_Model;
+using DatPlex.GUI;
+
 
 namespace DatPlex
 {
@@ -13,5 +16,11 @@ namespace DatPlex
     /// </summary>
     public partial class App : Application
     {
+        public static MainViewModel MainViewModel;
+
+        App()
+        {
+            InitializeComponent();
+        }
     }
 }
