@@ -488,3 +488,6 @@ sample_project/signals\.txt
 DevX\.VC\.VC\.opendb
 
 *.db
+DatPlex/obj/Debug/
+
+*.csproj

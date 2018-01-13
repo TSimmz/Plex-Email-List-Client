@@ -22,7 +22,18 @@ namespace DatPlex
     {
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                string message = e.ToString();
+                string caption = "Plex Updater Closing";
+                var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            }
+
+
         }
 
         private void plex_account_combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
