@@ -89,13 +89,8 @@
                               Background="#4F4F4F" SelectionChanged="listView_SelectionChanged" Grid.Row="0">
                         <ListView.View>
                             <GridView>
-<<<<<<< HEAD
                                 <GridViewColumn Header="Name" Width="95" DisplayMemberBinding="{Binding Name}" />
                                 <GridViewColumn Header="Email" Width="145" DisplayMemberBinding="{Binding Email}" />
-=======
-                                <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Name}" />
-                                <GridViewColumn Header="Mail" Width="140" DisplayMemberBinding="{Binding Mail}" />
->>>>>>> master
                             </GridView>
                         </ListView.View>
                     </ListView>

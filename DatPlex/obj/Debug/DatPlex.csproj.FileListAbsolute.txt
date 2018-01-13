@@ -12,11 +12,9 @@ c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\
 c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.csproj.GenerateResource.Cache
 c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.exe
 c:\users\simoni\documents\visual studio 2015\Projects\DatPlex\DatPlex\obj\Debug\DatPlex.pdb
-<<<<<<< HEAD
 D:\GIT\Plex-Email-List-Client\DatPlex\bin\Debug\DatPlex.exe.config
 D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.exe
 D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.pdb
-=======
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\bin\Debug\DatPlex.exe.config
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.exe
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.pdb
@@ -31,9 +29,6 @@ C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\Mai
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.g.resources
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.Properties.Resources.resources
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.csproj.GenerateResource.Cache
-D:\GIT\Plex-Email-List-Client\DatPlex\bin\Debug\DatPlex.exe.config
-D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.exe
-D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.pdb
 D:\GIT\Plex-Email-List-Client\DatPlex\bin\Debug\DatPlex.exe
 D:\GIT\Plex-Email-List-Client\DatPlex\bin\Debug\DatPlex.pdb
 D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.csprojResolveAssemblyReference.cache
@@ -45,4 +40,3 @@ D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\MainWindow.baml
 D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.g.resources
 D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.Properties.Resources.resources
 D:\GIT\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.csproj.GenerateResource.Cache
->>>>>>> master
