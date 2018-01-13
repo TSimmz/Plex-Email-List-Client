@@ -55,5 +55,24 @@ namespace DatPlex
 
         }
 
+        private void manual_rb_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)manual_rb.IsChecked)
+            {
+                timer.IsEnabled = false;
+                units.IsEnabled = false;
+                scan_button.IsEnabled = true;
+            }
+        }
+
+        private void auto_rb_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)auto_rb.IsChecked)
+            {
+                timer.IsEnabled = true;
+                units.IsEnabled = true;
+                scan_button.IsEnabled = false;
+            }
+        }
     }
 }
