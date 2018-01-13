@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatPlex"
         mc:Ignorable="d"
-        Title="Dat Plex" Width="600" Height="400" Icon="./Images/plex_icon.png"
+        Title="Plex User Update" Width="600" Height="400" Icon="./Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Background="#202020">
@@ -32,6 +32,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
@@ -40,18 +41,25 @@
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock x:Name="plex_account" Text="Plex Accounts" Foreground="White" FontFamily="Arial" FontSize="18" 
+                            <TextBlock x:Name="plex_account" Text="Plex Accounts" Foreground="White" FontSize="18" 
                                            HorizontalAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                                            Height="26" Width="245" Grid.Row="0"/>
-                            <ComboBox x:Name="plex_account_combo" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Width="235" SelectionChanged="plex_account_combo_SelectionChanged"/>
-
+                            <ComboBox x:Name="plex_account_combo" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Width="235" Height="25" SelectionChanged="plex_account_combo_SelectionChanged"/>
                         </Grid>
                         <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton x:Name="manual_rb" Content="Manual" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontSize="14"/>
+                            <RadioButton x:Name="auto_rb" Content="Automatic" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontSize="14"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock x:Name="set_up_period" Text="Set Update Period" Foreground="White" FontFamily="Arial" FontSize="18" 
+                            <TextBlock x:Name="set_up_period" Text="Set Update Period" Foreground="White" FontSize="18" 
                                            HorizontalAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                                            Height="26" Width="245" Grid.Row="0"/>
                             <Grid Grid.Row="1">
@@ -59,16 +67,15 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="timer" HorizontalAlignment="Center" Height="23" Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextChanged="textBox_TextChanged"/>
-                                <ComboBox x:Name="units" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="80" SelectionChanged="units_SelectionChanged"/>
+                                <TextBox x:Name="timer" HorizontalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextChanged="textBox_TextChanged"/>
+                                <ComboBox x:Name="units" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="80" Height="25" SelectionChanged="units_SelectionChanged"/>
                             </Grid>
-                            
                         </Grid>
-                        <Grid Grid.Row="2">
-                            <Button x:Name="update_button" Content="UPDATE" 
+                        <Grid Grid.Row="3">
+                            <Button x:Name="scan_button" Content="SCAN PLEX" 
                                     HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                    Width="235" Height="40" Background="#4F4F4F" Foreground="White"/>
-
+                                    Width="235" Height="40" Background="#4F4F4F" Foreground="White"
+                                    TextElement.FontSize="18"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -93,10 +100,10 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="add_btn" Content="Add" Grid.Column="0" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" 
+                                HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="90" Margin="0,5,0,0" 
                                 Background="#4F4F4F" Foreground="White" Click="add_btn_Click"/>
                         <Button x:Name="rem_btn" Content="Remove" Grid.Column="1" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" 
+                                HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="90" Margin="0,5,0,0" 
                                 Background="#4F4F4F" Foreground="White" Click="rem_btn_Click"/>
                     </Grid>
                 </Grid>
