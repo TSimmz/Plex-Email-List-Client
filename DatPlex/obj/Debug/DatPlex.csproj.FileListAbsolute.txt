@@ -26,3 +26,4 @@ C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\Mai
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.g.resources
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.Properties.Resources.resources
 C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\DatPlex.csproj.GenerateResource.Cache
+C:\Users\simoni\Documents\Git_Works\Plex-Email-List-Client\DatPlex\obj\Debug\GUI\Main_Window\MainWindow.g.cs

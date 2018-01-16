@@ -12,14 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatPlex.View_Model;
 
-namespace DatPlex.GUI
+namespace DatPlex.GUI.Main_Window
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel mViewModel;
         public MainWindow()
         {
             try
@@ -33,7 +35,7 @@ namespace DatPlex.GUI
                 var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
 
-
+            mViewModel = App.MainViewModel;
         }
 
         private void plex_account_combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -73,6 +75,8 @@ namespace DatPlex.GUI
                 timer.IsEnabled = false;
                 units.IsEnabled = false;
                 scan_button.IsEnabled = true;
+
+                
             }
         }
 
@@ -85,5 +89,7 @@ namespace DatPlex.GUI
                 scan_button.IsEnabled = false;
             }
         }
+
+
     }
 }

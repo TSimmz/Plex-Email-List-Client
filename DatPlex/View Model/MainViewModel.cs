@@ -20,7 +20,7 @@ using Microsoft.Win32;
 
 namespace DatPlex.View_Model
 {
-    class MainViewModel
+    public class MainViewModel
     {
         #region Data Fields
 
