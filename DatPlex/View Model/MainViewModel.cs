@@ -33,6 +33,37 @@ namespace DatPlex.View_Model
 
         int mFileViewIndex = -1;
 
+        #region Button Declaration
+
+        private readonly Button _Add_User;
+        public Button Add_User { get { return _Add_User; } }
+
+        private readonly Button _Del_User;
+        public Button Del_User { get { return _Del_User; } }
+
+        private readonly Button _Scan_Plex;
+        public Button Scan_Plex { get { return _Scan_Plex; } }
+        
+        private readonly RadioButton _Manual;
+        public RadioButton Manual { get { return _Manual; } }
+
+        private readonly RadioButton _Automatic;
+        public RadioButton Automatic { get { return _Automatic; } }
+
+        private readonly ComboBox _Plex_Accounts;
+        public ComboBox Plex_Accounts { get { return _Plex_Accounts; } }
+
+        private readonly TextBox _Timer_Box;
+        public TextBox Timer_Box { get { return _Timer_Box; } }
+
+        private readonly ComboBox _Units;
+        public ComboBox Units { get { return _Units; } }
+
+        private readonly ListView _User_List;
+        public ListView User_List { get { return User_List; } }
+
+        #endregion Button Declaration
+
         #endregion Data Fields
 
         #region Constructor
