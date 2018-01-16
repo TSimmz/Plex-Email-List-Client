@@ -73,6 +73,20 @@ namespace DatPlex.View_Model
             BgWorker = new BackgroundWorker();
             BgWorker.WorkerReportsProgress = true;
 
+            //_Add_User = new Button(add_user);
+            //_Del_User = new Button(del_user);
+            //_Scan_Plex = new Button(scan_plex);
+
+            //_Manual = new RadioButton(manual);
+            //_Automatic = new RadioButton(automatic);
+
+            //_Plex_Accounts = new ComboBox(plex_accounts);
+            //_Units = new ComboBox(units);
+
+            //_Timer_Box = new TextBox(timer_box);
+
+            //_User_List = new ListView(user_list);
+
             //
         }
 
@@ -97,5 +111,10 @@ namespace DatPlex.View_Model
         }
 
         #endregion General
+
+        public void add_user(object obj)
+        {
+
+        }
     }
 }
