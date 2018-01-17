@@ -8,9 +8,9 @@ namespace DatPlex.DataModel
 {
     class User
     {
-        private string _Name;
-        private string _Email;
-        private List<string> _Libraries;
+        private string _name;
+        private string _email;
+        private List<string> _libraries;
 
         public User(string n, string e)
         {
@@ -20,29 +20,29 @@ namespace DatPlex.DataModel
 
         public string Name
         {
-            get { return _Name; }
+            get { return _name; }
             set
             {
-                _Name = value;
+                _name = value;
             }
         }
 
         public string Email
         {
-            get { return _Email; }
+            get { return _email; }
             set
             {
-                _Email = value;
+                _email = value;
             }
         }
 
         public List<string> Libraries
         {
-            get { return _Libraries; }
+            get { return _libraries; }
             set
             {
                 if (value != null)
-                    _Libraries.Add(value.ToString());
+                    _libraries.Add(value.ToString());
             }
         }
     }
