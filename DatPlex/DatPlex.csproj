@@ -74,7 +74,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View Model\MainViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -114,6 +115,7 @@
     <Resource Include="Images\plex_icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataModel\" />
     <Folder Include="GUI\Child_Window\" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DatPlex.View_Model;
+using DatPlex.ViewModel;
 
 namespace DatPlex.GUI.Main_Window
 {
