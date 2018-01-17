@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using DatPlex.View_Model;
+using DatPlex.GUI.Main_Window;
+using System.Reflection;
+using System.Diagnostics;
+using System.IO;
+
 
 namespace DatPlex
 {
@@ -13,5 +14,45 @@ namespace DatPlex
     /// </summary>
     public partial class App : Application
     {
+        public static MainViewModel mMainViewModel;
+        public static MainWindow mMainWindow;
+
+        App()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            //base.OnStartup(e);
+            try
+            {
+                mMainWindow = new MainWindow();
+                mMainViewModel = new MainViewModel();
+                mMainWindow.DataContext = mMainViewModel;
+                 //mMainWindow.Show();
+            }
+            catch
+            {
+                string caption = "Plex User Update Closing";
+                var result = MessageBox.Show("Plex has received an unexpected error and will now close.", caption,
+                    MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+        }
+
+        //[STAThread]
+        //static void Main()
+        //{
+        //    try
+        //    {
+                
+        //    }
+        //    catch
+        //    {
+        //        string caption = "Plex User Update Closing";
+        //        var result = MessageBox.Show("Plex has received an unexpected error and will now close.", caption,
+        //            MessageBoxButton.OK, MessageBoxImage.Question);
+        //    }
+        //}
     }
 }
