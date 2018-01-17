@@ -491,3 +491,5 @@ DevX\.VC\.VC\.opendb
 DatPlex/obj/Debug/
 
 *.csproj
+
+DatPlex/bin/Debug/
