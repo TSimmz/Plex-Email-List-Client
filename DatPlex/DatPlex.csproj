@@ -72,6 +72,8 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\Account.cs" />
     <Compile Include="DataModel\Media.cs" />
+    <Compile Include="DataModel\Plex.cs" />
+    <Compile Include="DataModel\SharedUser.cs" />
     <Compile Include="DataModel\User.cs" />
     <Compile Include="GUI\Main_Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

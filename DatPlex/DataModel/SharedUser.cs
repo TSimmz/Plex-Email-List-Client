@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace DatPlex.DataModel
 {
-    class Account : User
+    class SharedUser : User
     {
-        private List<Media> _media;
-
-        public Account(string n, string e) : base(n, e)
+        public SharedUser(string n, string e): base(n, e)
         {
             Name = n;
             Email = e;
         }
-
-        public List<Media> Media { get { return _media; } }
     }
 }
