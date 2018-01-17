@@ -14,8 +14,8 @@ namespace DatPlex
     /// </summary>
     public partial class App : Application
     {
-        public static MainViewModel MainViewModel;
-        public static MainWindow MainWindow;
+        public static MainViewModel mMainViewModel;
+        public static MainWindow mMainWindow;
 
         App()
         {
@@ -24,19 +24,13 @@ namespace DatPlex
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-        }
-
-        [STAThread]
-        static void Main()
-        {
+            //base.OnStartup(e);
             try
             {
-                MainViewModel = new MainViewModel();
-                App wApp = new App();
-                MainWindow = new MainWindow();
-                MainWindow.DataContext = MainViewModel;
-                wApp.Run(MainWindow);
+                mMainWindow = new MainWindow();
+                mMainViewModel = new MainViewModel();
+                mMainWindow.DataContext = mMainViewModel;
+                 //mMainWindow.Show();
             }
             catch
             {
@@ -45,5 +39,20 @@ namespace DatPlex
                     MessageBoxButton.OK, MessageBoxImage.Question);
             }
         }
+
+        //[STAThread]
+        //static void Main()
+        //{
+        //    try
+        //    {
+                
+        //    }
+        //    catch
+        //    {
+        //        string caption = "Plex User Update Closing";
+        //        var result = MessageBox.Show("Plex has received an unexpected error and will now close.", caption,
+        //            MessageBoxButton.OK, MessageBoxImage.Question);
+        //    }
+        //}
     }
 }

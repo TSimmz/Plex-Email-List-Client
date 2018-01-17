@@ -35,7 +35,7 @@ namespace DatPlex.GUI.Main_Window
                 var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
 
-            mViewModel = App.MainViewModel;
+            mViewModel = App.mMainViewModel;
         }
 
         private void plex_account_combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -70,24 +70,24 @@ namespace DatPlex.GUI.Main_Window
 
         private void manual_rb_Checked(object sender, RoutedEventArgs e)
         {
-            if ((bool)manual_rb.IsChecked)
-            {
-                timer.IsEnabled = false;
-                units.IsEnabled = false;
-                scan_button.IsEnabled = true;
-
+            //if ((bool)manual_rb.IsChecked)
+            //{
+            //    timer.IsEnabled = false;
+            //    units.IsEnabled = false;
+            //    scan_button.IsEnabled = true;
+            
                 
-            }
+            //}
         }
 
         private void auto_rb_Checked(object sender, RoutedEventArgs e)
         {
-            if ((bool)auto_rb.IsChecked)
-            {
-                timer.IsEnabled = true;
-                units.IsEnabled = true;
-                scan_button.IsEnabled = false;
-            }
+            //if ((bool)auto_rb.IsChecked)
+            //{
+            //    timer.IsEnabled = true;
+            //    units.IsEnabled = true;
+            //    scan_button.IsEnabled = false;
+            //}
         }
 
 
