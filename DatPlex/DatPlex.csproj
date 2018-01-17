@@ -70,6 +70,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\Account.cs" />
+    <Compile Include="DataModel\Media.cs" />
+    <Compile Include="DataModel\Plex.cs" />
+    <Compile Include="DataModel\SharedUser.cs" />
+    <Compile Include="DataModel\User.cs" />
     <Compile Include="GUI\Main_Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -115,7 +120,6 @@
     <Resource Include="Images\plex_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataModel\" />
     <Folder Include="GUI\Child_Window\" />
   </ItemGroup>
   <ItemGroup>
