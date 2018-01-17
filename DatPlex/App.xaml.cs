@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using DatPlex.View_Model;
+using DatPlex.ViewModel;
 using DatPlex.GUI.Main_Window;
 using System.Reflection;
 using System.Diagnostics;

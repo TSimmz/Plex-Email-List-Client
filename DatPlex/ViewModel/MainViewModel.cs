@@ -18,9 +18,9 @@ using System.Windows.Threading;
 using System.Threading;
 using Microsoft.Win32;
 
-namespace DatPlex.View_Model
+namespace DatPlex.ViewModel
 {
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
         #region Data Fields
 
@@ -86,8 +86,6 @@ namespace DatPlex.View_Model
             //_Timer_Box = new TextBox(timer_box);
 
             //_User_List = new ListView(user_list);
-
-            //
         }
 
         public void SetParent(Window iParent)
@@ -106,7 +104,7 @@ namespace DatPlex.View_Model
             set
             {
                 mWindowTitle = value;
-                //OnPropertyChanged();
+                OnPropertyChanged("WindowTitle");
             }
         }
 
