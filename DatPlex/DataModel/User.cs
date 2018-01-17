@@ -10,7 +10,7 @@ namespace DatPlex.DataModel
     {
         private string _name;
         private string _email;
-        private List<string> _libraries;
+        //private List<string> _libraries;
 
         public User(string n, string e)
         {
@@ -36,14 +36,14 @@ namespace DatPlex.DataModel
             }
         }
 
-        public List<string> Libraries
-        {
-            get { return _libraries; }
-            set
-            {
-                if (value != null)
-                    _libraries.Add(value.ToString());
-            }
-        }
+        //public List<string> Libraries
+        //{
+        //    get { return _libraries; }
+        //    set
+        //    {
+        //        if (value != null)
+        //            _libraries.Add(value.ToString());
+        //    }
+        //}
     }
 }

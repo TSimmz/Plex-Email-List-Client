@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace DatPlex.DataModel
 {
-    class Account
+    class Account : User
     {
-        private string _name;
-        private string _pass;
         private List<Media> _media;
 
-        public Account()
+        public Account(string n, string e) : base(n, e)
         {
-
+            Name = n;
+            Email = e;
         }
+
     }
 }
