@@ -10,13 +10,14 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Controls;
+//using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Documents;
 using System.Windows.Threading;
 using System.Threading;
 using Microsoft.Win32;
+using DatPlex.Common;
 
 namespace DatPlex.ViewModel
 {
@@ -44,23 +45,23 @@ namespace DatPlex.ViewModel
         private readonly Button _Scan_Plex;
         public Button Scan_Plex { get { return _Scan_Plex; } }
         
-        private readonly RadioButton _Manual;
-        public RadioButton Manual { get { return _Manual; } }
+        //private readonly RadioButton _Manual;
+        //public RadioButton Manual { get { return _Manual; } }
 
-        private readonly RadioButton _Automatic;
-        public RadioButton Automatic { get { return _Automatic; } }
+        //private readonly RadioButton _Automatic;
+        //public RadioButton Automatic { get { return _Automatic; } }
 
-        private readonly ComboBox _Plex_Accounts;
-        public ComboBox Plex_Accounts { get { return _Plex_Accounts; } }
+        //private readonly ComboBox _Plex_Accounts;
+        //public ComboBox Plex_Accounts { get { return _Plex_Accounts; } }
 
-        private readonly TextBox _Timer_Box;
-        public TextBox Timer_Box { get { return _Timer_Box; } }
+        //private readonly TextBox _Timer_Box;
+        //public TextBox Timer_Box { get { return _Timer_Box; } }
 
-        private readonly ComboBox _Units;
-        public ComboBox Units { get { return _Units; } }
+        //private readonly ComboBox _Units;
+        //public ComboBox Units { get { return _Units; } }
 
-        private readonly ListView _User_List;
-        public ListView User_List { get { return User_List; } }
+        //private readonly ListView _User_List;
+        //public ListView User_List { get { return User_List; } }
 
         #endregion Button Declaration
 
@@ -73,7 +74,7 @@ namespace DatPlex.ViewModel
             BgWorker = new BackgroundWorker();
             BgWorker.WorkerReportsProgress = true;
 
-            //_Add_User = new Button(add_user);
+            _Add_User = new Button(Add_User_Button);
             //_Del_User = new Button(del_user);
             //_Scan_Plex = new Button(scan_plex);
 
@@ -110,9 +111,20 @@ namespace DatPlex.ViewModel
 
         #endregion General
 
-        public void add_user(object obj)
+        DelegateCommand mAdd_User_Cmd;
+        public ICommand Add_User_Cmd
         {
+            get
+            {
+                if (null == mAdd_User_Cmd)
+                    mAdd_User_Cmd = new DelegateCommand(Add_User_Button);
+                return mAdd_User_Cmd;
+            }
+        }
 
+        public void Add_User_Button(object obj)
+        {
+            Console.WriteLine("Add Button Pressed");
         }
     }
 }

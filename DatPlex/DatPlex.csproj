@@ -70,6 +70,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Button.cs" />
+    <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="DataModel\Account.cs" />
     <Compile Include="DataModel\Media.cs" />
@@ -122,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GUI\Child_Window\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
