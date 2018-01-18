@@ -8,9 +8,9 @@ namespace DatPlex.DataModel
 {
     class Media
     {
-        private int _length;
-        private string _name;
-        private string _library;
+        private int _id;
+        private string _type;
+        private string _title;
         private string _metadata;      
 
         public Media()
