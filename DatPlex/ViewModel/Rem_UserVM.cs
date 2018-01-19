@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatPlex.ViewModel
 {
-    public class Rem_UserVM
+    public class Rem_UserVM : BaseViewModel
     {
         public Rem_UserVM()
         {

@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatPlex.GUI.Child_Window"
         mc:Ignorable="d"
-        Title="Add_User" Height="300" Width="300">
-    <Grid>
+        Title="Add User" Height="150" Width="300" Icon="/Images/plex_icon.png"
+        BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Enter Shared User Information" Foreground="White" Grid.Row="0">
+            <Grid>
+                <TextBlock Text="Name: " Foreground="White" FontSize="12" HorizontalAlignment="Left" Margin="5,0,0,20" Height="24" Width="100"/>
+                <TextBox Text="{Binding Name}" Height="18" Width="200" Margin="25,0,0,25"/>
+                <TextBlock Text="E-mail: " Foreground="White" FontSize="12" HorizontalAlignment="Left" Margin="5,30,0,0" Height="24" Width="100"/>
+                <TextBox Text="{Binding Email}" Height="18" Width="200" Margin="25,25,0,0"/>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Content="OK" Command="{Binding OK_Cmd}" Background="#4F4F4F" Foreground="White"
+                Grid.Row="1" Grid.Column="0" Height="20" Width="80"/>
+            <Button Content="Cancel" Command="{Binding Cancel_Cmd}" Background="#4F4F4F" Foreground="White"
+                Grid.Row="1" Grid.Column="1" Height="20" Width="80"/>
+        </Grid>
         
     </Grid>
 </Window>
