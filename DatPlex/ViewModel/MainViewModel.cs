@@ -32,38 +32,7 @@ namespace DatPlex.ViewModel
 
         public event EventHandler TaskStarting = (s, e) => { };
 
-        int mFileViewIndex = -1;
-
-        #region Button Declaration
-
-        private readonly Button _Add_User;
-        public Button Add_User { get { return _Add_User; } }
-
-        private readonly Button _Del_User;
-        public Button Del_User { get { return _Del_User; } }
-
-        private readonly Button _Scan_Plex;
-        public Button Scan_Plex { get { return _Scan_Plex; } }
-        
-        //private readonly RadioButton _Manual;
-        //public RadioButton Manual { get { return _Manual; } }
-
-        //private readonly RadioButton _Automatic;
-        //public RadioButton Automatic { get { return _Automatic; } }
-
-        //private readonly ComboBox _Plex_Accounts;
-        //public ComboBox Plex_Accounts { get { return _Plex_Accounts; } }
-
-        //private readonly TextBox _Timer_Box;
-        //public TextBox Timer_Box { get { return _Timer_Box; } }
-
-        //private readonly ComboBox _Units;
-        //public ComboBox Units { get { return _Units; } }
-
-        //private readonly ListView _User_List;
-        //public ListView User_List { get { return User_List; } }
-
-        #endregion Button Declaration
+        //int mFileViewIndex = -1;
 
         #endregion Data Fields
 
@@ -73,20 +42,6 @@ namespace DatPlex.ViewModel
         {
             BgWorker = new BackgroundWorker();
             BgWorker.WorkerReportsProgress = true;
-
-            _Add_User = new Button(Add_User_Button);
-            //_Del_User = new Button(del_user);
-            //_Scan_Plex = new Button(scan_plex);
-
-            //_Manual = new RadioButton(manual);
-            //_Automatic = new RadioButton(automatic);
-
-            //_Plex_Accounts = new ComboBox(plex_accounts);
-            //_Units = new ComboBox(units);
-
-            //_Timer_Box = new TextBox(timer_box);
-
-            //_User_List = new ListView(user_list);
         }
 
         public void SetParent(Window iParent)
@@ -125,6 +80,22 @@ namespace DatPlex.ViewModel
         public void Add_User_Button(object obj)
         {
             Console.WriteLine("Add Button Pressed");
+        }
+
+        DelegateCommand mFile_Exit_Cmd;
+        public ICommand File_ExitCommand
+        {
+            get
+            {
+                if (mFile_Exit_Cmd == null)
+                    mFile_Exit_Cmd = new DelegateCommand(ExitApp);
+                return mFile_Exit_Cmd;
+            }
+        }
+
+        private void ExitApp(object obj)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

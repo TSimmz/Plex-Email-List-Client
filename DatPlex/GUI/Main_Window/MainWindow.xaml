@@ -4,13 +4,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
         xmlns:common="clr-namespace:DatPlex.Common"
-        xmlns:behavior="clr-namespace:DatPlex.Resources.Behaviors"
-        xmlns:converter="clr-namespace:DatPlex.Resources.Converters"
         xmlns:toolkit2="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="Plex User Update" Width="600" Height="400" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding File_ExitCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Background="#202020">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -102,9 +105,8 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="add_btn" Content="Add" Grid.Column="0" 
-                                HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="90" Margin="0,5,0,0" 
-                                Background="#4F4F4F" Foreground="White" Command="{Binding Add_User_Cmd}"/>
+                        <Button Content="Add" Command="{Binding Add_User_Cmd}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                Height="25" Width="90" Margin="0,5,0,0" Background="#4F4F4F" Foreground="White" ToolTip="Add New Shared User"/>
                         <Button x:Name="rem_btn" Content="Remove" Grid.Column="1" 
                                 HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="90" Margin="0,5,0,0" 
                                 Background="#4F4F4F" Foreground="White" Click="rem_btn_Click"/>
