@@ -89,7 +89,8 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <ListView Height="200" Width="240" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
-                              HorizontalAlignment="Center" VerticalAlignment="Top" Background="#4F4F4F" Foreground="White" Grid.Row="0">
+                              HorizontalAlignment="Center" VerticalAlignment="Top" Background="#4F4F4F" Foreground="White" Grid.Row="0"
+                              ToolTip="Select Default to add new user. Select user to edit information">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
