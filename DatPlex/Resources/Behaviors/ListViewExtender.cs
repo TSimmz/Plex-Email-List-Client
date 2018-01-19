@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DevX.Resources.Behaviors
+namespace DatPlex.Resources.Behaviors
 {
     public class ListViewExtender : DependencyObject
     {

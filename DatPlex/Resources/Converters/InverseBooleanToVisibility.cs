@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace DevX.Resources.Converters
+namespace DatPlex.Resources.Converters
 {
     public class InverseBooleanToVisibility : IValueConverter
     {

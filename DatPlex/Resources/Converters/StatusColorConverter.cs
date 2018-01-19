@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace DevX.Resources.Converters
+namespace DatPlex.Resources.Converters
 {
     public class FileExistsColorConverter : IValueConverter
     {
