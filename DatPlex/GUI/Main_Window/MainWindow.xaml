@@ -78,10 +78,8 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="3">
-                            <Button x:Name="scan_button" Content="SCAN PLEX" 
-                                    HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                    Width="235" Height="40" Background="#4F4F4F" Foreground="White"
-                                    TextElement.FontSize="18"/>
+                            <Button Content="SCAN PLEX" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                    Width="235" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -107,9 +105,8 @@
                         </Grid.ColumnDefinitions>
                         <Button Content="Add" Command="{Binding Add_User_Cmd}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" 
                                 Height="25" Width="90" Margin="0,5,0,0" Background="#4F4F4F" Foreground="White" ToolTip="Add New Shared User"/>
-                        <Button x:Name="rem_btn" Content="Remove" Grid.Column="1" 
-                                HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="90" Margin="0,5,0,0" 
-                                Background="#4F4F4F" Foreground="White" Click="rem_btn_Click"/>
+                        <Button Content="Remove" Command="{Binding Del_User_Cmd}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                Height="25" Width="90" Margin="0,5,0,0" Background="#4F4F4F" Foreground="White" ToolTip="Remove Shared User"/>
                     </Grid>
                 </Grid>
             </Grid>

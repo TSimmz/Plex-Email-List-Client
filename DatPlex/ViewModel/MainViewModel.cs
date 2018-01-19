@@ -82,6 +82,38 @@ namespace DatPlex.ViewModel
             Console.WriteLine("Add Button Pressed");
         }
 
+        DelegateCommand mDel_User_Cmd;
+        public ICommand Del_User_Cmd
+        {
+            get
+            {
+                if (null == mDel_User_Cmd)
+                    mDel_User_Cmd = new DelegateCommand(Del_User_Button);
+                return mDel_User_Cmd;
+            }
+        }
+
+        public void Del_User_Button(object obj)
+        {
+            Console.WriteLine("Remove Button Pressed");
+        }
+
+        DelegateCommand mScan_Plex_Cmd;
+        public ICommand Scan_Plex_Cmd
+        {
+            get
+            {
+                if (null == mScan_Plex_Cmd)
+                    mScan_Plex_Cmd = new DelegateCommand(Scan_Plex_Button);
+                return mScan_Plex_Cmd;
+            }
+        }
+
+        public void Scan_Plex_Button(object obj)
+        {
+            Console.WriteLine("Scan Plex Button Pressed");
+        }
+
         DelegateCommand mFile_Exit_Cmd;
         public ICommand File_ExitCommand
         {
