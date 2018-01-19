@@ -12,14 +12,22 @@ namespace DatPlex.ViewModel
 {
     public class Add_UserVM : BaseViewModel
     {
+        Window Parent;
+
         public Add_UserVM()
         {
 
         }
 
+        public Add_UserVM(SharedUser s)
+        {
+            Name = s.Name;
+            Email = s.Email;
+        }
+
         public void SetParent(Window iParent)
         {
-            //Parent = iParent;
+            Parent = iParent;
         }
 
         private string _name;

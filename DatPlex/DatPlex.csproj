@@ -82,9 +82,6 @@
     <Compile Include="GUI\Child_Window\Add_User.xaml.cs">
       <DependentUpon>Add_User.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Child_Window\Remove_User.xaml.cs">
-      <DependentUpon>Remove_User.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Main_Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -147,10 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="GUI\Child_Window\Add_User.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Child_Window\Remove_User.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

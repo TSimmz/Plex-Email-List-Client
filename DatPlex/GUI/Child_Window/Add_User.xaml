@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatPlex.GUI.Child_Window"
         mc:Ignorable="d"
-        Title="Add User" Height="150" Width="300" Icon="/Images/plex_icon.png"
+        Title="Add/Edit User" Height="175" Width="325" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Background="#202020">
@@ -13,7 +13,7 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <GroupBox Header="Enter Shared User Information" Foreground="White" Grid.Row="0">
+        <GroupBox Header="Enter Shared User Information" Foreground="Orange" Grid.Row="0" >
             <Grid>
                 <TextBlock Text="Name: " Foreground="White" FontSize="12" HorizontalAlignment="Left" Margin="5,0,0,20" Height="24" Width="100"/>
                 <TextBox Text="{Binding Name}" Height="18" Width="200" Margin="25,0,0,25"/>

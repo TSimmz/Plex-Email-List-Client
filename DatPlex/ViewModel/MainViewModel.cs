@@ -2,8 +2,11 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using DatPlex.Common;
 using DatPlex.DataModel;
+using DatPlex.GUI.Main_Window;
+using DatPlex.GUI.Child_Window;
 
 namespace DatPlex.ViewModel
 {
@@ -64,6 +67,17 @@ namespace DatPlex.ViewModel
         public void Add_User_Button(object obj)
         {
             Console.WriteLine("Add Button Pressed");
+
+            Add_User mAddWindow = new Add_User();
+            Add_UserVM mAddViewModel;
+
+            if (SharedUsers_SelIndex != 0)
+                mAddViewModel = new Add_UserVM(SharedUsers[SharedUsers_SelIndex]);
+            else
+                mAddViewModel = new Add_UserVM();
+
+            mAddWindow.DataContext = mAddViewModel;
+            mAddWindow.Show();
         }
 
         DelegateCommand mDel_User_Cmd;
@@ -142,7 +156,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private int mSharedUsers_SelIndex;
+        private int mSharedUsers_SelIndex = 0;
         public int SharedUsers_SelIndex
         {
             get { return mSharedUsers_SelIndex; }

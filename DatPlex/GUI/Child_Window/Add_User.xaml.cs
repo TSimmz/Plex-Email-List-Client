@@ -25,5 +25,7 @@ namespace DatPlex.GUI.Child_Window
             InitializeComponent();
             DataContext = new Add_UserVM();
         }
+
+
     }
 }
