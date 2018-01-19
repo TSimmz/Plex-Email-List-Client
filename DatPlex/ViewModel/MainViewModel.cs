@@ -18,6 +18,7 @@ using System.Windows.Threading;
 using System.Threading;
 using Microsoft.Win32;
 using DatPlex.Common;
+using DatPlex.DataModel;
 
 namespace DatPlex.ViewModel
 {
@@ -28,8 +29,6 @@ namespace DatPlex.ViewModel
         Window Parent;
 
         public BackgroundWorker BgWorker;
-        string mSelectedFileType;
-
         public event EventHandler TaskStarting = (s, e) => { };
 
         //int mFileViewIndex = -1;
@@ -104,7 +103,7 @@ namespace DatPlex.ViewModel
             get
             {
                 if (null == mScan_Plex_Cmd)
-                    mScan_Plex_Cmd = new DelegateCommand(Scan_Plex_Button);
+                    mScan_Plex_Cmd = new DelegateCommand(Scan_Plex_Button); 
                 return mScan_Plex_Cmd;
             }
         }
@@ -112,6 +111,72 @@ namespace DatPlex.ViewModel
         public void Scan_Plex_Button(object obj)
         {
             Console.WriteLine("Scan Plex Button Pressed");
+        }
+
+        private ObservableCollection<string> mUnits = new ObservableCollection<string>{"--", "MN", "HR", "DY" };
+        public ObservableCollection<string> Units
+        {
+            get { return mUnits; }
+            //set
+            //{
+            //    mUnits = value;
+            //    OnPropertyChanged();
+            //}
+        }
+
+        private int mUnits_SelIndex;
+        public int Units_SelIndex
+        {
+            get { return mUnits_SelIndex; }
+            set
+            {
+                mUnits_SelIndex = value;
+            }
+        }
+
+        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default", "Default") };
+        public ObservableCollection<SharedUser> SharedUsers
+        {
+            get { return mSharedUsers; }
+            set
+            {
+                mSharedUsers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int mSharedUsers_SelIndex;
+        public int SharedUsers_SelIndex
+        {
+            get { return mSharedUsers_SelIndex; }
+            set
+            {
+                mSharedUsers_SelIndex = value;
+            }
+        }
+
+        private bool mManual_State;
+        public bool Manual_State
+        {
+            get { return mManual_State; }
+            set
+            {
+                mManual_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Automatic_State");
+            }
+        }
+
+        private bool mAutomatic_State;
+        public bool Automatic_State
+        {
+            get { return mAutomatic_State; }
+            set
+            {
+                mAutomatic_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Manual_State");
+            }
         }
 
         DelegateCommand mFile_Exit_Cmd;

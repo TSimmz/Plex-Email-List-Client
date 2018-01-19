@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatPlex.DataModel
 {
-    class Account : User
+    public class Account : User
     {
         private List<Media> _media;
 
