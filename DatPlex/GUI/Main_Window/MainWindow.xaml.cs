@@ -27,6 +27,7 @@ namespace DatPlex.GUI.Main_Window
             try
             {
                 InitializeComponent();
+                DataContext = new MainViewModel();
             }
             catch (Exception e)
             {

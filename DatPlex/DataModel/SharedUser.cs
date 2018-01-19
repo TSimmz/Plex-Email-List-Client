@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatPlex.DataModel
 {
-    class SharedUser : User
+    public class SharedUser : User
     {
         public SharedUser(string n, string e): base(n, e)
         {

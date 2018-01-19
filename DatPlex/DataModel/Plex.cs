@@ -10,7 +10,7 @@ using DatPlex.Common;
 
 namespace DatPlex.DataModel
 {
-    class Plex
+    public class Plex
     {
         private HttpClient _plex_api;
         private Account _owner;

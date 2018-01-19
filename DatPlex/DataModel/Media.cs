@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatPlex.DataModel
 {
-    class Media
+    public class Media
     {
         private int _id;
         private string _type;
@@ -20,40 +20,39 @@ namespace DatPlex.DataModel
 
         public Media(string n)
         {
-            Name = n;
+            Title = n;
         }
 
-        public Media(string n, string l, string m)
+        public Media(string n, string l)
         {
-            Name = n;
-            Library = l;
-            MetaData = m;
+            Type = n;
+            Title = l;
         }
 
-        public int Length
+        public int ID
         {
-            get { return _length; }
+            get { return _id; }
             set
             {
-                _length = value;
+                _id = value;
             }
         }
 
-        public string Name
+        public string Type
         {
-            get { return _name; }
+            get { return _type; }
             set
             {
-                _name = value;
+                _type = value;
             }
         }
 
-        public string Library
+        public string Title
         {
-            get { return _library; }
+            get { return _title; }
             set
             {
-                _library = value;
+                _title = value;
             }
         }
 

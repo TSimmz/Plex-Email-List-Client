@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatPlex.DataModel
 {
-    class User
+    public class User
     {
         private string _name;
         private string _email;
