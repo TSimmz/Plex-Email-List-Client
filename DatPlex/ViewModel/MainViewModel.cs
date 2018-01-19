@@ -10,7 +10,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
-//using System.Windows.Controls;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Documents;
@@ -111,6 +111,18 @@ namespace DatPlex.ViewModel
         public void Scan_Plex_Button(object obj)
         {
             Console.WriteLine("Scan Plex Button Pressed");
+            Console.WriteLine("Timer: " + Timer);
+        }
+
+        private int _timer = 0;
+        public int Timer
+        {
+            get { return _timer; }
+            set
+            {
+                _timer = value;
+                OnPropertyChanged();
+            }
         }
 
         private ObservableCollection<string> mUnits = new ObservableCollection<string>{"--", "MN", "HR", "DY" };
