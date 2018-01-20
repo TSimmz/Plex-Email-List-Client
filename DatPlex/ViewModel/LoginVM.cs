@@ -11,11 +11,11 @@ using DatPlex.GUI.Main_Window;
 
 namespace DatPlex.ViewModel
 {
-    public class Login : BaseViewModel
+    public class LoginVM : BaseViewModel
     {
         Window Parent;
         
-        public Login()
+        public LoginVM()
         {
 
         }

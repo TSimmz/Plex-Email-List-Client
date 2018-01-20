@@ -9,7 +9,21 @@
         Title="Plex Scanner" Height="200" Width="500" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="/Images/plex.jpg" Height="50" Width="175" Grid.Row="0"
+              VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Label Name="mScanLabel" Content="" HorizontalAlignment="Center" Height="20" Width="300" Margin="0,0,95,80" Grid.Row="1"/>
+        <ProgressBar Name="mScanProgress" HorizontalAlignment="Center" Margin="0,0,0,25" 
+                     Height="25" Width="400" Grid.Row="1" IsIndeterminate="False"/>
+        <Button Content="Finish" Click="Finish_Click" IsEnabled="{Binding IsScanComplete}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120,55,0,0"
+                Height="25" Width="80" Grid.Row="1" Background="#4F4F4F" Foreground="White" ToolTip="Finish the Plex scan"/>
+        <Button Content="Cancel" Click="Cancel_Click" IsEnabled="{Binding IsScanComplete}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="320,55,0,0"
+                Height="25" Width="80" Grid.Row="1" Background="#4F4F4F" Foreground="White" ToolTip="Cancel the Plex scan"/>
     </Grid>
 </Window>

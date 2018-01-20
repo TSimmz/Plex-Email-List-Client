@@ -20,13 +20,8 @@
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Image Source="/Images/plex.jpg"
-              Height="100"
-              Width="175"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center"
-              Margin="10">
-            </Image>
+            <Image Source="/Images/plex.jpg" Height="100" Width="175" Margin="10"
+              VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid>
