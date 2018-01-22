@@ -24,11 +24,11 @@ namespace DatPlex.GUI.Child_Window
         public PlexScanner()
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
+            //this.Owner = App.Current.MainWindow;
 
-            while(!this.IsVisible);
+            //while(!this.IsVisible);
 
-            StartPlexScan();
+            //StartPlexScan();
         }
 
         private void StartPlexScan()

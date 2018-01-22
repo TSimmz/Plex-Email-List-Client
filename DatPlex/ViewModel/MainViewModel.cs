@@ -111,6 +111,9 @@ namespace DatPlex.ViewModel
         {
             Console.WriteLine("Scan Plex Button Pressed");
             Console.WriteLine("Timer: " + Timer);
+
+            PlexScanner mScanWindow = new PlexScanner();
+            mScanWindow.Show();
         }
 
         private int _timer = 0;
