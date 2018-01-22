@@ -1,0 +1,33 @@
+﻿<Window x:Class="DatPlex.GUI.Main_Window.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
+        xmlns:common="clr-namespace:DatPlex.Common"
+        xmlns:toolkit2="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="Plex User Update" Width="600" Height="400" Icon="/Images/plex_icon.png"
+        BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Image Source="/Images/plex.jpg" Height="150" Width="225" Margin="10"
+              VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <TextBlock Text="Username/Email: " Foreground="White" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Margin="0,0,250,125" Width="150" TextAlignment="Right"/>
+            <TextBox Height="25" Width="200" Margin="125,0,0,125"/>
+            <TextBlock Text="Password: " Foreground="White" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Margin="0,0,250,50" Width="150" TextAlignment="Right"/>
+            <TextBox Height="25" Width="200" Margin="125,0,0,50"/>
+            <CheckBox Content="Stay Logged In" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"
+                      Width="150" HorizontalContentAlignment="Center"/>
+            <Button Content="Login" Height="30" Width="250" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
+        </Grid>
+    </Grid>
+</Window>
