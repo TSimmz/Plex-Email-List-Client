@@ -91,13 +91,12 @@
     </Compile>
     <Compile Include="ViewModel\Add_UserVM.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Login.cs" />
+    <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\Rem_UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
