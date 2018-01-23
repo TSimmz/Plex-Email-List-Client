@@ -7,10 +7,12 @@ using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
 using DatPlex.GUI.Child_Window;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
-    public class MainScreenVM : BaseViewModel
+    public class MainScreenVM : ViewModelBase
     {
         #region Data Fields
 
@@ -47,7 +49,7 @@ namespace DatPlex.ViewModel
             set
             {
                 mWindowTitle = value;
-                OnPropertyChanged("WindowTitle");
+                RaisePropertyChanged("WindowTitle");
             }
         }
 
@@ -123,7 +125,7 @@ namespace DatPlex.ViewModel
             set
             {
                 _timer = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -155,7 +157,7 @@ namespace DatPlex.ViewModel
             set
             {
                 mSharedUsers = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -176,8 +178,8 @@ namespace DatPlex.ViewModel
             set
             {
                 mManual_State = value;
-                OnPropertyChanged();
-                OnPropertyChanged("Automatic_State");
+                RaisePropertyChanged();
+                RaisePropertyChanged("Automatic_State");
             }
         }
 
@@ -188,8 +190,8 @@ namespace DatPlex.ViewModel
             set
             {
                 mAutomatic_State = value;
-                OnPropertyChanged();
-                OnPropertyChanged("Manual_State");
+                RaisePropertyChanged();
+                RaisePropertyChanged("Manual_State");
             }
         }
 

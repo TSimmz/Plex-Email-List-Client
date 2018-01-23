@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DatPlex.Common;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ViewModelBase
     {
-        private BaseViewModel _currentViewModel;
+        private ViewModelBase _currentViewModel;
 
         readonly static LoginVM _loginVM = new LoginVM();
         readonly static MainScreenVM _mainScreenVM = new MainScreenVM();
         
-        public BaseViewModel CurrentViewModel
+        public ViewModelBase CurrentViewModel
         {
             get { return _currentViewModel; }
             set
@@ -24,7 +26,7 @@ namespace DatPlex.ViewModel
                     return;
 
                 _currentViewModel = value;
-                OnPropertyChanged();
+                RaisePropertyChanged("CurrentViewModel");
             }
         }
 
@@ -34,8 +36,8 @@ namespace DatPlex.ViewModel
         public MainViewModel()
         {
             CurrentViewModel = MainViewModel._loginVM;
-            Login_Cmd = new DelegateCommand(() => ExecuteLogin_Cmd());
-            MainScreen_Cmd = new DelegateCommand(() => ExecuteMainScreen_Cmd());
+            Login_Cmd = new RelayCommand(() => ExecuteLogin_Cmd());
+            MainScreen_Cmd = new RelayCommand(() => ExecuteMainScreen_Cmd());
         }
 
         private void ExecuteLogin_Cmd()
