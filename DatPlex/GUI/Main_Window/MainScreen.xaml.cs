@@ -16,15 +16,14 @@ using DatPlex.GUI.Child_Window;
 using DatPlex.ViewModel;
 using DatPlex.Common;
 
-
 namespace DatPlex.GUI.Main_Window
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for MainScreen.xaml
     /// </summary>
-    public partial class Login : UserControl
+    public partial class MainScreen : UserControl
     {
-        public Login()
+        public MainScreen()
         {
             InitializeComponent();
         }
