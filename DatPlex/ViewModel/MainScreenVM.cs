@@ -129,17 +129,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private ObservableCollection<string> mUnits = new ObservableCollection<string>{"--", "MN", "HR", "DY" };
-        public ObservableCollection<string> Units
-        {
-            get { return mUnits; }
-            //set
-            //{
-            //    mUnits = value;
-            //    OnPropertyChanged();
-            //}
-        }
-
         private int mUnits_SelIndex;
         public int Units_SelIndex
         {
@@ -195,20 +184,5 @@ namespace DatPlex.ViewModel
             }
         }
 
-        DelegateCommand mFile_Exit_Cmd;
-        public ICommand File_ExitCommand
-        {
-            get
-            {
-                if (mFile_Exit_Cmd == null)
-                    mFile_Exit_Cmd = new DelegateCommand(ExitApp);
-                return mFile_Exit_Cmd;
-            }
-        }
-
-        private void ExitApp(object obj)
-        {
-            Application.Current.Shutdown();
-        }
     }
 }

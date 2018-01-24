@@ -64,7 +64,12 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding Timer}"  TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Width="80"/>
-                                <ComboBox ItemsSource="{Binding Units}" SelectedIndex="{Binding Units_SelIndex}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="80" Height="25"/>
+                                <ComboBox SelectedIndex="{Binding Units_SelIndex}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="80" Height="25">
+                                    <ComboBoxItem> </ComboBoxItem>
+                                    <ComboBoxItem>M</ComboBoxItem>
+                                    <ComboBoxItem>H</ComboBoxItem>
+                                    <ComboBoxItem>D</ComboBoxItem>
+                                </ComboBox>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="3">

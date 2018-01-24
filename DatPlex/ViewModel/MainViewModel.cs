@@ -49,5 +49,21 @@ namespace DatPlex.ViewModel
         {
             CurrentViewModel = MainViewModel._mainScreenVM;
         }
+
+        DelegateCommand mFile_Exit_Cmd;
+        public ICommand File_ExitCommand
+        {
+            get
+            {
+                if (mFile_Exit_Cmd == null)
+                    mFile_Exit_Cmd = new DelegateCommand(ExitApp);
+                return mFile_Exit_Cmd;
+            }
+        }
+
+        private void ExitApp(object obj)
+        {
+            App.Current.Shutdown();
+        }
     }
 }
