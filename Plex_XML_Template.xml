@@ -1,0 +1,44 @@
+<plex>
+	<signedin></signedin> 			<!-- true or false -->
+	<account>
+		<username></username>
+		<email></email>
+		<password></password>
+	</account>
+	<sharedusers>
+		<shareduser>
+			<username></username>
+			<u_email></u_email>
+		</shareduser>
+		<shareduser>
+			<username></username>
+			<u_email></u_email>
+		</shareduser>
+		<shareduser>
+			<username></username>
+			<u_email></u_email>
+		</shareduser>
+	</sharedusers>
+	<media>
+		<id>
+			<type></type>
+			<title></title>
+			<metadata></metadata>
+		</id>
+		<id>
+			<type></type>
+			<title></title>
+			<metadata></metadata>
+		</id>
+		<id>
+			<type></type>
+			<title></title>
+			<metadata></metadata>
+		</id>
+		<id>
+			<type></type>
+			<title></title>
+			<metadata></metadata>
+		</id>  
+	</media>
+</plex>
