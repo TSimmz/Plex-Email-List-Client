@@ -17,8 +17,10 @@ namespace DatPlex.ViewModel
     {
         public LoginVM()
         {
-
+            //onLogin_Cmd = new RelayCommand(() => onLogin(), () => true);
         }
+
+        public ICommand onLogin_Cmd { get; private set; }
         
         private string _email;
         public string Email
@@ -66,6 +68,7 @@ namespace DatPlex.ViewModel
 
         public void onLogin()
         {
+            Console.WriteLine("Login pressed");
         }
     }
 }

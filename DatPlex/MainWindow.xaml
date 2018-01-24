@@ -15,7 +15,9 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}"/>
+        <ContentControl x:Name="Content_Control" Content="{Binding CurrentViewModel}"/>
+        <Button x:Name="Login_Bt" Visibility="Hidden" Command="{Binding Login_Cmd}"/>
+        <Button x:Name="MainScreen_Bt" Visibility="Hidden" Command="{Binding MainScreen_Cmd}"/>
     </Grid>
     
 </Window>

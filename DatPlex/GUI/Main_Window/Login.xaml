@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DatPlex.GUI.Main_Window"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:DatPlex.ViewModel"
              mc:Ignorable="d" 
              xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
              xmlns:common="clr-namespace:DatPlex.Common"
@@ -27,7 +27,8 @@
             <TextBox Height="25" Width="200" Margin="125,0,0,50"/>
             <CheckBox Content="Stay Logged In" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"
                       Width="150" HorizontalContentAlignment="Center"/>
-            <Button Command="{Binding Login_Cmd}" Content="Login" Height="30" Width="250" VerticalAlignment="Bottom" Margin="0,0,0,25" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
+            <Button Command="{Binding ElementName=MainScreen_Bt, Path=DataContext.MainViewModel}" Content="Login" Height="30" Width="250" VerticalAlignment="Bottom" Margin="0,0,0,25" 
+                    Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
         </Grid>
     </Grid>
 </UserControl>
