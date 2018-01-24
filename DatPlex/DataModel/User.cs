@@ -8,22 +8,31 @@ namespace DatPlex.DataModel
 {
     public class User
     {
-        private string _name;
+        private string _uname;
         private string _email;
+        private string _password;
         //private List<string> _libraries;
 
-        public User(string n, string e)
+        public User(string u, string e, string p)
         {
-            Name = n;
+            Username = u;
             Email = e;
+            Password = p;
         }
 
-        public string Name
+        public User(string u, string e)
         {
-            get { return _name; }
+            Username = u;
+            Email = e;
+            Password = "";
+        }
+
+        public string Username
+        {
+            get { return _uname; }
             set
             {
-                _name = value;
+                _uname = value;
             }
         }
 
@@ -36,6 +45,14 @@ namespace DatPlex.DataModel
             }
         }
 
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+            }
+        }
         //public List<string> Libraries
         //{
         //    get { return _libraries; }

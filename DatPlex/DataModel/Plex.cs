@@ -14,8 +14,7 @@ namespace DatPlex.DataModel
     {
         private HttpClient _plex_api;
         private Account _owner;
-        private List<Media> _media;
-        private List<SharedUser> _sharedUsers;
+        private SharedUsers _sharedUserList;
 
         public Plex(Account a)
         {

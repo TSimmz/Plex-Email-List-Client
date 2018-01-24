@@ -10,12 +10,12 @@ namespace DatPlex.DataModel
     {
         private List<Media> _media;
 
-        public Account(string n, string e) : base(n, e)
+        public Account(string u, string e, string p) : base(u, e, p)   
         {
-            Name = n;
+            Username = u;
             Email = e;
+            Password = p;
         }
 
-        public List<Media> Media { get { return _media; } }
     }
 }
