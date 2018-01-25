@@ -8,23 +8,20 @@ using System.Threading.Tasks;
 using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
-    public class LoginVM : BaseViewModel
+    public class LoginVM : ViewModelBase
     {
-        Window Parent;
-        
         public LoginVM()
         {
-
+            //onLogin_Cmd = new RelayCommand(() => onLogin(), () => true);
         }
 
-        public void SetParent(Window iParent)
-        {
-            Parent = iParent;
-        }
-
+        public ICommand onLogin_Cmd { get; private set; }
+        
         private string _email;
         public string Email
         {
@@ -32,7 +29,8 @@ namespace DatPlex.ViewModel
             set
             {
                 _email = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
+                RaisePropertyChanged("Login_Enabled");
             }
         }
 
@@ -43,7 +41,8 @@ namespace DatPlex.ViewModel
             set
             {
                 _password = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
+                RaisePropertyChanged("Login_Enabled");
             }
         }
 
@@ -54,24 +53,18 @@ namespace DatPlex.ViewModel
             set
             {
                 _rememberMe = value;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
-        DelegateCommand mLogin_Cmd;
-        public ICommand Login_Cmd
+        private bool _Login_Enabled;
+        public bool Login_Enabled
         {
             get
             {
-                if (null == mLogin_Cmd)
-                    mLogin_Cmd = new DelegateCommand(onLogin);
-                return mLogin_Cmd;
+                _Login_Enabled = (_email != null && _password != null);
+                return _Login_Enabled;
             }
-        }
-
-        public void onLogin()
-        {
-            //Allows user to log into tool. 
         }
     }
 }

@@ -17,6 +17,8 @@ namespace DatPlex.Common
         public static string GET_SERVER_SHARES = "pms/friends/all";     //Gets PMS server shares
         public static string GET_SERVER_REQS = "pms/friends/requests";  //Gets PMS server share requests
         public static string GET_CLIENT_IP = "pms/:/ip";                //Gets current client remote IP
+
+        public static string XML_SAVE_PATH = "%APPDATA%/Plex Email/Account Data/";
     }
 }
 

@@ -21,7 +21,7 @@ namespace DatPlex.ViewModel
 
         public Add_UserVM(SharedUser s)
         {
-            Name = s.Name;
+            Name = s.Username;
             Email = s.Email;
         }
 
