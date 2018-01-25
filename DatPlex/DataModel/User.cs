@@ -13,6 +13,11 @@ namespace DatPlex.DataModel
         private string _password;
         //private List<string> _libraries;
 
+        public User()
+        {
+
+        }
+
         public User(string u, string e, string p)
         {
             Username = u;

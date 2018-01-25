@@ -22,9 +22,9 @@ namespace DatPlex.DataModel
         private SharedUsers _sharedUserList;
         private MediaList _mediaList;
 
-        public Plex(Account a)
+        public Plex()
         {
-            Owner = a;
+            Owner = new Account();
             PlexSaveData = "PlexData_" + Owner.Email + ".xml";
 
             PlexAPI = new HttpClient();
@@ -45,6 +45,7 @@ namespace DatPlex.DataModel
             set
             {
                 _owner = value;
+                PlexSaveData = "PlexData_" + Owner.Email + ".xml";
             }
         }
 

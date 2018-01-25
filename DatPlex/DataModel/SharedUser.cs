@@ -26,6 +26,16 @@ namespace DatPlex.DataModel
             _sharedUserList = new ObservableCollection<SharedUser>();  
         }
 
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement("SharedUserList");
+
+            // Read in a loop
+
+            reader.ReadEndElement();
+        }
+
+
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("SharedUserList");

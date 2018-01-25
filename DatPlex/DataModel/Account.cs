@@ -12,6 +12,11 @@ namespace DatPlex.DataModel
         private bool _signedin;
         private List<Media> _media;
 
+        public Account() : base()
+        {
+
+        }
+
         public Account(string u, string e, string p) : base(u, e, p)   
         {
             Username = u;
