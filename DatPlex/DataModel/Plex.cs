@@ -25,11 +25,11 @@ namespace DatPlex.DataModel
 
         public Plex(Account a)
         {
-            Owner = a;
+            _owner = a;
             _sharedUserList = new SharedUsers();
             _mediaList = new MediaList();
 
-            PlexAPI = new HttpClient();
+            _plex_api = new HttpClient();
         }
 
         public string PlexSaveData
@@ -110,19 +110,7 @@ namespace DatPlex.DataModel
                 return false;
             }
         }
-
-        public void ReadXml(XmlReader reader)
-        {
-            reader.ReadStartElement("Plex");
-            Owner.SignedIn = Convert.ToBoolean(reader.ReadElementString("SignedIn"));
-
-            _owner.ReadXml(reader);
-            _sharedUserList.ReadXml(reader);
-            _mediaList.ReadXml(reader);
-
-            reader.ReadEndElement();
-        }
-
+        
         public bool Save()
         {
             try
@@ -149,6 +137,18 @@ namespace DatPlex.DataModel
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+        }
+        
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement("Plex");
+            Owner.SignedIn = Convert.ToBoolean(reader.ReadElementString("SignedIn"));
+
+            _owner.ReadXml(reader);
+            _sharedUserList.ReadXml(reader);
+            _mediaList.ReadXml(reader);
+
+            reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer, bool hasWrittenVersion)

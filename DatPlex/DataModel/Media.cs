@@ -31,6 +31,14 @@ namespace DatPlex.DataModel
             Title = l;
         }
 
+        public Media(int i, string s, string t, string m)
+        {
+            ID = i;
+            Type = s;
+            Title = t;
+            MetaData = m;
+        }
+
         public int ID
         {
             get { return _id; }
@@ -79,7 +87,23 @@ namespace DatPlex.DataModel
 
         public void ReadXml(XmlReader reader)
         {
+            reader.ReadStartElement("MediaList");
 
+            while (reader.Read())
+            {
+                if (reader.Name.Equals("Media") && reader.NodeType == XmlNodeType.Element)
+                {
+                    Media m = new Media(
+                        Convert.ToInt32(reader.GetAttribute("ID")),
+                        reader.ReadElementString("Type"),
+                        reader.ReadElementString("Title"),
+                        reader.ReadElementString("MetaData"));
+
+                    _mediaList.Add(m);
+                }
+            }
+
+            reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)
@@ -90,7 +114,7 @@ namespace DatPlex.DataModel
             {
                 writer.WriteStartElement("Media");
 
-                writer.WriteElementString("ID", m.ID.ToString());
+                writer.WriteAttributeString("ID", m.ID.ToString());
                 writer.WriteElementString("Type", m.Type);
                 writer.WriteElementString("Title", m.Title);
                 writer.WriteElementString("MetaData", m.MetaData);
