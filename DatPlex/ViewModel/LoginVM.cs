@@ -66,5 +66,10 @@ namespace DatPlex.ViewModel
                 return _Login_Enabled;
             }
         }
+
+        public void onLogin()
+        {
+            // = new Plex();
+        }
     }
 }

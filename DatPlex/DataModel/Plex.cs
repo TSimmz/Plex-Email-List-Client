@@ -11,25 +11,23 @@ using System.Net.Http.Headers;
 using DatPlex.Common;
 using System.Xml;
 using System.Threading;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace DatPlex.DataModel
 {
     public class Plex
     {
-        private HttpClient _plex_api;
-
         private string _plexdata;
         private Account _owner;
         private SharedUsers _sharedUserList;
         private MediaList _mediaList;
 
-        public Plex(Account a)
+        public Plex()
         {
-            _owner = a;
+            _owner = new Account();
             _sharedUserList = new SharedUsers();
             _mediaList = new MediaList();
-
-            _plex_api = new HttpClient();
         }
 
         public string PlexSaveData
@@ -66,15 +64,6 @@ namespace DatPlex.DataModel
             set
             {
                 _mediaList = value;
-            }
-        }
-
-        public HttpClient PlexAPI
-        {
-            get { return _plex_api; }
-            set
-            {
-                _plex_api = value;
             }
         }
        
@@ -172,5 +161,28 @@ namespace DatPlex.DataModel
         //    p.DefaultRequestHeaders.Accept.Clear();
         //    p.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         //}
+
+        static async Task Login(string email, string password)
+        {
+            using (var PlexAPI = new HttpClient())
+            {
+                PlexAPI.BaseAddress = new Uri(Utility.PLEX_URL);
+                PlexAPI.DefaultRequestHeaders.Accept.Clear();
+                PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var login_credentials = new FormUrlEncodedContent(new[]
+                {
+                     new KeyValuePair<string, string>("grant_type", "password"),
+                     new KeyValuePair<string, string>("email", email),
+                     new KeyValuePair<string, string>("password", password)
+                });
+
+                HttpResponseMessage response = await PlexAPI.PostAsync(Utility.POST_SIGNIN, login_credentials);
+
+                var responseJSON = await response.Content.ReadAsStringAsync();
+                var jObject = JObject.Parse(responseJSON);
+                var token = jObject.GetValue("token").ToString();
+            }
+        }
     }
 }

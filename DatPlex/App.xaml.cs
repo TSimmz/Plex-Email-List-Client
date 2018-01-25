@@ -14,13 +14,13 @@ namespace DatPlex
     /// </summary>
     public partial class App : Application
     {
-        ////public static MainViewModel mMainViewModel;
+        //public static MainViewModel MainViewModel;
         //public static MainWindow mMainWindow;
 
-        //App()
-        //{
-        //    InitializeComponent();
-        //}
+        App()
+        {
+            InitializeComponent();
+        }
 
         //protected override void OnStartup(StartupEventArgs e)
         //{
@@ -38,5 +38,7 @@ namespace DatPlex
         //            MessageBoxButton.OK, MessageBoxImage.Question);
         //    }
         //}
+
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DatPlex.DataModel;
 using DatPlex.Common;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -16,7 +17,17 @@ namespace DatPlex.ViewModel
 
         readonly static LoginVM _loginVM = new LoginVM();
         readonly static MainScreenVM _mainScreenVM = new MainScreenVM();
-        
+
+        private Plex _PlexApp;
+        public Plex PlexApp
+        {
+            get { return _PlexApp; }
+            set
+            {
+                _PlexApp = value;
+            }
+        }
+
         public ViewModelBase CurrentViewModel
         {
             get { return _currentViewModel; }

@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DatPlex.Common;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace DatPlex.ViewModel
 {
     public class ViewModelLocator : BaseViewModel
     {
-        private static MainViewModel _main;
+        private MainViewModel _main;
              
         public ViewModelLocator()
         {
             _main = new MainViewModel();
+            SimpleIoc.Default.Register<LoginVM>();
+            SimpleIoc.Default.Register<MainScreenVM>();
+            SimpleIoc.Default.Register<BaseViewModel>();
         }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
