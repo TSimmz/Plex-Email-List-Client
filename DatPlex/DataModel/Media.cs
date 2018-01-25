@@ -75,7 +75,12 @@ namespace DatPlex.DataModel
         public MediaList()
         {
             _mediaList = new ObservableCollection<Media>();
-        } 
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+
+        }
 
         public void WriteXml(XmlWriter writer)
         {

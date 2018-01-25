@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using DatPlex.Common;
 using System.Xml;
+using System.Threading;
 
 namespace DatPlex.DataModel
 {
@@ -22,10 +23,11 @@ namespace DatPlex.DataModel
         private SharedUsers _sharedUserList;
         private MediaList _mediaList;
 
-        public Plex()
+        public Plex(Account a)
         {
-            Owner = new Account();
-            PlexSaveData = "PlexData_" + Owner.Email + ".xml";
+            Owner = a;
+            _sharedUserList = new SharedUsers();
+            _mediaList = new MediaList();
 
             PlexAPI = new HttpClient();
         }
@@ -76,24 +78,29 @@ namespace DatPlex.DataModel
             }
         }
        
-        public void WriteXml(XmlWriter writer, bool hasWrittenVersion)
-        {
-            writer.WriteStartElement("Plex");
-
-            writer.WriteElementString("SignedIn", Owner.SignedIn.ToString());
-
-            Owner.WriteXml(writer);
-            SharedUserList.WriteXml(writer);
-            MediaList.WriteXml(writer);
-
-            writer.WriteEndElement();
-
-        }
-
         public bool Load()
         {
             try
             {
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.IgnoreWhitespace = true;
+
+                try
+                {
+                    using (XmlReader reader = XmlReader.Create(PlexSaveData, settings))
+                    {
+                        this.ReadXml(reader);
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Thread.Sleep(50);
+                    using (XmlReader reader = XmlReader.Create(PlexSaveData, settings))
+                    {
+                        this.ReadXml(reader);
+                    }
+                }
+
                 return true;
             }
             catch (Exception e)
@@ -102,6 +109,18 @@ namespace DatPlex.DataModel
                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement("Plex");
+            Owner.SignedIn = Convert.ToBoolean(reader.ReadElementString("SignedIn"));
+
+            _owner.ReadXml(reader);
+            _sharedUserList.ReadXml(reader);
+            _mediaList.ReadXml(reader);
+
+            reader.ReadEndElement();
         }
 
         public bool Save()
@@ -130,7 +149,19 @@ namespace DatPlex.DataModel
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
+        }
 
+        public void WriteXml(XmlWriter writer, bool hasWrittenVersion)
+        {
+            writer.WriteStartElement("Plex");
+
+            writer.WriteElementString("SignedIn", Owner.SignedIn.ToString());
+
+            Owner.WriteXml(writer);
+            SharedUserList.WriteXml(writer);
+            MediaList.WriteXml(writer);
+
+            writer.WriteEndElement();
 
         }
 

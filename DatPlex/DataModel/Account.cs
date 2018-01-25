@@ -33,6 +33,17 @@ namespace DatPlex.DataModel
             }
         }
 
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement("Account");
+
+            this.Username = reader.ReadElementString("Username");
+            this.Email = reader.ReadElementString("Email");
+            this.Password = reader.ReadElementString("Password");
+
+            reader.ReadEndElement();
+        }
+
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("Account");
