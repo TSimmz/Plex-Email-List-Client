@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,20 +9,34 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using DatPlex.Common;
+using System.Xml;
 
 namespace DatPlex.DataModel
 {
     public class Plex
     {
         private HttpClient _plex_api;
+
+        private string _plexdata;
         private Account _owner;
         private SharedUsers _sharedUserList;
+        private MediaList _mediaList;
 
         public Plex(Account a)
         {
             Owner = a;
-            _plex_api = new HttpClient();
+            PlexSaveData = "PlexData_" + Owner.Email + ".xml";
 
+            PlexAPI = new HttpClient();
+        }
+
+        public string PlexSaveData
+        {
+            get { return _plexdata; }
+            set
+            {
+                _plexdata = value;
+            }
         }
 
         public Account Owner
@@ -30,6 +46,91 @@ namespace DatPlex.DataModel
             {
                 _owner = value;
             }
+        }
+
+        public SharedUsers SharedUserList
+        {
+            get { return _sharedUserList; }
+            set
+            {
+                _sharedUserList = value;
+            }
+        }
+
+        public MediaList MediaList
+        {
+            get { return _mediaList; }
+            set
+            {
+                _mediaList = value;
+            }
+        }
+
+        public HttpClient PlexAPI
+        {
+            get { return _plex_api; }
+            set
+            {
+                _plex_api = value;
+            }
+        }
+       
+        public void WriteXml(XmlWriter writer, bool hasWrittenVersion)
+        {
+            writer.WriteStartElement("Plex");
+
+            writer.WriteElementString("SignedIn", Owner.SignedIn.ToString());
+
+            Owner.WriteXml(writer);
+            SharedUserList.WriteXml(writer);
+            MediaList.WriteXml(writer);
+
+            writer.WriteEndElement();
+
+        }
+
+        public bool Load()
+        {
+            try
+            {
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to read the input file. Returning with error: " + e.ToString(), "Error Reading File",
+                   MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+                settings.IndentChars = "\t";
+                settings.ConformanceLevel = ConformanceLevel.Fragment;
+
+                Directory.CreateDirectory(Utility.XML_SAVE_PATH);
+
+                using (XmlWriter writer = XmlWriter.Create(PlexSaveData, settings))
+                {
+                    this.WriteXml(writer, false);
+                    writer.Flush();
+                    writer.Close();
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to read the input file. Returning with error: " + e.ToString(), "Error Reading File",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+
         }
 
         //static async Task RunAsync(HttpClient p)

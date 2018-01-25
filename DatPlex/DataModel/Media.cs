@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DatPlex.DataModel
 {
@@ -63,6 +65,35 @@ namespace DatPlex.DataModel
             {
                 _metadata = value;
             }
+        }
+    }
+
+    public partial class MediaList : ObservableCollection<Media>
+    {
+        ObservableCollection<Media> _mediaList;
+
+        public MediaList()
+        {
+            _mediaList = new ObservableCollection<Media>();
+        } 
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteStartElement("MediaList");
+
+            foreach (Media m in _mediaList)
+            {
+                writer.WriteStartElement("Media");
+
+                writer.WriteElementString("ID", m.ID.ToString());
+                writer.WriteElementString("Type", m.Type);
+                writer.WriteElementString("Title", m.Title);
+                writer.WriteElementString("MetaData", m.MetaData);
+
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
         }
     }
 }
