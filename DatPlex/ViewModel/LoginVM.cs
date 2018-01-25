@@ -30,6 +30,7 @@ namespace DatPlex.ViewModel
             {
                 _email = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("Login_Enabled");
             }
         }
 
@@ -41,6 +42,7 @@ namespace DatPlex.ViewModel
             {
                 _password = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("Login_Enabled");
             }
         }
 
@@ -55,20 +57,14 @@ namespace DatPlex.ViewModel
             }
         }
 
-        DelegateCommand mLogin_Cmd;
-        public ICommand Login_Cmd
+        private bool _Login_Enabled;
+        public bool Login_Enabled
         {
             get
             {
-                if (null == mLogin_Cmd)
-                    mLogin_Cmd = new DelegateCommand(onLogin);
-                return mLogin_Cmd;
+                _Login_Enabled = (_email != null && _password != null);
+                return _Login_Enabled;
             }
-        }
-
-        public void onLogin()
-        {
-            Console.WriteLine("Login pressed");
         }
     }
 }
