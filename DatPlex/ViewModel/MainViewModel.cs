@@ -11,9 +11,9 @@ using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : BaseViewModel
     {
-        private ViewModelBase _currentViewModel;
+        private BaseViewModel _currentViewModel;
 
         readonly static LoginVM _loginVM = new LoginVM();
         readonly static MainScreenVM _mainScreenVM = new MainScreenVM();
@@ -28,7 +28,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public ViewModelBase CurrentViewModel
+        public BaseViewModel CurrentViewModel
         {
             get { return _currentViewModel; }
             set
@@ -37,28 +37,13 @@ namespace DatPlex.ViewModel
                     return;
 
                 _currentViewModel = value;
-                RaisePropertyChanged("CurrentViewModel");
+                OnPropertyChanged("CurrentViewModel");
             }
         }
-
-        public ICommand Login_Cmd { get; private set; }
-        public ICommand MainScreen_Cmd { get; private set; }
-
+        
         public MainViewModel()
         {
             CurrentViewModel = MainViewModel._loginVM;
-            Login_Cmd = new RelayCommand(() => ExecuteLogin_Cmd());
-            MainScreen_Cmd = new RelayCommand(() => ExecuteMainScreen_Cmd());
-        }
-
-        private void ExecuteLogin_Cmd()
-        {
-            CurrentViewModel = MainViewModel._loginVM;
-        }
-
-        private void ExecuteMainScreen_Cmd()
-        {
-            CurrentViewModel = MainViewModel._mainScreenVM;
         }
 
         DelegateCommand mFile_Exit_Cmd;

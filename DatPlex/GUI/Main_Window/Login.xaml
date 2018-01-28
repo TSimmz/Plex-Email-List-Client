@@ -27,7 +27,7 @@
             <TextBox Text="{Binding Password}" Height="25" Width="200" Margin="125,0,0,50"/>
             <CheckBox Content="Stay Logged In" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"
                       Width="150" HorizontalContentAlignment="Center"/>
-            <Button Command="{Binding Main.MainScreen_Cmd, Source={StaticResource Locator}}" IsEnabled="{Binding Login_Enabled}" Content="Login" 
+            <Button Command="{Binding onLogin_Cmd}" IsEnabled="{Binding Login_Enabled}" Content="Login" 
                     Height="30" Width="250" VerticalAlignment="Bottom" Margin="0,0,0,25" 
                     Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
         </Grid>

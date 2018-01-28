@@ -14,9 +14,6 @@ namespace DatPlex.ViewModel
         public ViewModelLocator()
         {
             _main = new MainViewModel();
-            SimpleIoc.Default.Register<LoginVM>();
-            SimpleIoc.Default.Register<MainScreenVM>();
-            SimpleIoc.Default.Register<BaseViewModel>();
         }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",

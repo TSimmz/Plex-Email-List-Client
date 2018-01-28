@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatPlex.ViewModel;
 using DatPlex.GUI.Child_Window;
 using DatPlex.GUI.Main_Window;
 using DatPlex.Common;
@@ -29,7 +30,7 @@ namespace DatPlex
             try
             {
                 InitializeComponent();
-                //DataContext = new MainViewModel();
+                DataContext = new MainViewModel();
             }
             catch (Exception e)
             {

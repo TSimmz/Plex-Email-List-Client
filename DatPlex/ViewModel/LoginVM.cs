@@ -13,14 +13,14 @@ using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
-    public class LoginVM : ViewModelBase
+    public class LoginVM : BaseViewModel
     {
         public LoginVM()
         {
             //onLogin_Cmd = new RelayCommand(() => onLogin(), () => true);
         }
 
-        public ICommand onLogin_Cmd { get; private set; }
+        //public ICommand onLogin_Cmd { get; private set; }
         
         private string _email;
         public string Email
@@ -29,8 +29,8 @@ namespace DatPlex.ViewModel
             set
             {
                 _email = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged("Login_Enabled");
+                OnPropertyChanged();
+                OnPropertyChanged("Login_Enabled");
             }
         }
 
@@ -41,8 +41,8 @@ namespace DatPlex.ViewModel
             set
             {
                 _password = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged("Login_Enabled");
+                OnPropertyChanged();
+                OnPropertyChanged("Login_Enabled");
             }
         }
 
@@ -53,7 +53,7 @@ namespace DatPlex.ViewModel
             set
             {
                 _rememberMe = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -67,9 +67,19 @@ namespace DatPlex.ViewModel
             }
         }
 
+        DelegateCommand _onLogin_Cmd;
+        public ICommand onLogin_Cmd
+        {
+            get
+            {
+                if (_onLogin_Cmd == null)
+                    _onLogin_Cmd = new DelegateCommand(onLogin);
+                return _onLogin_Cmd;
+            }
+        }
         public void onLogin()
         {
-            // = new Plex();
+            
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:toolkit2="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:common="clr-namespace:DatPlex.Common"
-        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        DataContext="{Binding CurrenViewModel}"
         Title="Plex User Update" Width="600" Height="400" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
@@ -16,8 +16,6 @@
     </i:Interaction.Triggers>
     <Grid>
         <ContentControl x:Name="Content_Control" Content="{Binding CurrentViewModel}"/>
-        <Button x:Name="Login_Bt" Visibility="Hidden" Command="{Binding Login_Cmd}"/>
-        <Button x:Name="MainScreen_Bt" Visibility="Hidden" Command="{Binding MainScreen_Cmd}"/>
     </Grid>
     
 </Window>

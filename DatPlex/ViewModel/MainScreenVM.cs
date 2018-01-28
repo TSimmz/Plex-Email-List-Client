@@ -12,7 +12,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
-    public class MainScreenVM : ViewModelBase
+    public class MainScreenVM : BaseViewModel
     {
         #region Data Fields
 
@@ -49,7 +49,7 @@ namespace DatPlex.ViewModel
             set
             {
                 mWindowTitle = value;
-                RaisePropertyChanged("WindowTitle");
+                OnPropertyChanged("WindowTitle");
             }
         }
 
@@ -125,7 +125,7 @@ namespace DatPlex.ViewModel
             set
             {
                 _timer = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -146,7 +146,7 @@ namespace DatPlex.ViewModel
             set
             {
                 mSharedUsers = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -167,8 +167,8 @@ namespace DatPlex.ViewModel
             set
             {
                 mManual_State = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged("Automatic_State");
+                OnPropertyChanged();
+                OnPropertyChanged("Automatic_State");
             }
         }
 
@@ -179,8 +179,8 @@ namespace DatPlex.ViewModel
             set
             {
                 mAutomatic_State = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged("Manual_State");
+                OnPropertyChanged();
+                OnPropertyChanged("Manual_State");
             }
         }
 
