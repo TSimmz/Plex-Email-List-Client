@@ -23,7 +23,7 @@ namespace DatPlex.GUI.Main_Window
     /// </summary>
     public partial class MainScreen : UserControl
     {
-        private MainScreenVM _ViewModel;
+        private MainViewModel _ViewModel;
 
         public MainScreen()
         {
@@ -31,9 +31,14 @@ namespace DatPlex.GUI.Main_Window
             //DataContext = new MainScreenVM();
         }
 
-        public MainScreenVM ViewModel
+        public MainViewModel ViewModel
         {
             set { _ViewModel = value; }
+        }
+
+        public void SetDataContext(MainScreenVM iViewModel)
+        {
+            this.DataContext = iViewModel;
         }
     }
 }

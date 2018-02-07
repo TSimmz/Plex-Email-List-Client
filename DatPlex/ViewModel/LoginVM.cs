@@ -77,7 +77,8 @@ namespace DatPlex.ViewModel
         }
         public void onLogin()
         {
-            App.mMainViewModel.CurrentViewModel = App.mMainViewModel.MainScreenVM;            
+            App.mMainViewModel.LoginVisibility = Visibility.Hidden;
+            App.mMainViewModel.MainScreenVisibility = Visibility.Visible;   
         }
     }
 }

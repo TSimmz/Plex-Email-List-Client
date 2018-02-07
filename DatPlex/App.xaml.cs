@@ -22,15 +22,19 @@ namespace DatPlex
             InitializeComponent();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        [STAThread]
+        static void Main()
         {
             try
             {
                 mMainViewModel = new MainViewModel();
+
+                App wApp = new App();
+
                 mMainWindow = new MainWindow();
                 
                 mMainWindow.DataContext = mMainViewModel;
-                //mMainWindow.Show();
+                wApp.Run(mMainWindow);
             }
             catch
             {

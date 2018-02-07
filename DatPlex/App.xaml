@@ -8,11 +8,11 @@
              StartupUri="MainWindow.xaml" 
              mc:Ignorable="d">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type vm:LoginVM}">
+        <!--<DataTemplate DataType="{x:Type vm:LoginVM}">
             <mviews:Login />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MainScreenVM}">
             <mviews:MainScreen />
-        </DataTemplate>
+        </DataTemplate>-->
     </Application.Resources>
 </Application>

@@ -22,7 +22,7 @@ namespace DatPlex.ViewModel
 
             //CurrentViewModel = LoginVM;
 
-            LoginVisibility = Visibility.Hidden;
+            LoginVisibility = Visibility.Visible;
             MainScreenVisibility = Visibility.Hidden;
         }
 
