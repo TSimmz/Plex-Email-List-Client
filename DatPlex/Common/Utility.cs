@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using DatPlex.DataModel;
 
 namespace DatPlex.Common
 {
@@ -19,6 +21,19 @@ namespace DatPlex.Common
         public static string GET_CLIENT_IP = "pms/:/ip";                //Gets current client remote IP
 
         public static string XML_SAVE_PATH = "%APPDATA%/Plex Email/Account Data/";
+
+        public static Object LoadXmlData(string path)
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            using (XmlReader reader = XmlReader.Create(path, settings))
+            {
+                Plex obj = new Plex();
+                obj.ReadXml(reader);
+                return obj;
+            }
+        }
     }
 }
 

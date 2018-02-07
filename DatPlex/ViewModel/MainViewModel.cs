@@ -24,6 +24,18 @@ namespace DatPlex.ViewModel
             MainScreenVisibility = Visibility.Hidden;
         }
 
+        //TODO: Open method
+        public bool OpenPlex()
+        {
+            //If XML file exists for account, load from disk
+            
+            //else, create new file
+
+            //create new plex object once complete
+
+            return true;
+        }
+
         private Plex _PlexApp;
         public Plex PlexApp
         {
@@ -33,20 +45,6 @@ namespace DatPlex.ViewModel
                 _PlexApp = value;
             }
         }
-
-        //private BaseViewModel _currentViewModel;
-        //public BaseViewModel CurrentViewModel
-        //{
-        //    get { return _currentViewModel; }
-        //    set
-        //    {
-        //        if (_currentViewModel == value)
-        //            return;
-
-        //        _currentViewModel = value;
-        //        OnPropertyChanged("CurrentViewModel");
-        //    }
-        //}
 
         private static LoginVM _loginVM;
         public LoginVM LoginVM

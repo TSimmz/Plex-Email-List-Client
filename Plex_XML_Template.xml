@@ -1,26 +1,26 @@
-<plex>
-	<signedin value> 			<!-- true or false -->
-	<account>
-		<username></username>
-		<email></email>
+<Plex>
+	<Signedin>true</Signedin> 			<!-- true or false -->
+	<Account>
+		<Username></Username>
+		<Email></Email>
 		<password></password>
-	</account>
-	<sharedusers>
-		<shareduser username="" email=""/>
-		<shareduser username="" email=""/>
-		<shareduser username="" email=""/>
-		<shareduser username="" email=""/>
-	</sharedusers>
-	<medialist>
-		<media id=0>
-			<type></type>
-			<title></title>
-			<metadata></metadata>
-		</media>
-		<media id=1>
-			<type></type>
-			<title></title>
-			<metadata></metadata>
-		</media>
-	</medialist>
-</plex>
+	</Account>
+	<SharedUsers>
+		<shareduser Username="" Email=""/>
+		<shareduser Username="" Email=""/>
+		<shareduser Username="" Email=""/>
+		<shareduser Username="" Email=""/>
+	</SharedUsers>
+	<MediaList>
+		<Media ID=0>
+			<Type></Type>
+			<Title></Title>
+			<Metadata></Metadata>
+		</Media>
+		<Media ID=1>
+			<Type></Type>
+			<Title></Title>
+			<Metadata></Metadata>
+		</Media>
+	</MediaList>
+</Plex>

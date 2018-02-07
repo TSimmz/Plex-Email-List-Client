@@ -130,6 +130,7 @@ namespace DatPlex.DataModel
         
         public void ReadXml(XmlReader reader)
         {
+            reader.MoveToContent();
             reader.ReadStartElement("Plex");
             Owner.SignedIn = Convert.ToBoolean(reader.ReadElementString("SignedIn"));
 

@@ -89,18 +89,15 @@ namespace DatPlex.DataModel
         {
             reader.ReadStartElement("MediaList");
 
-            while (reader.Read())
+            while (reader.Name.Equals("Media") && reader.NodeType == XmlNodeType.Element)
             {
-                if (reader.Name.Equals("Media") && reader.NodeType == XmlNodeType.Element)
-                {
                     Media m = new Media(
                         Convert.ToInt32(reader.GetAttribute("ID")),
                         reader.ReadElementString("Type"),
                         reader.ReadElementString("Title"),
                         reader.ReadElementString("MetaData"));
 
-                    _mediaList.Add(m);
-                }
+                    _mediaList.Add(m);                
             }
 
             reader.ReadEndElement();

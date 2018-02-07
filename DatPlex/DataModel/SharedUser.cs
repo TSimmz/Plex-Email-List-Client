@@ -30,18 +30,14 @@ namespace DatPlex.DataModel
         {
             reader.ReadStartElement("SharedUserList");
 
-            while (reader.Read())
+            while (reader.Name.Equals("SharedUser") && reader.NodeType == XmlNodeType.Element)
             {
-                if (reader.Name.Equals("SharedUser") && reader.NodeType == XmlNodeType.Element)
-                {
                     SharedUser s = new SharedUser(
-                        reader.ReadElementString("Username"),
-                        reader.ReadElementString("Email"));
+                        reader.GetAttribute("Username"),
+                        reader.GetAttribute("Email"));
 
                     _sharedUserList.Add(s);
-                }
             }
-
             reader.ReadEndElement();
         }
 
