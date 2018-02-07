@@ -41,7 +41,7 @@ namespace DatPlex
                 var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
 
-            mViewModel = App.mMainViewModel;
+            mViewModel = App.MainViewModel;
 
             mLoginView.ViewModel = mViewModel;
             mMainScreenView.ViewModel = mViewModel;

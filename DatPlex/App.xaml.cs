@@ -14,8 +14,8 @@ namespace DatPlex
     /// </summary>
     public partial class App : Application
     {
-        public static MainViewModel mMainViewModel;
-        public static MainWindow mMainWindow;
+        public static MainViewModel MainViewModel;
+        public static MainWindow MainWindow;
 
         App()
         {
@@ -27,14 +27,15 @@ namespace DatPlex
         {
             try
             {
-                mMainViewModel = new MainViewModel();
+                MainViewModel = new MainViewModel();
 
                 App wApp = new App();
 
-                mMainWindow = new MainWindow();
+                MainWindow = new MainWindow();
                 
-                mMainWindow.DataContext = mMainViewModel;
-                wApp.Run(mMainWindow);
+                MainWindow.DataContext = MainViewModel;
+
+                wApp.Run(MainWindow);
             }
             catch
             {

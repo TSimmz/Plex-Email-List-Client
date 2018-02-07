@@ -19,9 +19,7 @@ namespace DatPlex.ViewModel
 
             _loginVM = new LoginVM();
             _mainScreenVM = new MainScreenVM();
-
-            //CurrentViewModel = LoginVM;
-
+            
             LoginVisibility = Visibility.Visible;
             MainScreenVisibility = Visibility.Hidden;
         }

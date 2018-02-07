@@ -28,7 +28,6 @@ namespace DatPlex.GUI.Main_Window
         public MainScreen()
         {
             InitializeComponent();
-            //DataContext = new MainScreenVM();
         }
 
         public MainViewModel ViewModel

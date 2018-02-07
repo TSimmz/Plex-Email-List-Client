@@ -37,8 +37,8 @@ namespace DatPlex.ViewModel
         {
             get { return _password; }
             set
-            {
-                _password = value;
+            {                               // TODO: Binding password not safe. Stores in memory. 
+                _password = value;  
                 OnPropertyChanged();
                 OnPropertyChanged("Login_Enabled");
             }
@@ -77,8 +77,8 @@ namespace DatPlex.ViewModel
         }
         public void onLogin()
         {
-            App.mMainViewModel.LoginVisibility = Visibility.Hidden;
-            App.mMainViewModel.MainScreenVisibility = Visibility.Visible;   
+            App.MainViewModel.LoginVisibility = Visibility.Hidden;
+            App.MainViewModel.MainScreenVisibility = Visibility.Visible;   
         }
     }
 }

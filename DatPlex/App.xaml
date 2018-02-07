@@ -4,8 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mviews="clr-namespace:DatPlex.GUI.Main_Window" 
-             xmlns:vm="clr-namespace:DatPlex.ViewModel" 
-             StartupUri="MainWindow.xaml" 
+             xmlns:vm="clr-namespace:DatPlex.ViewModel"
              mc:Ignorable="d">
     <Application.Resources>
         <!--<DataTemplate DataType="{x:Type vm:LoginVM}">

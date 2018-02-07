@@ -28,7 +28,6 @@ namespace DatPlex.GUI.Main_Window
         public Login()
         {
             InitializeComponent();
-            //DataContext = new LoginVM();
         }
 
         public MainViewModel ViewModel
