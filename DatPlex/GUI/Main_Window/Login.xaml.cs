@@ -24,12 +24,17 @@ namespace DatPlex.GUI.Main_Window
     /// </summary>
     public partial class Login : UserControl
     {
+        private LoginVM _ViewModel;
         public Login()
         {
             InitializeComponent();
             //DataContext = new LoginVM();
         }
 
-        
+        public LoginVM ViewModel
+        {
+            set { _ViewModel = value; }
+        }
+
     }
 }

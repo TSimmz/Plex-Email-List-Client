@@ -24,13 +24,15 @@ namespace DatPlex
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel mViewModel;
+
         //MainViewModel mViewModel;
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
-                DataContext = new MainViewModel();
+                //DataContext = new MainViewModel();
             }
             catch (Exception e)
             {
@@ -39,7 +41,14 @@ namespace DatPlex
                 var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
 
-           // mViewModel = App.mMainViewModel;
+            mViewModel = App.mMainViewModel;
+
+            mLoginView.ViewModel = mViewModel.LoginVM;
+            mMainScreenView.ViewModel = mViewModel.MainScreenVM;
+
+            //mViewModel.TaskStarting += TaskStarted;
+            //mViewModel.ProgressChanged += ProgressChanged;
+            //mViewModel.TaskCompleted += TaskCompleted;
         }
     }
 }

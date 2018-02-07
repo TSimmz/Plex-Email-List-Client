@@ -23,10 +23,17 @@ namespace DatPlex.GUI.Main_Window
     /// </summary>
     public partial class MainScreen : UserControl
     {
+        private MainScreenVM _ViewModel;
+
         public MainScreen()
         {
             InitializeComponent();
-            DataContext = new MainScreenVM();
+            //DataContext = new MainScreenVM();
+        }
+
+        public MainScreenVM ViewModel
+        {
+            set { _ViewModel = value; }
         }
     }
 }

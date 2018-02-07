@@ -26,10 +26,11 @@ namespace DatPlex
         {
             try
             {
-                mMainWindow = new MainWindow();
                 mMainViewModel = new MainViewModel();
+                mMainWindow = new MainWindow();
+                
                 mMainWindow.DataContext = mMainViewModel;
-                mMainWindow.Show();
+                //mMainWindow.Show();
             }
             catch
             {
