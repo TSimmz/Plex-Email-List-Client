@@ -12,7 +12,7 @@
     <Grid Background="#202020">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Image Source="/Images/plex.jpg" Height="100" Width="175" Margin="10"
@@ -28,7 +28,6 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="0.5*"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
@@ -37,25 +36,7 @@
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Plex Accounts" Foreground="White" FontSize="18" 
-                                           HorizontalAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
-                                           Height="26" Width="245" Grid.Row="0"/>
-                            <ComboBox HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Width="235" Height="25"/>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <RadioButton Content="Manual" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontSize="14" IsChecked="{Binding Manual_State}"/>
-                            <RadioButton Content="Automatic" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontSize="14" IsChecked="{Binding Automatic_State}"/>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Set Update Period" Foreground="White" FontSize="18" 
+                            <TextBlock Text="Set Update Period" Foreground="White" FontSize="18" TextDecorations="Underline"
                                            HorizontalAlignment="Center" Margin="15,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                                            Height="26" Width="245" Grid.Row="0"/>
                             <Grid Grid.Row="1">
@@ -64,7 +45,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding Timer}"  TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Width="80"/>
-                                <ComboBox SelectedIndex="{Binding Units_SelIndex}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="80" Height="25">
+                                <ComboBox SelectedIndex="{Binding Units_SelIndex}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="50" Height="25">
                                     <ComboBoxItem> </ComboBoxItem>
                                     <ComboBoxItem>M</ComboBoxItem>
                                     <ComboBoxItem>H</ComboBoxItem>
@@ -72,7 +53,23 @@
                                 </ComboBox>
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                           <TextBlock Text="Scan Mode: " Foreground="White" FontSize="18" TextDecorations="Underline"
+                                           HorizontalAlignment="Center" Margin="15,0,0,50" VerticalAlignment="Center" 
+                                           Height="26" Width="100"/>
+                            <RadioButton Content="Manual" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,0,0,0"  Foreground="White" FontSize="14" IsChecked="{Binding Manual_State}"/>
+                            <RadioButton Content="Automatic" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,50,0,0" Foreground="White" FontSize="14" IsChecked="{Binding Automatic_State}"/>
+                            <TextBlock Text="Send Mode: " Foreground="White" FontSize="18" TextDecorations="Underline" Grid.Column="1"
+                                           HorizontalAlignment="Left" Margin="0,0,0,50" VerticalAlignment="Center" 
+                                           Height="26" Width="100"/>
+                            <RadioButton Content="Send Selected" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"  Foreground="White" FontSize="14" IsChecked="{Binding SendSel_State}"/>
+                            <RadioButton Content="Send All" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,50,0,0" Foreground="White" FontSize="14" IsChecked="{Binding SendAll_State}"/>
+                        </Grid>
+                        <Grid Grid.Row="2">
                             <Button Content="SCAN PLEX" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                     Width="235" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
                         </Grid>
@@ -80,11 +77,11 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height=".25*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ListView Height="200" Width="240" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
-                              HorizontalAlignment="Center" VerticalAlignment="Top" Background="#4F4F4F" Foreground="White" Grid.Row="0"
+                    <ListView Height="225" Width="250" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
+                              HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,10,0" Background="#4F4F4F" Foreground="White" Grid.Row="0"
                               ToolTip="Select Default to add new user. Select user to edit information">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -99,14 +96,8 @@
                         </ListView.View>
                     </ListView>
                     <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Button Content="Add" Command="{Binding Add_User_Cmd}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                Height="25" Width="90" Margin="0,5,0,0" Background="#4F4F4F" Foreground="White" ToolTip="Add New Shared User"/>
-                        <Button Content="Remove" Command="{Binding Del_User_Cmd}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                Height="25" Width="90" Margin="0,5,0,0" Background="#4F4F4F" Foreground="White" ToolTip="Remove Shared User"/>
+                        <Button Content="Logout" Command="{Binding Logout_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Top"  
+                                Height="25" Width="90" Margin="0,5,25,0" Background="#4F4F4F" Foreground="White"/>
                     </Grid>
                 </Grid>
             </Grid>

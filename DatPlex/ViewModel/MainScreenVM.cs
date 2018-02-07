@@ -26,7 +26,7 @@ namespace DatPlex.ViewModel
 
         public MainScreenVM()
         {
-
+ 
         }
 
         public void SetParent(Window iParent)
@@ -51,32 +51,37 @@ namespace DatPlex.ViewModel
 
         #endregion General
 
-        DelegateCommand mAdd_User_Cmd;
-        public ICommand Add_User_Cmd
+        DelegateCommand mSendSel_Cmd;
+        public ICommand SendSel_Cmd
         {
             get
             {
-                if (null == mAdd_User_Cmd)
-                    mAdd_User_Cmd = new DelegateCommand(Add_User_Button);
-                return mAdd_User_Cmd;
+                if (null == mSendSel_Cmd)
+                    mSendSel_Cmd = new DelegateCommand(SendSelectedUsers);
+                return mSendSel_Cmd;
             }
         }
 
-        public void Add_User_Button(object obj)
+        public void SendSelectedUsers(object obj)
         {
-            Console.WriteLine("Add Button Pressed");
 
-            Add_User mAddWindow = new Add_User();
-            Add_UserVM mAddViewModel;
-
-            if (SharedUsers_SelIndex != 0)
-                mAddViewModel = new Add_UserVM(SharedUsers[SharedUsers_SelIndex]);
-            else
-                mAddViewModel = new Add_UserVM();
-
-            mAddWindow.DataContext = mAddViewModel;
-            mAddWindow.Show();
         }
+
+        //public void Add_User_Button(object obj)
+        //{
+        //    Console.WriteLine("Add Button Pressed");
+
+        //    Add_User mAddWindow = new Add_User();
+        //    Add_UserVM mAddViewModel;
+
+        //    if (SharedUsers_SelIndex != 0)
+        //        mAddViewModel = new Add_UserVM(SharedUsers[SharedUsers_SelIndex]);
+        //    else
+        //        mAddViewModel = new Add_UserVM();
+
+        //    mAddWindow.DataContext = mAddViewModel;
+        //    mAddWindow.Show();
+        //}
 
         DelegateCommand mDel_User_Cmd;
         public ICommand Del_User_Cmd
@@ -112,6 +117,22 @@ namespace DatPlex.ViewModel
 
             PlexScanner mScanWindow = new PlexScanner();
             mScanWindow.Show();
+        }
+
+        DelegateCommand mLogout_Cmd;
+        public ICommand Logout_Cmd
+        {
+            get
+            {
+                if (null == mLogout_Cmd)
+                    mLogout_Cmd = new DelegateCommand(Logout_Button);
+                return mLogout_Cmd;
+            }
+        }
+
+        public void Logout_Button(object obj)
+        {
+            //TODO: Logout procedure
         }
 
         private int _timer = 0;
@@ -177,6 +198,30 @@ namespace DatPlex.ViewModel
                 mAutomatic_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Manual_State");
+            }
+        }
+
+        private bool mSendSel_State;
+        public bool SendSel_State
+        {
+            get { return mSendSel_State; }
+            set
+            {
+                mSendSel_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("SendAll_State");
+            }
+        }
+
+        private bool mSendAll_State;
+        public bool SendAll_State
+        {
+            get { return mSendAll_State; }
+            set
+            {
+                mSendAll_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("SendSel_State");
             }
         }
 
