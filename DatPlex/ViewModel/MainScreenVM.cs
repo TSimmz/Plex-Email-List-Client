@@ -116,7 +116,7 @@ namespace DatPlex.ViewModel
             Console.WriteLine("Timer: " + Timer);
 
             PlexScanner mScanWindow = new PlexScanner();
-            mScanWindow.Show();
+            mScanWindow.ShowDialog();
         }
 
         DelegateCommand mLogout_Cmd;
