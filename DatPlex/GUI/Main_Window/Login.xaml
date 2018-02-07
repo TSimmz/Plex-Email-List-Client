@@ -24,7 +24,9 @@
             <TextBox Text="{Binding Email}" Height="25" Width="200" Margin="125,0,0,125"/>
             <TextBlock Text="Password: " Foreground="White" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Margin="0,0,250,50" Width="150" TextAlignment="Right"/>
-            <TextBox Text="{Binding Password}" Height="25" Width="200" Margin="125,0,0,50"/>
+            <PasswordBox MaxLength="16" Height="25" Width="200" Margin="125,0,0,50" common:PasswordBoxAssistant.BindPassword="True"
+                         common:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay}"/>
+
             <CheckBox Content="Stay Logged In" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"
                       Width="150" HorizontalContentAlignment="Center"/>
             <Button Command="{Binding onLogin_Cmd}" IsEnabled="{Binding Login_Enabled}" Content="Login" 

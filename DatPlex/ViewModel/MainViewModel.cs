@@ -8,15 +8,21 @@ using DatPlex.DataModel;
 using DatPlex.Common;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System.Windows;
 
 namespace DatPlex.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _currentViewModel;
+        public MainViewModel()
+        {
 
-        readonly static LoginVM _loginVM = new LoginVM();
-        readonly static MainScreenVM _mainScreenVM = new MainScreenVM();
+            _loginVM = new LoginVM();
+            _mainScreenVM = new MainScreenVM();
+            
+            LoginVisibility = Visibility.Visible;
+            MainScreenVisibility = Visibility.Hidden;
+        }
 
         private Plex _PlexApp;
         public Plex PlexApp
@@ -28,22 +34,62 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public BaseViewModel CurrentViewModel
+        //private BaseViewModel _currentViewModel;
+        //public BaseViewModel CurrentViewModel
+        //{
+        //    get { return _currentViewModel; }
+        //    set
+        //    {
+        //        if (_currentViewModel == value)
+        //            return;
+
+        //        _currentViewModel = value;
+        //        OnPropertyChanged("CurrentViewModel");
+        //    }
+        //}
+
+        private static LoginVM _loginVM;
+        public LoginVM LoginVM
         {
-            get { return _currentViewModel; }
+            get { return _loginVM; }
             set
             {
-                if (_currentViewModel == value)
-                    return;
-
-                _currentViewModel = value;
-                OnPropertyChanged("CurrentViewModel");
+                _loginVM = value;
+                OnPropertyChanged();
             }
         }
-        
-        public MainViewModel()
+
+        private static MainScreenVM _mainScreenVM;
+        public MainScreenVM MainScreenVM
         {
-            CurrentViewModel = MainViewModel._loginVM;
+            get { return _mainScreenVM; }
+            set
+            {
+                _mainScreenVM = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _LoginVisibility;
+        public Visibility LoginVisibility
+        {
+            get { return _LoginVisibility; }
+            set
+            {
+                _LoginVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _MainScreenVisibility;
+        public Visibility MainScreenVisibility
+        {
+            get { return _MainScreenVisibility; }
+            set
+            {
+                _MainScreenVisibility = value;
+                OnPropertyChanged();
+            }
         }
 
         DelegateCommand mFile_Exit_Cmd;

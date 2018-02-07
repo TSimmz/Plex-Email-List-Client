@@ -14,22 +14,28 @@ namespace DatPlex
     /// </summary>
     public partial class App : Application
     {
-        public static MainViewModel mMainViewModel;
-        public static MainWindow mMainWindow;
+        public static MainViewModel MainViewModel;
+        public static MainWindow MainWindow;
 
         App()
         {
             InitializeComponent();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        [STAThread]
+        static void Main()
         {
             try
             {
-                mMainWindow = new MainWindow();
-                mMainViewModel = new MainViewModel();
-                mMainWindow.DataContext = mMainViewModel;
-                mMainWindow.Show();
+                MainViewModel = new MainViewModel();
+
+                App wApp = new App();
+
+                MainWindow = new MainWindow();
+                
+                MainWindow.DataContext = MainViewModel;
+
+                wApp.Run(MainWindow);
             }
             catch
             {

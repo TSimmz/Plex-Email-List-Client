@@ -18,9 +18,6 @@ namespace DatPlex.ViewModel
 
         Window Parent;
 
-        public BackgroundWorker BgWorker;
-        public event EventHandler TaskStarting = (s, e) => { };
-
         //int mFileViewIndex = -1;
 
         #endregion Data Fields
@@ -29,8 +26,7 @@ namespace DatPlex.ViewModel
 
         public MainScreenVM()
         {
-            BgWorker = new BackgroundWorker();
-            BgWorker.WorkerReportsProgress = true;
+
         }
 
         public void SetParent(Window iParent)

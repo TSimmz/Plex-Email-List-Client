@@ -92,11 +92,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="Common\DelegateCommand.cs" />
+    <Compile Include="Common\PasswordBoxAssistant.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="DataModel\Account.cs" />
     <Compile Include="DataModel\Media.cs" />

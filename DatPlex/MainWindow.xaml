@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:toolkit2="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
         xmlns:common="clr-namespace:DatPlex.Common"
         DataContext="{Binding CurrenViewModel}"
         Title="Plex User Update" Width="600" Height="400" Icon="/Images/plex_icon.png"
@@ -15,7 +16,12 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <ContentControl x:Name="Content_Control" Content="{Binding CurrentViewModel}"/>
+        <UserControl Visibility="{Binding LoginVisibility}">
+            <mainview:Login x:Name="mLoginView"/>
+        </UserControl>
+        <UserControl Visibility="{Binding MainScreenVisibility}">
+            <mainview:MainScreen x:Name="mMainScreenView"/>
+        </UserControl>
     </Grid>
     
 </Window>

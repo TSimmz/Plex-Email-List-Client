@@ -17,11 +17,9 @@ namespace DatPlex.ViewModel
     {
         public LoginVM()
         {
-            //onLogin_Cmd = new RelayCommand(() => onLogin(), () => true);
+           
         }
-
-        //public ICommand onLogin_Cmd { get; private set; }
-        
+                
         private string _email;
         public string Email
         {
@@ -39,8 +37,8 @@ namespace DatPlex.ViewModel
         {
             get { return _password; }
             set
-            {
-                _password = value;
+            {                               // TODO: Binding password not safe. Stores in memory. 
+                _password = value;  
                 OnPropertyChanged();
                 OnPropertyChanged("Login_Enabled");
             }
@@ -79,7 +77,8 @@ namespace DatPlex.ViewModel
         }
         public void onLogin()
         {
-            
+            App.MainViewModel.LoginVisibility = Visibility.Hidden;
+            App.MainViewModel.MainScreenVisibility = Visibility.Visible;   
         }
     }
 }
