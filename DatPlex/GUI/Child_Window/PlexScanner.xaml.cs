@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DatPlex.ViewModel;
 
 namespace DatPlex.GUI.Child_Window
 {
@@ -20,11 +21,23 @@ namespace DatPlex.GUI.Child_Window
     /// </summary>
     public partial class PlexScanner : Window
     {
+        MainViewModel mViewModel;
+        PlexScannerVM cViewModel;
+
         private int progress = 0;
         public PlexScanner()
         {
             InitializeComponent();
-            //this.Owner = App.Current.MainWindow;
+
+            mViewModel = App.MainViewModel;
+            mScanInProgView.ViewModel = mViewModel;
+            mScanCompleteView.ViewModel = mViewModel;
+
+            cViewModel = new PlexScannerVM();
+
+            this.DataContext = cViewModel;
+            mScanInProgView.SetDataContext(cViewModel);
+            mScanCompleteView.SetDataContext(cViewModel);
 
             //while(!this.IsVisible);
 
@@ -43,7 +56,7 @@ namespace DatPlex.GUI.Child_Window
 
             wBgWorker.RunWorkerCompleted += delegate (object obj, RunWorkerCompletedEventArgs args)
             {
-                mScanProgress.Value = 0;
+                //mScanProgress.Value = 0;
                 
             };
 

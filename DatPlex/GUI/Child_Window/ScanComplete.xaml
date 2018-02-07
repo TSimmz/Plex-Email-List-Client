@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="DatPlex.GUI.Child_Window.ScanComplete"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DatPlex.GUI.Child_Window"
+             mc:Ignorable="d" 
+             d:DesignHeight="125" d:DesignWidth="500">
+    <Grid Background="#202020">
+        <Label Name="mScanLabel" Content="{Binding ScanLabel}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,95,60" Height="20" Width="300"  
+               Grid.Row="1" Foreground="White"/>
+    </Grid>
+</UserControl>

@@ -92,6 +92,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModel\PlexScannerVM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +105,12 @@
     <Compile Include="DataModel\Plex.cs" />
     <Compile Include="DataModel\SharedUser.cs" />
     <Compile Include="DataModel\User.cs" />
+    <Compile Include="GUI\Child_Window\ScanComplete.xaml.cs">
+      <DependentUpon>ScanComplete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Child_Window\ScanInProgress.xaml.cs">
+      <DependentUpon>ScanInProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Main_Window\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -174,6 +181,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GUI\Child_Window\ScanComplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Child_Window\ScanInProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Main_Window\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

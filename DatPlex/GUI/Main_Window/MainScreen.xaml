@@ -41,10 +41,10 @@
                                            Height="26" Width="245" Grid.Row="0"/>
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".8*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding Timer}"  TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Width="80"/>
+                                <TextBox Text="{Binding Timer}"  TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="20,0,0,0" Width="80"/>
                                 <ComboBox SelectedIndex="{Binding Units_SelIndex}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="50" Height="25">
                                     <ComboBoxItem> </ComboBoxItem>
                                     <ComboBoxItem>M</ComboBoxItem>
@@ -58,16 +58,20 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                           <TextBlock Text="Scan Mode: " Foreground="White" FontSize="18" TextDecorations="Underline"
-                                           HorizontalAlignment="Center" Margin="15,0,0,50" VerticalAlignment="Center" 
-                                           Height="26" Width="100"/>
-                            <RadioButton Content="Manual" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,0,0,0"  Foreground="White" FontSize="14" IsChecked="{Binding Manual_State}"/>
-                            <RadioButton Content="Automatic" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,50,0,0" Foreground="White" FontSize="14" IsChecked="{Binding Automatic_State}"/>
-                            <TextBlock Text="Send Mode: " Foreground="White" FontSize="18" TextDecorations="Underline" Grid.Column="1"
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="Scan Mode: " Foreground="White" FontSize="18" TextDecorations="Underline"
+                                                       HorizontalAlignment="Center" Margin="15,0,0,50" VerticalAlignment="Center" 
+                                                       Height="26" Width="100"/>
+                                <RadioButton Content="Manual" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,0,0,0"  Foreground="White" FontSize="14" IsChecked="{Binding Manual_State}"/>
+                                <RadioButton Content="Automatic" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,50,0,0" Foreground="White" FontSize="14" IsChecked="{Binding Automatic_State}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock Text="Send Mode: " Foreground="White" FontSize="18" TextDecorations="Underline" Grid.Column="1"
                                            HorizontalAlignment="Left" Margin="0,0,0,50" VerticalAlignment="Center" 
                                            Height="26" Width="100"/>
-                            <RadioButton Content="Send Selected" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"  Foreground="White" FontSize="14" IsChecked="{Binding SendSel_State}"/>
-                            <RadioButton Content="Send All" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,50,0,0" Foreground="White" FontSize="14" IsChecked="{Binding SendAll_State}"/>
+                                <RadioButton Content="Send Selected" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"  Foreground="White" FontSize="14" IsChecked="{Binding SendSel_State}"/>
+                                <RadioButton Content="Send All" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,50,0,0" Foreground="White" FontSize="14" IsChecked="{Binding SendAll_State}"/>
+                            </Grid>
                         </Grid>
                         <Grid Grid.Row="2">
                             <Button Content="SCAN PLEX" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
