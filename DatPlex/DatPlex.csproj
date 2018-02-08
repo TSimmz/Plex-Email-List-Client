@@ -92,6 +92,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\Email.cs" />
     <Compile Include="ViewModel\PlexScannerVM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
