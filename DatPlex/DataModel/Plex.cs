@@ -163,7 +163,15 @@ namespace DatPlex.DataModel
         //    p.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         //}
 
-        static async Task Login(string email, string password)
+        public void Login_Task(string email, string password)
+        {
+            var token = GetToken(email, password);
+
+        }
+
+        //TODO: URI is https://[ExternalIP]:[PORT]/web
+
+        private static async Task<string> GetToken(string email, string password)
         {
             using (var PlexAPI = new HttpClient())
             {
@@ -178,11 +186,12 @@ namespace DatPlex.DataModel
                      new KeyValuePair<string, string>("password", password)
                 });
 
-                HttpResponseMessage response = await PlexAPI.PostAsync(Utility.POST_SIGNIN, login_credentials);
+                HttpResponseMessage response = await PlexAPI.PostAsync(Utility.GET_AUTH_KEY, login_credentials);
 
                 var responseJSON = await response.Content.ReadAsStringAsync();
                 var jObject = JObject.Parse(responseJSON);
-                var token = jObject.GetValue("token").ToString();
+
+                return jObject.GetValue("access_token").ToString();
             }
         }
     }

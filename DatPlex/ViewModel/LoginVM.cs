@@ -77,6 +77,8 @@ namespace DatPlex.ViewModel
         }
         public void onLogin()
         {
+
+            App.MainViewModel.PlexApp.Login_Task(Email, Password);
             App.MainViewModel.LoginVisibility = Visibility.Hidden;
             App.MainViewModel.MainScreenVisibility = Visibility.Visible;   
         }
