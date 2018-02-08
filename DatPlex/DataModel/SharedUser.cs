@@ -50,8 +50,8 @@ namespace DatPlex.DataModel
             {
                 writer.WriteStartElement("SharedUser");
 
-                writer.WriteElementString("Username", s.Username);
-                writer.WriteElementString("Email", s.Email);
+                writer.WriteAttributeString("Username", s.Username);
+                writer.WriteAttributeString("Email", s.Email);
 
                 writer.WriteEndElement();
             }

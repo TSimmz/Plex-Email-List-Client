@@ -32,7 +32,6 @@ namespace DatPlex
             try
             {
                 InitializeComponent();
-                //DataContext = new MainViewModel();
             }
             catch (Exception e)
             {

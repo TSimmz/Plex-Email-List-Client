@@ -10,20 +10,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DatPlex.ViewModel;
+using DatPlex.Common;
 
 namespace DatPlex.GUI.Child_Window
 {
     /// <summary>
-    /// Interaction logic for Remove_User.xaml
+    /// Interaction logic for ScanComplete.xaml
     /// </summary>
-    public partial class Remove_User : Window
+    public partial class ScanComplete : UserControl
     {
-        public Remove_User()
+        public ScanComplete()
         {
             InitializeComponent();
-            DataContext = new Rem_UserVM();
+        }
+
+        private MainViewModel _ViewModel;
+        public MainViewModel ViewModel
+        {
+            set { _ViewModel = value; }
+        }
+        public void SetDataContext(PlexScannerVM iViewModel)
+        {
+            this.DataContext = iViewModel;
         }
     }
 }

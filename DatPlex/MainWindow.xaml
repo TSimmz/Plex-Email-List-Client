@@ -6,7 +6,6 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
         xmlns:common="clr-namespace:DatPlex.Common"
-        DataContext="{Binding CurrenViewModel}"
         Title="Plex User Update" Width="600" Height="400" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">

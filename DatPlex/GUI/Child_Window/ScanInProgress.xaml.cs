@@ -10,22 +10,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DatPlex.ViewModel;
+using DatPlex.Common;
 
 namespace DatPlex.GUI.Child_Window
 {
     /// <summary>
-    /// Interaction logic for Add_User.xaml
+    /// Interaction logic for ScanInProgress.xaml
     /// </summary>
-    public partial class Add_User : Window
+    public partial class ScanInProgress : UserControl
     {
-        public Add_User()
+        public ScanInProgress()
         {
             InitializeComponent();
-            DataContext = new Add_UserVM();
         }
 
-
+        private MainViewModel _ViewModel;
+        public MainViewModel ViewModel
+        {
+            set { _ViewModel = value; }
+        }
+        public void SetDataContext(PlexScannerVM iViewModel)
+        {
+            this.DataContext = iViewModel;
+        }
     }
 }
