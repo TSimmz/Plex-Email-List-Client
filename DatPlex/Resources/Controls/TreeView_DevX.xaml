@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="DevX.Resources.Controls.TreeView_DevX"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+             xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+             xmlns:vm="clr-namespace:DevX.ViewModel"
+             xmlns:common="clr-namespace:DevX.Common"
+             xmlns:controls="clr-namespace:DevX.Resources.Controls"
+             xmlns:converters="clr-namespace:DevX.Resources.Converters"
+             xmlns:behaviors="clr-namespace:DevX.Resources.Behaviors"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </UserControl.Resources>
+
+        <TreeView x:Name="LayoutRoot" Grid.Row="1" ItemsSource="{Binding Path=TreeView_Source, Mode=TwoWay}"
+               Margin="2,0,4,2" MouseRightButtonDown="LayoutRoot_MouseRightButtonDown">
+        <i:Interaction.Behaviors>
+            <behaviors:BindableSelectedItemBehavior SelectedItem="{Binding TreeView_Item, Mode=TwoWay}" />
+        </i:Interaction.Behaviors>
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="FontWeight" Value="Normal"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </TreeView.ItemContainerStyle>
+        <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Width="16" Height="16" Source="{Binding ImageNameTree}" ToolTip="{Binding Tooltip}" Margin="0,1,5,1"/>
+                    <TextBlock Text="{Binding Name}" ToolTip="{Binding Tooltip}" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+        </TreeView.ItemTemplate>
+        <TreeView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="New" Command="{Binding Path=NewCmd}" IsEnabled="{Binding Path=tvNew_IsEnabled}" ItemsSource="{Binding NewMenuOptions}">
+                    <MenuItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding SubMenu}">
+                            <TextBlock Text="{Binding Name}"  />
+                            <HierarchicalDataTemplate.ItemContainerStyle>
+                                <Style TargetType="MenuItem">
+                                    <Setter Property="Command" Value="{Binding Command, RelativeSource={RelativeSource FindAncestor, AncestorType=MenuItem}}"/>
+                                    <Setter Property="CommandParameter" Value="{Binding}"/>
+                                </Style>
+                            </HierarchicalDataTemplate.ItemContainerStyle>
+                        </HierarchicalDataTemplate>
+                    </MenuItem.ItemTemplate>
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Command" Value="{Binding Command, RelativeSource={RelativeSource FindAncestor, AncestorType=MenuItem}}"/>
+                            <Setter Property="CommandParameter" Value="{Binding}"/>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Add" Command="{Binding Path=tvAddCmd}" IsEnabled="{Binding Path=tvAdd_IsEnabled}"/>
+                <MenuItem Header="Edit" Command="{Binding Path=tvEditCmd}" IsEnabled="{Binding Path=tvEdit_IsEnabled}" />
+                <MenuItem Header="Delete" Command="{Binding Path=tvDeleteCmd}" IsEnabled="{Binding Path=tvDelete_IsEnabled}" />
+                <MenuItem Header="Remove Override" Command="{Binding Path=tvRemoveOverrideCmd}" IsEnabled="{Binding Path=tvRemoveOverride_IsEnabled}" />
+
+            </ContextMenu>
+        </TreeView.ContextMenu>
+    </TreeView>
+</UserControl>

@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatPlex.ViewModel;
+using DatPlex.GUI.Child_Window;
+using DatPlex.GUI.Main_Window;
+using DatPlex.Common;
 
 namespace DatPlex
 {
@@ -20,40 +24,33 @@ namespace DatPlex
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel mViewModel;
+
+        //MainViewModel mViewModel;
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                string message = e.ToString();
+                string caption = "Plex Updater Closing";
+                var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            }
+
+            mViewModel = App.MainViewModel;
+
+            mLoginView.ViewModel = mViewModel;
+            mMainScreenView.ViewModel = mViewModel;
+
+            //mViewModel.TaskStarting += TaskStarted;
+            //mViewModel.ProgressChanged += ProgressChanged;
+            //mViewModel.TaskCompleted += TaskCompleted;
+
+            mLoginView.SetDataContext(mViewModel.LoginVM);
+            mMainScreenView.SetDataContext(mViewModel.MainScreenVM);
         }
-
-        private void plex_account_combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void units_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void add_btn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void rem_btn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="DatPlex.Resources.Controls.ListView_DevX"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+             xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+             xmlns:vm="clr-namespace:DatPlex.ViewModel"
+             xmlns:common="clr-namespace:DatPlex.Common"
+             xmlns:behavior="clr-namespace:DatPlex.Resources.Behaviors"
+             xmlns:controls="clr-namespace:DatPlex.Resources.Controls"
+             xmlns:converter="clr-namespace:DatPlex.Resources.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300" >
+    <DataGrid x:Name="LayoutRoot" Grid.Row="1" ItemsSource="{Binding ListView_Source, Mode=OneWay}"
+              SelectedItem="{Binding ListView_Item, Mode=TwoWay}"
+              SelectedIndex="-1"
+              SelectionMode="Single" Margin="2,0,4,2" 
+              IsSynchronizedWithCurrentItem="True"
+              SelectionChanged="SelectionChangedEventt"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              CanUserSortColumns="False"
+              CanUserReorderColumns="False"
+              HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Stretch" 
+              CanUserResizeColumns="False"
+              HeadersVisibility="{Binding HideHeader}"
+              HorizontalGridLinesBrush="AliceBlue"
+              VerticalGridLinesBrush="AliceBlue"
+              PreviewKeyDown="MainGrid_SearchByKey"
+              Loaded="LayoutRoot_Loaded"
+              >
+        <DataGrid.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+            <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                <Setter Property="Background" Value="AliceBlue"/>
+            </Style>
+            <controls:BindingProxy x:Key="proxy" Data="{Binding}" />
+        </DataGrid.Resources>
+        <DataGrid.Columns>
+            <DataGridTemplateColumn Header="{Binding Data.Header_0, Source={StaticResource proxy}}" Visibility="{Binding Data.Column_0_Visibility, Source={StaticResource proxy}}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16" Height="16" Margin="0,0,2,0" Source="{Binding Image, Converter={StaticResource NullImage}}" ToolTip="{Binding Tooltip}"/>
+                            <TextBlock Text="{Binding Item_0}" ToolTip="{Binding Tooltip}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="{Binding Data.Header_1, Source={StaticResource proxy}}" Visibility="{Binding Data.Column_1_Visibility, Source={StaticResource proxy}}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Item_1}" ToolTip="{Binding Tooltip}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="{Binding Data.Header_2, Source={StaticResource proxy}}" Visibility="{Binding Data.Column_2_Visibility, Source={StaticResource proxy}}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Item_2}" ToolTip="{Binding Tooltip}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="{Binding Data.Header_3, Source={StaticResource proxy}}" Visibility="{Binding Data.Column_3_Visibility, Source={StaticResource proxy}}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Item_3}" ToolTip="{Binding Tooltip}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+        <DataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="New" Command="{Binding Path=NewCmd}" IsEnabled="{Binding Path=New_IsEnabled}" ItemsSource="{Binding NewMenuOptions}">
+                    <MenuItem.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding SubMenu}">
+                            <TextBlock Text="{Binding Name}"  />
+                            <HierarchicalDataTemplate.ItemContainerStyle>
+                                <Style TargetType="MenuItem">
+                                    <Setter Property="Command" Value="{Binding Command, RelativeSource={RelativeSource FindAncestor, AncestorType=MenuItem}}"/>
+                                    <Setter Property="CommandParameter" Value="{Binding}"/>
+                                </Style>
+                            </HierarchicalDataTemplate.ItemContainerStyle>
+                        </HierarchicalDataTemplate>
+                    </MenuItem.ItemTemplate>
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Command" Value="{Binding Command, RelativeSource={RelativeSource FindAncestor, AncestorType=MenuItem}}"/>
+                            <Setter Property="CommandParameter" Value="{Binding}"/>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Add" Command="{Binding Path=AddCmd}" IsEnabled="{Binding Path=Add_IsEnabled}"/>
+                <MenuItem Header="Edit" Command="{Binding Path=EditCmd}" IsEnabled="{Binding Path=Edit_IsEnabled}" />
+                <MenuItem Header="Delete" Command="{Binding Path=DeleteCmd}" IsEnabled="{Binding Path=Delete_IsEnabled}" />
+                <MenuItem Header="Remove Override" Command="{Binding Path=RemoveOverrideCmd}" IsEnabled="{Binding Path=RemoveOverride_IsEnabled}" />
+
+            </ContextMenu>
+        </DataGrid.ContextMenu>
+    </DataGrid>
+
+
+    <!--View="{Binding ColumnConfig, Converter={StaticResource ConfigToDynamicGridViewConverter}}">-->
+
+</UserControl>

@@ -1,0 +1,26 @@
+<Plex>
+	<Signedin>true</Signedin> 			<!-- true or false -->
+	<Account>
+		<Username></Username>
+		<Email></Email>
+		<password></password>
+	</Account>
+	<SharedUsers>
+		<shareduser Username="" Email=""/>
+		<shareduser Username="" Email=""/>
+		<shareduser Username="" Email=""/>
+		<shareduser Username="" Email=""/>
+	</SharedUsers>
+	<MediaList>
+		<Media ID=0>
+			<Type></Type>
+			<Title></Title>
+			<Metadata></Metadata>
+		</Media>
+		<Media ID=1>
+			<Type></Type>
+			<Title></Title>
+			<Metadata></Metadata>
+		</Media>
+	</MediaList>
+</Plex>
