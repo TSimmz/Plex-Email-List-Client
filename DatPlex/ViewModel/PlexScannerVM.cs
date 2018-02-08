@@ -17,10 +17,10 @@ namespace DatPlex.ViewModel
             ScanInProgressVisibility = Visibility.Visible;
             ScanCompleteVisibility = Visibility.Hidden;
 
-            Progress_Lbl = "Progress";
-            NewUsers_Lbl = "New Users";
-            NewItems_Lbl = "New Items";
-            RemItems_Lbl = "Rem Items";
+            //Progress_Lbl = "Progress";
+            //NewUsers_Lbl = "New Users";
+            //NewItems_Lbl = "New Items";
+            //RemItems_Lbl = "Rem Items";
         }
 
         private string mProgress_Lbl;
@@ -74,8 +74,6 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
 
         DelegateCommand mNext_Cmd;
         public ICommand Next_Cmd
