@@ -72,17 +72,5 @@ namespace DatPlex.GUI.Child_Window
 
             bw.ReportProgress(Convert.ToInt32(((decimal)progress / 100)));  // Look up C# map function for this
         }
-
-        private void Finish_Click(object obj, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-            this.Close();
-        }
-
-        private void Cancel_Click(object obj, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-            this.Close();
-        }
     }
 }

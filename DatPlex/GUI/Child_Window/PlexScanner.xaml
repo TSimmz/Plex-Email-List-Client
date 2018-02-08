@@ -28,11 +28,14 @@
             </UserControl>
         </Grid>
         <Grid Grid.Row="2">
-            <Button Content="Finish" Click="Finish_Click" IsEnabled="{Binding IsScanComplete}"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,0,0,0"
-                Height="25" Width="80" Background="#4F4F4F" Foreground="White" ToolTip="Finish the Plex scan"/>
-            <Button Content="Cancel" Click="Cancel_Click" IsEnabled="{Binding IsScanComplete}"
+            <Button Content="Finish" Command="{Binding Finish_Cmd}" Visibility="{Binding ScanCompleteVisibility}"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350,0,0,0"
+                Height="25" Width="80" Background="#4F4F4F" Foreground="White" ToolTip="Finish the Plex scan"/>
+            <Button Content="Next" Command="{Binding Next_Cmd}" IsEnabled="{Binding IsScanComplete}" Visibility="{Binding ScanInProgressVisibility}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350,0,0,0"
+                Height="25" Width="80" Background="#4F4F4F" Foreground="White" ToolTip="Finish the Plex scan"/>
+            <Button Content="Cancel" Click="Cancel_Click" Visibility="{Binding IsScanComplete}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,0,0,0"
                 Height="25" Width="80" Background="#4F4F4F" Foreground="White" ToolTip="Cancel the Plex scan"/>
         </Grid>
     </Grid>
