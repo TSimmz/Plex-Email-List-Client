@@ -22,6 +22,10 @@ namespace DatPlex.Common
 
         public static string XML_SAVE_PATH = "%APPDATA%/Plex Email/Account Data/";
 
+        public static string USER_LABEL = "New Users: ";
+        public static string NITEM_LABEL = "New Items: ";
+        public static string RITEM_LABEL = "Removed Items: ";
+
         public static Object LoadXmlData(string path)
         {
             XmlReaderSettings settings = new XmlReaderSettings();

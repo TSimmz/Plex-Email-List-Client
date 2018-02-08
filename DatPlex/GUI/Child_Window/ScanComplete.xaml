@@ -7,7 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="125" d:DesignWidth="500">
     <Grid Background="#202020">
-        <Label Name="mScanLabel" Content="{Binding ScanLabel}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,95,60" Height="20" Width="300"  
-               Grid.Row="1" Foreground="White"/>
+        <TextBlock Text="Scan Results:" Foreground="White" FontSize="18" TextDecorations="Underline" HorizontalAlignment="Center" Margin="0,0,0,80" 
+                   TextWrapping="Wrap" VerticalAlignment="Center" Height="26" Width="300"/>
+        <Label Name="mNewUsersLabel" Content="{Binding NewUsers_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30" 
+               Height="25" Width="300" Foreground="White"/>
+        <Label Name="mNewItemsLabel" Content="{Binding NewItems_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" 
+               Height="25" Width="300" Foreground="White"/>
+        <Label Name="mRemItemsLabel" Content="{Binding RemItems_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,70,0,0"
+               Height="25" Width="300" Foreground="White"/>
     </Grid>
 </UserControl>

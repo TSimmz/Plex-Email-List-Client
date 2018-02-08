@@ -6,7 +6,7 @@
         xmlns:mainview="clr-namespace:DatPlex.GUI.Child_Window"
         xmlns:common="clr-namespace:DatPlex.Common"
         mc:Ignorable="d"
-        Title="Plex Scanner" Height="200" Width="500" Icon="/Images/plex_icon.png"
+        Title="Plex Scanner" Height="225" Width="500" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Background="#202020">
@@ -34,7 +34,7 @@
             <Button Content="Next" Command="{Binding Next_Cmd}" IsEnabled="{Binding IsScanComplete}" Visibility="{Binding ScanInProgressVisibility}"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350,0,0,0"
                 Height="25" Width="80" Background="#4F4F4F" Foreground="White" ToolTip="Finish the Plex scan"/>
-            <Button Content="Cancel" Click="Cancel_Click" Visibility="{Binding IsScanComplete}"
+            <Button Content="Cancel"  Visibility="{Binding IsScanComplete}"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,0,0,0"
                 Height="25" Width="80" Background="#4F4F4F" Foreground="White" ToolTip="Cancel the Plex scan"/>
         </Grid>
