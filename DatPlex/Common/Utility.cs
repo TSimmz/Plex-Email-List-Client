@@ -26,6 +26,10 @@ namespace DatPlex.Common
         public static string NITEM_LABEL = "New Items: ";
         public static string RITEM_LABEL = "Removed Items: ";
 
+        public static int MINUTES { get { return 60000; } }
+        public static int HOURS { get { return 3600000; } }
+        public static int DAYS { get { return 86400000; } }
+
         public static Object LoadXmlData(string path)
         {
             XmlReaderSettings settings = new XmlReaderSettings();

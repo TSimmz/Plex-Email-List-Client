@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -7,8 +8,6 @@ using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
 using DatPlex.GUI.Child_Window;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
@@ -45,7 +44,7 @@ namespace DatPlex.ViewModel
             set
             {
                 mWindowTitle = value;
-                OnPropertyChanged("WindowTitle");
+                OnPropertyChanged();
             }
         }
 
@@ -67,31 +66,47 @@ namespace DatPlex.ViewModel
 
         }
 
-        //public void Add_User_Button(object obj)
-        //{
-        //    Console.WriteLine("Add Button Pressed");
-
-        //    Add_User mAddWindow = new Add_User();
-        //    Add_UserVM mAddViewModel;
-
-        //    if (SharedUsers_SelIndex != 0)
-        //        mAddViewModel = new Add_UserVM(SharedUsers[SharedUsers_SelIndex]);
-        //    else
-        //        mAddViewModel = new Add_UserVM();
-
-        //    mAddWindow.DataContext = mAddViewModel;
-        //    mAddWindow.Show();
-        //}
-
-        DelegateCommand mDel_User_Cmd;
-        public ICommand Del_User_Cmd
+        DelegateCommand mSetPeriod_Cmd;
+        public ICommand SetPeriod_Cmd
         {
             get
             {
-                if (null == mDel_User_Cmd)
-                    mDel_User_Cmd = new DelegateCommand(Del_User_Button);
-                return mDel_User_Cmd;
+                if (null == mSetPeriod_Cmd)
+                    mSetPeriod_Cmd = new DelegateCommand(SetPeriod);
+                return mSetPeriod_Cmd;
             }
+        }
+
+        public void SetPeriod()
+        {
+            Timer t = new Timer();
+            t.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
+           
+            switch (Units_SelIndex)
+            {
+                case 0:
+                    t.Enabled = false;
+                    break;
+                case 1:
+                    t.Interval = Timer * Utility.MINUTES;
+                    t.Enabled = true;
+                    break;
+                case 2:
+                    t.Interval = Timer * Utility.HOURS;
+                    t.Enabled = true;
+                    break;
+                case 3:
+                    t.Interval = Timer * Utility.DAYS;
+                    t.Enabled = true;
+                    break;
+            }
+
+        }
+
+        private static void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
+        {
+            //TODO: Auto Scan Logic
+            Console.WriteLine("1 MORE MINUTE!");
         }
 
         public void Del_User_Button(object obj)
@@ -105,12 +120,12 @@ namespace DatPlex.ViewModel
             get
             {
                 if (null == mScan_Plex_Cmd)
-                    mScan_Plex_Cmd = new DelegateCommand(Scan_Plex_Button); 
+                    mScan_Plex_Cmd = new DelegateCommand(Man_Scan_Plex); 
                 return mScan_Plex_Cmd;
             }
         }
 
-        public void Scan_Plex_Button(object obj)
+        private void Man_Scan_Plex(object obj)
         {
             Console.WriteLine("Scan Plex Button Pressed");
             Console.WriteLine("Timer: " + Timer);
