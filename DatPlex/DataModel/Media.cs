@@ -47,7 +47,7 @@ namespace DatPlex.DataModel
 
         #endregion
 
-        #region Properties
+        #region Setters/Getters
 
         public int ID
         {
@@ -106,7 +106,7 @@ namespace DatPlex.DataModel
 
         #endregion
 
-        #region Properties
+        #region Add/Remove Logic
 
         public bool AddMedia(Media media)
         {

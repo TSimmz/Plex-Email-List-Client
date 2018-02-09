@@ -8,10 +8,15 @@ namespace DatPlex.DataModel
 {
     public class User
     {
+        #region Data Fields
+
         private string _uname;
         private string _email;
         private string _password;
-        //private List<string> _libraries;
+
+        #endregion
+
+        #region Constructors
 
         public User()
         {
@@ -31,6 +36,10 @@ namespace DatPlex.DataModel
             Email = e;
             Password = "";
         }
+
+        #endregion
+
+        #region Setters/Getters
 
         public string Username
         {
@@ -58,14 +67,7 @@ namespace DatPlex.DataModel
                 _password = value;
             }
         }
-        //public List<string> Libraries
-        //{
-        //    get { return _libraries; }
-        //    set
-        //    {
-        //        if (value != null)
-        //            _libraries.Add(value.ToString());
-        //    }
-        //}
+
+        #endregion
     }
 }

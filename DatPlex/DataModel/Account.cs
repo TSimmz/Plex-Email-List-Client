@@ -31,7 +31,7 @@ namespace DatPlex.DataModel
 
         #endregion
 
-        #region Properties
+        #region Setters/Getters
 
         public bool SignedIn
         {
