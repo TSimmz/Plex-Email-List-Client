@@ -18,10 +18,16 @@ namespace DatPlex.DataModel
 {
     public class Plex
     {
+        #region Data Fields
+
         private string _plexdata;
         private Account _owner;
         private SharedUsers _sharedUserList;
         private MediaList _mediaList;
+
+        #endregion
+
+        #region Constructors
 
         public Plex()
         {
@@ -29,6 +35,10 @@ namespace DatPlex.DataModel
             _sharedUserList = new SharedUsers();
             _mediaList = new MediaList();
         }
+
+        #endregion
+
+        #region Properties
 
         public string PlexSaveData
         {
@@ -66,7 +76,11 @@ namespace DatPlex.DataModel
                 _mediaList = value;
             }
         }
-       
+
+        #endregion
+
+        #region Load/Save
+
         public bool Load()
         {
             try
@@ -127,7 +141,11 @@ namespace DatPlex.DataModel
                 return false;
             }
         }
-        
+
+        #endregion
+
+        #region Read/Write Xml
+
         public void ReadXml(XmlReader reader)
         {
             reader.MoveToContent();
@@ -155,13 +173,9 @@ namespace DatPlex.DataModel
 
         }
 
-        //static async Task RunAsync(HttpClient p)
-        //{
-        //    // Update port # in the following line.
-        //    p.BaseAddress = new Uri(Utility.PLEX_URL);
-        //    p.DefaultRequestHeaders.Accept.Clear();
-        //    p.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //}
+        #endregion
+
+        #region WebAPI
 
         static async Task Login(string email, string password)
         {
@@ -185,5 +199,7 @@ namespace DatPlex.DataModel
                 var token = jObject.GetValue("token").ToString();
             }
         }
+
+        #endregion
     }
 }

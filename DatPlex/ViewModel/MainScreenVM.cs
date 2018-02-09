@@ -66,6 +66,13 @@ namespace DatPlex.ViewModel
 
         }
 
+        private Timer _time;
+        public Timer Time
+        {
+            get { return _time; }
+            set { _time = value; }
+        }
+
         DelegateCommand mSetPeriod_Cmd;
         public ICommand SetPeriod_Cmd
         {
@@ -79,25 +86,26 @@ namespace DatPlex.ViewModel
 
         public void SetPeriod()
         {
-            Timer t = new Timer();
-            t.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
+            Time = new Timer();
+            Time.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
            
             switch (Units_SelIndex)
             {
                 case 0:
-                    t.Enabled = false;
+                    Time.Enabled = false;
+                    Timer = 0;
                     break;
                 case 1:
-                    t.Interval = Timer * Utility.MINUTES;
-                    t.Enabled = true;
+                    Time.Interval = Timer * Utility.MINUTES;
+                    Time.Enabled = true;
                     break;
                 case 2:
-                    t.Interval = Timer * Utility.HOURS;
-                    t.Enabled = true;
+                    Time.Interval = Timer * Utility.HOURS;
+                    Time.Enabled = true;
                     break;
                 case 3:
-                    t.Interval = Timer * Utility.DAYS;
-                    t.Enabled = true;
+                    Time.Interval = Timer * Utility.DAYS;
+                    Time.Enabled = true;
                     break;
             }
 

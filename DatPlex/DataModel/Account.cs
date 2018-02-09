@@ -9,8 +9,13 @@ namespace DatPlex.DataModel
 {
     public class Account : User
     {
+        #region Data Fields
+
         private bool _signedin;
-        private List<Media> _media;
+
+        #endregion
+
+        #region Constructors
 
         public Account() : base()
         {
@@ -24,6 +29,10 @@ namespace DatPlex.DataModel
             Password = p;
         }
 
+        #endregion
+
+        #region Properties
+
         public bool SignedIn
         {
             get { return _signedin; }
@@ -32,6 +41,12 @@ namespace DatPlex.DataModel
                 _signedin = value;
             }
         }
+
+
+
+        #endregion
+
+        #region Read/Write Xml
 
         public void ReadXml(XmlReader reader)
         {
@@ -54,6 +69,8 @@ namespace DatPlex.DataModel
 
             writer.WriteEndElement();
         }
+
+        #endregion
 
     }
 }

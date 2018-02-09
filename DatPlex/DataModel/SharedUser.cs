@@ -10,21 +10,67 @@ namespace DatPlex.DataModel
 {
     public class SharedUser : User
     {
+
+        #region Constructor
+
         public SharedUser(string u, string e): base(u, e)
         {
             Username = u;
             Email = e;
         }
+
+        #endregion
+
     }
 
     public partial class SharedUsers : ObservableCollection<SharedUsers>
     {
-        ObservableCollection<SharedUser> _sharedUserList;
+        #region Data Fields
+
+        private ObservableCollection<SharedUser> _sharedUserList;
+
+        #endregion
+
+        #region Constructor
 
         public SharedUsers()
         {
             _sharedUserList = new ObservableCollection<SharedUser>();  
         }
+
+        #endregion
+
+        #region Add/Remove Logic
+
+        public bool AddUser(SharedUser user)
+        {
+            try
+            {
+                _sharedUserList.Add(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveUser(SharedUser user)
+        {
+            try
+            {
+                _sharedUserList.Remove(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Read/Write Xml
 
         public void ReadXml(XmlReader reader)
         {
@@ -59,6 +105,8 @@ namespace DatPlex.DataModel
             writer.WriteEndElement();
 
         }
+
+        #endregion
 
     }
 }

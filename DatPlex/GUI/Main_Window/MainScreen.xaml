@@ -96,7 +96,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Name" Width="95" DisplayMemberBinding="{Binding Username}" />
+                                <GridViewColumn Header="Username" Width="95" DisplayMemberBinding="{Binding Username}" />
                                 <GridViewColumn Header="Email" Width="145" DisplayMemberBinding="{Binding Email}" />
                             </GridView>
                         </ListView.View>
