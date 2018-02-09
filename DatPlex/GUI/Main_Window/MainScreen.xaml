@@ -36,7 +36,7 @@
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Set Update Period" Foreground="White" FontSize="18" TextDecorations="Underline"
+                            <TextBlock Text="Update Period: " Foreground="White" FontSize="18" TextDecorations="Underline"
                                            HorizontalAlignment="Center" Margin="15,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                                            Height="26" Width="245" Grid.Row="0"/>
                             <Grid Grid.Row="1">
@@ -51,6 +51,8 @@
                                     <ComboBoxItem>H</ComboBoxItem>
                                     <ComboBoxItem>D</ComboBoxItem>
                                 </ComboBox>
+                                <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Top"  
+                                Height="25" Width="90" Margin="0,0,0,0" Background="#4F4F4F" Foreground="White" Grid.Column="1"/>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
@@ -94,7 +96,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Name" Width="95" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="Name" Width="95" DisplayMemberBinding="{Binding Username}" />
                                 <GridViewColumn Header="Email" Width="145" DisplayMemberBinding="{Binding Email}" />
                             </GridView>
                         </ListView.View>
