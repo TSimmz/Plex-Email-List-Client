@@ -19,14 +19,17 @@ using DatPlex.Common;
 
 namespace DatPlex
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
-        MainViewModel mViewModel;
+        #region Data Fields
 
-        //MainViewModel mViewModel;
+        MainViewModel _ViewModel;
+
+        #endregion
+
+        #region Constructor
+
         public MainWindow()
         {
             try
@@ -40,17 +43,19 @@ namespace DatPlex
                 var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
             }
 
-            mViewModel = App.MainViewModel;
+            _ViewModel = App.MainViewModel;
 
-            mLoginView.ViewModel = mViewModel;
-            mMainScreenView.ViewModel = mViewModel;
+            mLoginView.ViewModel = _ViewModel;
+            mMainScreenView.ViewModel = _ViewModel;
 
-            //mViewModel.TaskStarting += TaskStarted;
-            //mViewModel.ProgressChanged += ProgressChanged;
-            //mViewModel.TaskCompleted += TaskCompleted;
+            //_ViewModel.TaskStarting += TaskStarted;
+            //_ViewModel.ProgressChanged += ProgressChanged;
+            //_ViewModel.TaskCompleted += TaskCompleted;
 
-            mLoginView.SetDataContext(mViewModel.LoginVM);
-            mMainScreenView.SetDataContext(mViewModel.MainScreenVM);
+            mLoginView.SetDataContext(_ViewModel.LoginVM);
+            mMainScreenView.SetDataContext(_ViewModel.MainScreenVM);
         }
+
+        #endregion
     }
 }
