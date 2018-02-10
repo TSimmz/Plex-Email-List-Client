@@ -1,14 +1,12 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
 using DatPlex.GUI.Child_Window;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
@@ -38,79 +36,45 @@ namespace DatPlex.ViewModel
 
         #region General
 
-        private string mWindowTitle = "Plex Email Updates";
-        public string WindowTitle
-        {
-            get { return mWindowTitle; }
-            set
-            {
-                mWindowTitle = value;
-                OnPropertyChanged("WindowTitle");
-            }
-        }
-
-        #endregion General
-
-        DelegateCommand mSendSel_Cmd;
-        public ICommand SendSel_Cmd
-        {
-            get
-            {
-                if (null == mSendSel_Cmd)
-                    mSendSel_Cmd = new DelegateCommand(SendSelectedUsers);
-                return mSendSel_Cmd;
-            }
-        }
-
         public void SendSelectedUsers(object obj)
         {
 
         }
 
-        //public void Add_User_Button(object obj)
-        //{
-        //    Console.WriteLine("Add Button Pressed");
-
-        //    Add_User mAddWindow = new Add_User();
-        //    Add_UserVM mAddViewModel;
-
-        //    if (SharedUsers_SelIndex != 0)
-        //        mAddViewModel = new Add_UserVM(SharedUsers[SharedUsers_SelIndex]);
-        //    else
-        //        mAddViewModel = new Add_UserVM();
-
-        //    mAddWindow.DataContext = mAddViewModel;
-        //    mAddWindow.Show();
-        //}
-
-        DelegateCommand mDel_User_Cmd;
-        public ICommand Del_User_Cmd
+        public void SetPeriod()
         {
-            get
+            Time = new Timer();
+            Time.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
+
+            switch (Units_SelIndex)
             {
-                if (null == mDel_User_Cmd)
-                    mDel_User_Cmd = new DelegateCommand(Del_User_Button);
-                return mDel_User_Cmd;
+                case 0:
+                    Time.Enabled = false;
+                    Timer = 0;
+                    break;
+                case 1:
+                    Time.Interval = Timer * Utility.MINUTES;
+                    Time.Enabled = true;
+                    break;
+                case 2:
+                    Time.Interval = Timer * Utility.HOURS;
+                    Time.Enabled = true;
+                    break;
+                case 3:
+                    Time.Interval = Timer * Utility.DAYS;
+                    Time.Enabled = true;
+                    break;
             }
+
         }
 
-        public void Del_User_Button(object obj)
+        private static void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
         {
-            Console.WriteLine("Remove Button Pressed");
+            //TODO: Auto Scan Logic
+            Console.WriteLine("1 MORE MINUTE!");
         }
 
-        DelegateCommand mScan_Plex_Cmd;
-        public ICommand Scan_Plex_Cmd
-        {
-            get
-            {
-                if (null == mScan_Plex_Cmd)
-                    mScan_Plex_Cmd = new DelegateCommand(Scan_Plex_Button); 
-                return mScan_Plex_Cmd;
-            }
-        }
-
-        public void Scan_Plex_Button(object obj)
+        private void Man_Scan_Plex(object obj)
         {
             Console.WriteLine("Scan Plex Button Pressed");
             Console.WriteLine("Timer: " + Timer);
@@ -119,20 +83,31 @@ namespace DatPlex.ViewModel
             mScanWindow.Show();
         }
 
-        DelegateCommand mLogout_Cmd;
-        public ICommand Logout_Cmd
-        {
-            get
-            {
-                if (null == mLogout_Cmd)
-                    mLogout_Cmd = new DelegateCommand(Logout_Button);
-                return mLogout_Cmd;
-            }
-        }
-
         public void Logout_Button(object obj)
         {
             //TODO: Logout procedure
+        }
+
+        #endregion General
+
+        #region Setters/Getters
+
+        private string mWindowTitle = "Plex Email Updates";
+        public string WindowTitle
+        {
+            get { return mWindowTitle; }
+            set
+            {
+                mWindowTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Timer _time;
+        public Timer Time
+        {
+            get { return _time; }
+            set { _time = value; }
         }
 
         private int _timer = 0;
@@ -225,5 +200,54 @@ namespace DatPlex.ViewModel
             }
         }
 
+        #endregion
+
+        #region Command Bindings
+
+        DelegateCommand mSendSel_Cmd;
+        public ICommand SendSel_Cmd
+        {
+            get
+            {
+                if (null == mSendSel_Cmd)
+                    mSendSel_Cmd = new DelegateCommand(SendSelectedUsers);
+                return mSendSel_Cmd;
+            }
+        }
+
+        DelegateCommand mSetPeriod_Cmd;
+        public ICommand SetPeriod_Cmd
+        {
+            get
+            {
+                if (null == mSetPeriod_Cmd)
+                    mSetPeriod_Cmd = new DelegateCommand(SetPeriod);
+                return mSetPeriod_Cmd;
+            }
+        }
+
+
+        DelegateCommand mScan_Plex_Cmd;
+        public ICommand Scan_Plex_Cmd
+        {
+            get
+            {
+                if (null == mScan_Plex_Cmd)
+                    mScan_Plex_Cmd = new DelegateCommand(Man_Scan_Plex); 
+                return mScan_Plex_Cmd;
+            }
+        }
+
+        DelegateCommand mLogout_Cmd;
+        public ICommand Logout_Cmd
+        {
+            get
+            {
+                if (null == mLogout_Cmd)
+                    mLogout_Cmd = new DelegateCommand(Logout_Button);
+                return mLogout_Cmd;
+            }
+        }
+        #endregion
     }
 }

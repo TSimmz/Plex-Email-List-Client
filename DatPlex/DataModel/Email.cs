@@ -12,6 +12,8 @@ namespace DatPlex.DataModel
 {
     class Email
     {
+        #region Data Fields
+
         private string _from;
         private List<string> _to;
         private string _subject;
@@ -20,11 +22,19 @@ namespace DatPlex.DataModel
         MailMessage message;
         SmtpClient gmail;
 
+        #endregion
+
+        #region Constructor
+
         public Email()
         {
             message = new MailMessage();
             gmail = new SmtpClient("smtp.gmail.com");
         }
+
+        #endregion
+
+        #region Send Logic
 
         public bool Send()
         {
@@ -67,6 +77,10 @@ namespace DatPlex.DataModel
             return pass;
         }
 
+        #endregion
+
+        #region Setters/Getters
+
         public string From
         {
             get { return _from; }
@@ -90,5 +104,8 @@ namespace DatPlex.DataModel
             get { return _body; }
             set { _body = value; }
         }
+
+        #endregion
+
     }
 }

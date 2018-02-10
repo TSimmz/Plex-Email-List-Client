@@ -10,10 +10,16 @@ namespace DatPlex.DataModel
 {
     public class Media
     {
+        #region Data Fields
+
         private int _id;
         private string _type;
         private string _title;
-        private string _metadata;      
+        private string _metadata;
+
+        #endregion
+
+        #region Constructors
 
         public Media()
         {
@@ -38,6 +44,10 @@ namespace DatPlex.DataModel
             Title = t;
             MetaData = m;
         }
+
+        #endregion
+
+        #region Setters/Getters
 
         public int ID
         {
@@ -74,16 +84,59 @@ namespace DatPlex.DataModel
                 _metadata = value;
             }
         }
+
+        #endregion
     }
 
     public partial class MediaList : ObservableCollection<Media>
     {
-        ObservableCollection<Media> _mediaList;
+
+        #region Data Fields
+
+        private ObservableCollection<Media> _mediaList;
+
+        #endregion
+
+        #region Constructor
 
         public MediaList()
         {
             _mediaList = new ObservableCollection<Media>();
         }
+
+        #endregion
+
+        #region Add/Remove Logic
+
+        public bool AddMedia(Media media)
+        {
+            try
+            {
+                _mediaList.Add(media);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveMedia(Media media)
+        {
+            try
+            {
+                _mediaList.Remove(media);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Read/Write Xml
 
         public void ReadXml(XmlReader reader)
         {
@@ -121,5 +174,7 @@ namespace DatPlex.DataModel
 
             writer.WriteEndElement();
         }
+
+        #endregion
     }
 }

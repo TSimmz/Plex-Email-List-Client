@@ -9,19 +9,26 @@ using System.IO;
 
 namespace DatPlex
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+
     public partial class App : Application
     {
+        #region Data Fields
+
         public static MainViewModel MainViewModel;
         public static MainWindow MainWindow;
+
+        #endregion
+
+        #region Constructor
 
         App()
         {
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Entry Point
         [STAThread]
         static void Main()
         {
@@ -45,6 +52,7 @@ namespace DatPlex
             }
         }
 
+        #endregion
 
     }
 }

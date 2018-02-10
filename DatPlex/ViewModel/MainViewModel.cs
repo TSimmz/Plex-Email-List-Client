@@ -12,6 +12,13 @@ namespace DatPlex.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        #region Data Fields
+
+        Window Parent;
+
+        #endregion
+
+        #region Constructor
         public MainViewModel()
         {
 
@@ -24,6 +31,15 @@ namespace DatPlex.ViewModel
             MainScreenVisibility = Visibility.Hidden;
         }
 
+        public void SetParent(Window iParent)
+        {
+            Parent = iParent;
+        }
+
+        #endregion
+
+        #region General
+
         //TODO: Open method
         public bool OpenPlex()
         {
@@ -35,6 +51,15 @@ namespace DatPlex.ViewModel
 
             return true;
         }
+
+        private void ExitApp(object obj)
+        {
+            App.Current.Shutdown();
+        }
+
+        #endregion
+
+        #region Setter/Getters
 
         private Plex _PlexApp;
         public Plex PlexApp
@@ -90,6 +115,10 @@ namespace DatPlex.ViewModel
             }
         }
 
+        #endregion
+
+        #region Command Bindings
+
         DelegateCommand mFile_Exit_Cmd;
         public ICommand File_ExitCommand
         {
@@ -101,9 +130,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private void ExitApp(object obj)
-        {
-            App.Current.Shutdown();
-        }
+        #endregion
     }
 }
