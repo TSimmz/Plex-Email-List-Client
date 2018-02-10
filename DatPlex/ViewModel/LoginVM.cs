@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Security.Cryptography;
 using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
@@ -57,8 +58,9 @@ namespace DatPlex.ViewModel
         {
             get { return _password; }
             set
-            {                               // TODO: Binding password not safe. Stores in memory. 
-                _password = value;  
+            {
+                SHA256 hash = new SHA256Managed();
+                _password = hash.ComputeHash(value).ToString();  
                 OnPropertyChanged();
                 OnPropertyChanged("Login_Enabled");
             }
