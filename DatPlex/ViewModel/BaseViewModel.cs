@@ -10,11 +10,11 @@ namespace DatPlex.ViewModel
     [Serializable]
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        #region Data
+        #region Data Fields
 
         private static readonly Dictionary<string, PropertyChangedEventArgs> eventArgCache;
 
-        #endregion Data
+        #endregion
 
         #region Constructor
 
@@ -25,7 +25,7 @@ namespace DatPlex.ViewModel
 
         protected BaseViewModel() { }
 
-        #endregion Constructor
+        #endregion
 
         #region Event Handlers
         public event EventHandler _setKeyboardFocus;

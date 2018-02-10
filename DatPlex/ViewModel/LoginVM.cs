@@ -1,25 +1,45 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace DatPlex.ViewModel
 {
     public class LoginVM : BaseViewModel
     {
+        #region Data Fields
+
+        Window Parent;
+
+        #endregion
+
+        #region Constructor 
+
         public LoginVM()
         {
            
         }
-                
+        public void SetParent(Window iParent)
+        {
+            Parent = iParent;
+        }
+
+        #endregion
+
+        #region General
+
+        public void onLogin()
+        {
+            App.MainViewModel.LoginVisibility = Visibility.Hidden;
+            App.MainViewModel.MainScreenVisibility = Visibility.Visible;
+        }
+
+        #endregion
+
+        #region Setters/Getters
+
         private string _email;
         public string Email
         {
@@ -65,6 +85,10 @@ namespace DatPlex.ViewModel
             }
         }
 
+        #endregion
+
+        #region Command Bindings
+
         DelegateCommand _onLogin_Cmd;
         public ICommand onLogin_Cmd
         {
@@ -75,10 +99,8 @@ namespace DatPlex.ViewModel
                 return _onLogin_Cmd;
             }
         }
-        public void onLogin()
-        {
-            App.MainViewModel.LoginVisibility = Visibility.Hidden;
-            App.MainViewModel.MainScreenVisibility = Visibility.Visible;   
-        }
+
+        #endregion
+
     }
 }

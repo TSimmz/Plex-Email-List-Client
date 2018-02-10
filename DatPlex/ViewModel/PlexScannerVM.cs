@@ -11,6 +11,9 @@ namespace DatPlex.ViewModel
 {
     public class PlexScannerVM : BaseViewModel
     {
+
+        #region Constructor
+
         public PlexScannerVM()
         {
             IsScanComplete = false;
@@ -23,6 +26,25 @@ namespace DatPlex.ViewModel
             //RemItems_Lbl = "Rem Items";
         }
 
+        #endregion
+
+        #region General
+        public void Next()
+        {
+            //TODO: Next method
+
+            ScanInProgressVisibility = Visibility.Hidden;
+            ScanCompleteVisibility = Visibility.Visible;
+        }
+
+
+        public void Finish_Scan()
+        {
+            //TODO: Finish method
+        }
+        #endregion
+
+        #region Setters/Getters
         private string mProgress_Lbl;
         public string Progress_Lbl
         {
@@ -75,42 +97,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        DelegateCommand mNext_Cmd;
-        public ICommand Next_Cmd
-        {
-            get
-            {
-                if (null == mNext_Cmd)
-                    mNext_Cmd = new DelegateCommand(Next);
-                return mNext_Cmd;
-            }
-        }
-
-        public void Next()
-        {
-            //TODO: Next method
-
-            ScanInProgressVisibility = Visibility.Hidden;
-            ScanCompleteVisibility = Visibility.Visible;
-        }
-
-        DelegateCommand mFinish_Cmd;
-        public ICommand Finish_Cmd
-        {
-            get
-            {
-                if (null == mFinish_Cmd)
-                    mFinish_Cmd = new DelegateCommand(Finish_Scan);
-
-                return mFinish_Cmd;
-            }
-        }
-
-        public void Finish_Scan()
-        {
-            //TODO: Finish method
-        }
-
         private bool _IsScanComplete;
         public bool IsScanComplete
         {
@@ -143,5 +129,33 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        #endregion
+
+        #region Command Bindings
+        DelegateCommand mFinish_Cmd;
+        public ICommand Finish_Cmd
+        {
+            get
+            {
+                if (null == mFinish_Cmd)
+                    mFinish_Cmd = new DelegateCommand(Finish_Scan);
+
+                return mFinish_Cmd;
+            }
+        }
+
+        DelegateCommand mNext_Cmd;
+        public ICommand Next_Cmd
+        {
+            get
+            {
+                if (null == mNext_Cmd)
+                    mNext_Cmd = new DelegateCommand(Next);
+                return mNext_Cmd;
+            }
+        }
+
+        #endregion
     }
 }
