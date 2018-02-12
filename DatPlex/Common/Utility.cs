@@ -10,9 +10,10 @@ namespace DatPlex.Common
 {
     class Utility
     {
-        public static string PLEX_URL = "https://plex.tv/";                     //Plex Base url
-        public static string POST_SIGNIN = "users/sign_in";                //Basic auth to sign in to plex.tv
-        public static string GET_AUTH_KEY = "?X-Plex-Client-Identifier=unique"; //Gets server token from pms/servers.xml
+        public static string PLEX_URL = "https://plex.tv/";                      //Plex Base url
+        public static string POST_SIGNIN = "users/sign_in.xml";                 //Basic auth to sign in to plex.tv
+        public static string GET_AUTH_KEY = "?X-Plex-Token=";                   //Gets server token from pms/servers.xml
+        public static string PLEX_CLIENT_ID = "X-Plex-Client-Identifier";
         public static string GET_SERVERS = "servers.xml";                       //Gets a list of servers and their sections
         public static string GET_DEVICES = "devices.xml";                       //Gets a list of available clients and servers
         public static string GET_ACCOUNT_INFO = "users/account";                //Gets account information
