@@ -24,7 +24,9 @@ namespace DatPlex.ViewModel
 
             _loginVM = new LoginVM();
             _mainScreenVM = new MainScreenVM();
-            
+
+            _PlexApp = new Plex();
+
             LoginVisibility = Visibility.Visible;
             MainScreenVisibility = Visibility.Hidden;
         }

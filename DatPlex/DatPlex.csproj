@@ -93,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModel\Email.cs" />
+    <Compile Include="GUI\Child_Window\ServerInformation.xaml.cs">
+      <DependentUpon>ServerInformation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\PlexScannerVM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Child_Window\ScanInProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Child_Window\ServerInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

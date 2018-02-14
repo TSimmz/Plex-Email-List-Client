@@ -177,12 +177,23 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        static async Task Login(string email, string password)
+        public void Login_Task(string email, string password)
+        {
+            var token = GetToken(email, password);
+
+
+
+        }
+
+        //TODO: URI is https://[ExternalIP]:[PORT]/
+
+        private static async Task<string> GetToken(string email, string password)
         {
             using (var PlexAPI = new HttpClient())
             {
                 PlexAPI.BaseAddress = new Uri(Utility.PLEX_URL);
                 PlexAPI.DefaultRequestHeaders.Accept.Clear();
+                //PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(Utility.PLEX_CLIENT_ID + "=q6j4irkusklo4164j61u6ea0"));
                 PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var login_credentials = new FormUrlEncodedContent(new[]
@@ -196,7 +207,8 @@ namespace DatPlex.DataModel
 
                 var responseJSON = await response.Content.ReadAsStringAsync();
                 var jObject = JObject.Parse(responseJSON);
-                var token = jObject.GetValue("token").ToString();
+
+                return jObject.GetValue("authToken").ToString();
             }
         }
 

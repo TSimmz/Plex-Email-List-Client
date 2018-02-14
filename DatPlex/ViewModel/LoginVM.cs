@@ -33,6 +33,7 @@ namespace DatPlex.ViewModel
 
         public void onLogin()
         {
+            App.MainViewModel.PlexApp.Login_Task(Email, Password);
             App.MainViewModel.LoginVisibility = Visibility.Hidden;
             App.MainViewModel.MainScreenVisibility = Visibility.Visible;
         }
@@ -59,8 +60,9 @@ namespace DatPlex.ViewModel
             get { return _password; }
             set
             {
-                SHA256 hash = new SHA256Managed();
-                _password = hash.ComputeHash(value).ToString();  
+                //SHA256 hash = new SHA256Managed();
+                //_password = hash.ComputeHash(value).ToString();  
+                _password = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Login_Enabled");
             }
@@ -103,6 +105,5 @@ namespace DatPlex.ViewModel
         }
 
         #endregion
-
     }
 }
