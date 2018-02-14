@@ -1,10 +1,6 @@
 <Plex>
-	<Signedin>true</Signedin> 			<!-- true or false -->
-	<Account>
-		<Username></Username>
-		<Email></Email>
-		<password></password>
-	</Account>
+	<Server ip="" port="" token="">
+	<Account title="" username="" email="" password=""/>
 	<SharedUsers>
 		<shareduser Username="" Email=""/>
 		<shareduser Username="" Email=""/>

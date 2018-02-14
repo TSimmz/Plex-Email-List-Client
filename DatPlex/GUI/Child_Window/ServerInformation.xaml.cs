@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Collections.Generic;
 using DatPlex.Common;
 
 namespace DatPlex.GUI.Child_Window
@@ -48,6 +50,10 @@ namespace DatPlex.GUI.Child_Window
             Utility.Plex_IP = IP_Address;
             Utility.Plex_Port = Port_Number;
             Utility.Plex_Token = Plex_Token;
+
+            Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
+
+            App.MainViewModel.PlexApp.ServerInfo = info;
         }
 
         private void Cancel_Click(object obj, RoutedEventArgs e)

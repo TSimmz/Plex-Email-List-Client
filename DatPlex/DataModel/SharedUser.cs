@@ -13,17 +13,18 @@ namespace DatPlex.DataModel
 
         #region Constructor
 
-        public SharedUser(string u, string e): base(u, e)
+        public SharedUser(string title, string username, string email): base(title, username, email)
         {
-            Username = u;
-            Email = e;
+            Title = title;
+            Username = username;
+            Email = email;
         }
 
         #endregion
 
     }
 
-    public partial class SharedUsers : ObservableCollection<SharedUsers>
+    public class SharedUsers : ObservableCollection<SharedUsers>
     {
         #region Data Fields
 
@@ -79,8 +80,9 @@ namespace DatPlex.DataModel
             while (reader.Name.Equals("SharedUser") && reader.NodeType == XmlNodeType.Element)
             {
                     SharedUser s = new SharedUser(
-                        reader.GetAttribute("Username"),
-                        reader.GetAttribute("Email"));
+                        reader.GetAttribute("title"),
+                        reader.GetAttribute("username"),
+                        reader.GetAttribute("email"));
 
                     _sharedUserList.Add(s);
             }
@@ -96,8 +98,9 @@ namespace DatPlex.DataModel
             {
                 writer.WriteStartElement("SharedUser");
 
-                writer.WriteAttributeString("Username", s.Username);
-                writer.WriteAttributeString("Email", s.Email);
+                writer.WriteAttributeString("title", s.Title);
+                writer.WriteAttributeString("username", s.Username);
+                writer.WriteAttributeString("email", s.Email);
 
                 writer.WriteEndElement();
             }
