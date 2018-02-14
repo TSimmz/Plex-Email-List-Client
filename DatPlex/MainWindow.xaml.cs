@@ -45,14 +45,14 @@ namespace DatPlex
 
             _ViewModel = App.MainViewModel;
 
-            mLoginView.ViewModel = _ViewModel;
+            //mLoginView.ViewModel = _ViewModel;
             mMainScreenView.ViewModel = _ViewModel;
 
             //_ViewModel.TaskStarting += TaskStarted;
             //_ViewModel.ProgressChanged += ProgressChanged;
             //_ViewModel.TaskCompleted += TaskCompleted;
 
-            mLoginView.SetDataContext(_ViewModel.LoginVM);
+            //mLoginView.SetDataContext(_ViewModel.LoginVM);
             mMainScreenView.SetDataContext(_ViewModel.MainScreenVM);
         }
 

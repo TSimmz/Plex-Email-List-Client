@@ -115,9 +115,6 @@
     <Compile Include="GUI\Child_Window\ScanInProgress.xaml.cs">
       <DependentUpon>ScanInProgress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Main_Window\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Main_Window\MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>
     </Compile>
@@ -129,7 +126,6 @@
       <DependentUpon>PlexScanner.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MainScreenVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -194,10 +190,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Child_Window\ServerInformation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Main_Window\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

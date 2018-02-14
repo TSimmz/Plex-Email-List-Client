@@ -15,9 +15,9 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <UserControl Visibility="{Binding LoginVisibility}">
+        <!-- UserControl Visibility="{Binding LoginVisibility}">
             <mainview:Login x:Name="mLoginView"/>
-        </UserControl>
+        </UserContrl-->
         <UserControl Visibility="{Binding MainScreenVisibility}">
             <mainview:MainScreen x:Name="mMainScreenView"/>
         </UserControl>

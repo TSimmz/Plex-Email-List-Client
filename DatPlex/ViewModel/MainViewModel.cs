@@ -22,13 +22,13 @@ namespace DatPlex.ViewModel
         public MainViewModel()
         {
 
-            _loginVM = new LoginVM();
+            //_loginVM = new LoginVM();
             _mainScreenVM = new MainScreenVM();
 
             _PlexApp = new Plex();
 
-            LoginVisibility = Visibility.Visible;
-            MainScreenVisibility = Visibility.Hidden;
+            //LoginVisibility = Visibility.Visible;
+            MainScreenVisibility = Visibility.Visible;
         }
 
         public void SetParent(Window iParent)
@@ -71,16 +71,16 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private static LoginVM _loginVM;
-        public LoginVM LoginVM
-        {
-            get { return _loginVM; }
-            set
-            {
-                _loginVM = value;
-                OnPropertyChanged();
-            }
-        }
+        //private static LoginVM _loginVM;
+        //public LoginVM LoginVM
+        //{
+        //    get { return _loginVM; }
+        //    set
+        //    {
+        //        _loginVM = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         private static MainScreenVM _mainScreenVM;
         public MainScreenVM MainScreenVM
@@ -93,16 +93,16 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private Visibility _LoginVisibility;
-        public Visibility LoginVisibility
-        {
-            get { return _LoginVisibility; }
-            set
-            {
-                _LoginVisibility = value;
-                OnPropertyChanged();
-            }
-        }
+        //private Visibility _LoginVisibility;
+        //public Visibility LoginVisibility
+        //{
+        //    get { return _LoginVisibility; }
+        //    set
+        //    {
+        //        _LoginVisibility = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         private Visibility _MainScreenVisibility;
         public Visibility MainScreenVisibility

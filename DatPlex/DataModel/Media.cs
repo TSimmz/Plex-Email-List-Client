@@ -88,6 +88,7 @@ namespace DatPlex.DataModel
         #region Data Fields
 
         private int _key;
+        private int itemCount;
         private string _title;
         private List<Media> _mediaList;
 
