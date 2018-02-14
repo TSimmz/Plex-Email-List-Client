@@ -15,11 +15,11 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock Text="IP Address: " Foreground="White" FontSize="12" HorizontalAlignment="Left" Margin="5,0,0,20" Height="24" Width="58"/>
-            <TextBox Text="{Binding IP_Address}"  Height="18" Width="75" Margin="0,0,75,25" TextChanged="TextBox_TextChanged"/>
+            <TextBox Text="{Binding IP_Address}" TextAlignment="Center" TextWrapping="NoWrap" Height="18" Width="75" Margin="0,0,75,25"/>
             <TextBlock Text="Port: " Foreground="White" FontSize="12" HorizontalAlignment="Right" Margin="0,0,80,20" Height="24" Width="51"/>
-            <TextBox Text="{Binding Port_Number}"  Height="18" Width="75" Margin="159,0,0,25"/>
+            <TextBox Text="{Binding Port_Number}" TextAlignment="Center" TextWrapping="NoWrap" Height="18" Width="75" Margin="159,0,0,25"/>
             <TextBlock Text="Token: " Foreground="White" FontSize="12" HorizontalAlignment="Left" Margin="30,30,0,0" Height="24" Width="50"/>
-            <TextBox Text="{Binding Plex_Token}" Height="18" Width="192" Margin="42,25,0,0"/>
+            <TextBox Text="{Binding Plex_Token}" TextAlignment="Center" TextWrapping="NoWrap" Height="18" Width="192" Margin="42,25,0,0"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

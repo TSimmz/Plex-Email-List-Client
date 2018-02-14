@@ -131,7 +131,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default", "Default") };
+        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default","Default", "Default") };
         public ObservableCollection<SharedUser> SharedUsers
         {
             get { return mSharedUsers; }

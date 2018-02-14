@@ -209,7 +209,7 @@ namespace DatPlex.DataModel
 
         public void Login_Task(string email, string password)
         {
-            var token = GetToken(email, password);
+            //var token = GetToken(email, password);
         }
 
         //TODO: URI is https://[ExternalIP]:[PORT]/
