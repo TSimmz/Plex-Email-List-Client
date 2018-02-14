@@ -15,34 +15,20 @@ namespace DatPlex.DataModel
         private int _id;
         private string _type;
         private string _title;
-        private string _metadata;
+        private string _summary;
+        private string _contentRating;
 
         #endregion
 
         #region Constructors
 
-        public Media()
+        public Media(int id, string type, string title, string summary, string content)
         {
-
-        }
-
-        public Media(string n)
-        {
-            Title = n;
-        }
-
-        public Media(string n, string l)
-        {
-            Type = n;
-            Title = l;
-        }
-
-        public Media(int i, string s, string t, string m)
-        {
-            ID = i;
-            Type = s;
-            Title = t;
-            MetaData = m;
+            _id = id;
+            _type = type;
+            _title = title;
+            _summary = summary;
+            _contentRating = content;
         }
 
         #endregion
@@ -76,33 +62,53 @@ namespace DatPlex.DataModel
             }
         }
 
-        public string MetaData
+        public string Summary
         {
-            get { return _metadata; }
+            get { return _summary; }
             set
             {
-                _metadata = value;
+                _summary = value;
+            }
+        }
+
+        public string ContentRating
+        {
+            get { return _contentRating; }
+            set
+            {
+                _contentRating = value;
             }
         }
 
         #endregion
     }
 
-    public partial class MediaList : ObservableCollection<Media>
+    public class Library
     {
-
         #region Data Fields
 
-        private ObservableCollection<Media> _mediaList;
+        private int _key;
+        private string _title;
+        private List<Media> _mediaList;
 
         #endregion
 
         #region Constructor
 
-        public MediaList()
+        public Library(int key, string title)
         {
-            _mediaList = new ObservableCollection<Media>();
+            _key = key;
+            _title = title;
+            _mediaList = new List<Media>();
         }
+
+        public int GetLibKey { get { return _key; } }
+
+        public string GetLibTitle { get { return _title; } }
+
+        #endregion
+
+        #region General
 
         #endregion
 
@@ -140,17 +146,21 @@ namespace DatPlex.DataModel
 
         public void ReadXml(XmlReader reader)
         {
-            reader.ReadStartElement("MediaList");
+
+            reader.ReadStartElement("Library");
+            _key = Convert.ToInt32(reader.GetAttribute("key"));
+            _title = reader.GetAttribute("title");
 
             while (reader.Name.Equals("Media") && reader.NodeType == XmlNodeType.Element)
             {
-                    Media m = new Media(
-                        Convert.ToInt32(reader.GetAttribute("ID")),
-                        reader.ReadElementString("Type"),
-                        reader.ReadElementString("Title"),
-                        reader.ReadElementString("MetaData"));
+                Media m = new Media(
+                    Convert.ToInt32(reader.GetAttribute("id")),
+                    reader.GetAttribute("type"),
+                    reader.GetAttribute("title"),
+                    reader.GetAttribute("contentRating"),
+                    reader.GetAttribute("summary"));
 
-                    _mediaList.Add(m);                
+                _mediaList.Add(m);
             }
 
             reader.ReadEndElement();
@@ -158,16 +168,19 @@ namespace DatPlex.DataModel
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartElement("MediaList");
+            writer.WriteStartElement("Library");
+            writer.WriteAttributeString("key", _key.ToString());
+            writer.WriteAttributeString("title", _title);
 
             foreach (Media m in _mediaList)
             {
                 writer.WriteStartElement("Media");
 
-                writer.WriteAttributeString("ID", m.ID.ToString());
-                writer.WriteElementString("Type", m.Type);
-                writer.WriteElementString("Title", m.Title);
-                writer.WriteElementString("MetaData", m.MetaData);
+                writer.WriteAttributeString("id", m.ID.ToString());
+                writer.WriteAttributeString("type", m.Type);
+                writer.WriteAttributeString("title", m.Title);
+                writer.WriteAttributeString("contentRating", m.ContentRating);
+                writer.WriteAttributeString("summary", m.Summary);
 
                 writer.WriteEndElement();
             }

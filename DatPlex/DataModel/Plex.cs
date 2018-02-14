@@ -23,7 +23,7 @@ namespace DatPlex.DataModel
         private string _plexdata;
         private Account _owner;
         private SharedUsers _sharedUserList;
-        private MediaList _mediaList;
+        private Dictionary<int, Library> _libraries;
 
         #endregion
 
