@@ -8,12 +8,11 @@ using DatPlex.DataModel;
 
 namespace DatPlex.Common
 {
-    class Utility
+    public class Utility
     {
         public static string PLEX_URL = "https://plex.tv/";                      //Plex Base url
         public static string POST_SIGNIN = "users/sign_in.xml";                 //Basic auth to sign in to plex.tv
-        public static string GET_AUTH_KEY = "?X-Plex-Token=";                   //Gets server token from pms/servers.xml
-        public static string PLEX_CLIENT_ID = "X-Plex-Client-Identifier";
+        public static string TOKEN = "?X-Plex-Token=";
         public static string GET_SERVERS = "servers.xml";                       //Gets a list of servers and their sections
         public static string GET_DEVICES = "devices.xml";                       //Gets a list of available clients and servers
         public static string GET_ACCOUNT_INFO = "users/account";                //Gets account information
@@ -30,6 +29,27 @@ namespace DatPlex.Common
         public static int MINUTES { get { return 60000; } }
         public static int HOURS { get { return 3600000; } }
         public static int DAYS { get { return 86400000; } }
+
+        private static string _Plex_IP;
+        public static string Plex_IP
+        {
+            get { return _Plex_IP; }
+            set { _Plex_IP = value; }
+        }
+
+        private static string _Plex_Port;
+        public static string Plex_Port
+        {
+            get { return _Plex_Port; }
+            set { _Plex_Port = value; }
+        }
+
+        private static string _Plex_Token;
+        public static string Plex_Token
+        {
+            get { return _Plex_Token; }
+            set { _Plex_Token = TOKEN + value; }
+        }
 
         public static Object LoadXmlData(string path)
         {

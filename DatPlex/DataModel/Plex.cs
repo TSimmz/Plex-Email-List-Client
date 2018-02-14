@@ -185,7 +185,7 @@ namespace DatPlex.DataModel
 
         }
 
-        //TODO: URI is https://[ExternalIP]:[PORT]/web
+        //TODO: URI is https://[ExternalIP]:[PORT]/
 
         private static async Task<string> GetToken(string email, string password)
         {
