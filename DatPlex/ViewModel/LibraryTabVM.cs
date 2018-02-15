@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -15,14 +16,15 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         Window Parent;
+        
 
         #endregion Data Fields
 
         #region Constructor
 
-        public LibraryTabVM()
+        public LibraryTabVM(List<Library>lib)
         {
-
+            _LibraryList = lib;
         }
 
         public void SetParent(Window iParent)
@@ -30,6 +32,17 @@ namespace DatPlex.ViewModel
             Parent = iParent;
         }
 
+        #endregion
+
+
+        #region Setters/Getters
+
+        private List<Library> _LibraryList;
+        public List<Library> LibraryList
+        {
+            get { return _LibraryList; }
+            set { _LibraryList = value; }
+        }
         #endregion
     }
 }

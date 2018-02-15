@@ -21,11 +21,13 @@ namespace DatPlex.ViewModel
         #region Constructor
         public MainViewModel()
         {
+            _PlexApp = new Plex();
+
             _scanTabVM = new ScanTabVM();
-            _libraryTabVM = new LibraryTabVM();
+            _libraryTabVM = new LibraryTabVM(_PlexApp.Libraries);
             _friendsTabVM = new FriendsTabVM();
             
-            _PlexApp = new Plex();
+            
 
             ScanViewVisibility = Visibility.Hidden;
             LibraryViewVisibility = Visibility.Hidden;
@@ -103,6 +105,13 @@ namespace DatPlex.ViewModel
                 _friendsTabVM = value;
                 OnPropertyChanged();
             }
+        }
+
+        private List<Library> _LibraryList;
+        public List<Library> LibraryList
+        {
+            get { return _LibraryList; }
+            set { _LibraryList = value; }
         }
 
         private int _SelectedTabIndex;

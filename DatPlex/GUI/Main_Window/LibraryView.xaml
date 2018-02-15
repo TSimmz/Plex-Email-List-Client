@@ -18,13 +18,20 @@
               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView Height="300" Width="455" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
+            <ListView Height="300" Width="455" ItemsSource="{Binding Parent.LibraryList}" SelectedIndex="{Binding SharedUser_SelIndex}"
                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,0,0,0" Background="#4F4F4F" Foreground="White" Grid.Row="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     </Style>
                 </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <CheckBox Content="{Binding Include_Library}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Include" Width="60"/>
