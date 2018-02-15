@@ -15,11 +15,14 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <!-- UserControl Visibility="{Binding LoginVisibility}">
-            <mainview:Login x:Name="mLoginView"/>
-        </UserContrl-->
-        <UserControl Visibility="{Binding MainScreenVisibility}">
-            <mainview:MainScreen x:Name="mMainScreenView"/>
+        <UserControl Visibility="{Binding ScanTabVisibility}">
+            <mainview:ScanView x:Name="_ScanView"/>
+        </UserControl>
+        <UserControl Visibility="{Binding LibraryTabVisibility}">
+            <mainview:LibraryView x:Name="_LibraryView"/>
+        </UserControl>
+        <UserControl Visibility="{Binding FriendsTabVisibility}">
+            <mainview:FriendsView x:Name="_FriendsView"/>
         </UserControl>
     </Grid>
     

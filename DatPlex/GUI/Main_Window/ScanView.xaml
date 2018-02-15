@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="DatPlex.GUI.Main_Window.MainScreen"
+﻿<UserControl x:Class="DatPlex.GUI.Main_Window.ScanView"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -45,7 +45,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding Timer}"  TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="20,0,0,0" Width="80"/>
                                 <ComboBox SelectedIndex="{Binding Units_SelIndex}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="50" Height="25">
-                                    <ComboBoxItem> </ComboBoxItem>
+                                    <ComboBoxItem></ComboBoxItem>
                                     <ComboBoxItem>M</ComboBoxItem>
                                     <ComboBoxItem>H</ComboBoxItem>
                                     <ComboBoxItem>D</ComboBoxItem>
@@ -111,3 +111,4 @@
         </Grid>
     </Grid>
 </UserControl>
+

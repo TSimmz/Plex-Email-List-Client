@@ -10,21 +10,19 @@ using DatPlex.GUI.Child_Window;
 
 namespace DatPlex.ViewModel
 {
-    public class MainScreenVM : BaseViewModel
+    public class ScanTabVM : BaseViewModel
     {
         #region Data Fields
 
         Window Parent;
 
-        //int mFileViewIndex = -1;
-
         #endregion Data Fields
 
         #region Constructor
 
-        public MainScreenVM()
+        public ScanTabVM()
         {
- 
+
         }
 
         public void SetParent(Window iParent)
@@ -103,7 +101,7 @@ namespace DatPlex.ViewModel
                 Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
 
                 App.MainViewModel.PlexApp.ServerInfo = info;
-            }           
+            }
         }
 
         #endregion General
@@ -149,7 +147,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default","Default", "Default") };
+        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default", "Default", "Default") };
         public ObservableCollection<SharedUser> SharedUsers
         {
             get { return mSharedUsers; }
@@ -281,7 +279,7 @@ namespace DatPlex.ViewModel
             get
             {
                 if (null == mScan_Plex_Cmd)
-                    mScan_Plex_Cmd = new DelegateCommand(Man_Scan_Plex); 
+                    mScan_Plex_Cmd = new DelegateCommand(Man_Scan_Plex);
                 return mScan_Plex_Cmd;
             }
         }
@@ -309,4 +307,5 @@ namespace DatPlex.ViewModel
         }
         #endregion
     }
+
 }

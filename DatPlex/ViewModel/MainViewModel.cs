@@ -21,14 +21,15 @@ namespace DatPlex.ViewModel
         #region Constructor
         public MainViewModel()
         {
-
-            //_loginVM = new LoginVM();
-            _mainScreenVM = new MainScreenVM();
-
+            _scanTabVM = new ScanTabVM();
+            _libraryTabVM = new LibraryTabVM();
+            _friendsTabVM = new FriendsTabVM();
+            
             _PlexApp = new Plex();
 
-            //LoginVisibility = Visibility.Visible;
-            MainScreenVisibility = Visibility.Visible;
+            ScanViewVisibility = Visibility.Visible;
+            LibraryViewVisibility = Visibility.Hidden;
+            FriendsViewVisibility = Visibility.Hidden;
         }
 
         public void SetParent(Window iParent)
@@ -71,46 +72,68 @@ namespace DatPlex.ViewModel
             }
         }
 
-        //private static LoginVM _loginVM;
-        //public LoginVM LoginVM
-        //{
-        //    get { return _loginVM; }
-        //    set
-        //    {
-        //        _loginVM = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        private static MainScreenVM _mainScreenVM;
-        public MainScreenVM MainScreenVM
+        private static ScanTabVM _scanTabVM;
+        public ScanTabVM ScanTabVM
         {
-            get { return _mainScreenVM; }
+            get { return _scanTabVM; }
             set
             {
-                _mainScreenVM = value;
+                _scanTabVM = value;
                 OnPropertyChanged();
             }
         }
 
-        //private Visibility _LoginVisibility;
-        //public Visibility LoginVisibility
-        //{
-        //    get { return _LoginVisibility; }
-        //    set
-        //    {
-        //        _LoginVisibility = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        private Visibility _MainScreenVisibility;
-        public Visibility MainScreenVisibility
+        private static LibraryTabVM _libraryTabVM;
+        public LibraryTabVM LibraryTabVM
         {
-            get { return _MainScreenVisibility; }
+            get { return _libraryTabVM; }
             set
             {
-                _MainScreenVisibility = value;
+                _libraryTabVM = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private static FriendsTabVM _friendsTabVM;
+        public FriendsTabVM FriendsTabVM
+        {
+            get { return _friendsTabVM; }
+            set
+            {
+                _friendsTabVM = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _ScanViewVisibility;
+        public Visibility ScanViewVisibility
+        {
+            get { return _ScanViewVisibility; }
+            set
+            {
+                _ScanViewVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _LibraryViewVisibility;
+        public Visibility LibraryViewVisibility
+        {
+            get { return _LibraryViewVisibility; }
+            set
+            {
+                _LibraryViewVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _FriendsViewVisibility;
+        public Visibility FriendsViewVisibility
+        {
+            get { return _FriendsViewVisibility; }
+            set
+            {
+                _FriendsViewVisibility = value;
                 OnPropertyChanged();
             }
         }
