@@ -34,5 +34,6 @@ namespace DatPlex.GUI.Main_Window
         {
             this.DataContext = iViewModel;
         }
+
     }
 }

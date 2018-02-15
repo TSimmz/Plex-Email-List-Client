@@ -27,7 +27,7 @@ namespace DatPlex.ViewModel
             
             _PlexApp = new Plex();
 
-            ScanViewVisibility = Visibility.Visible;
+            ScanViewVisibility = Visibility.Hidden;
             LibraryViewVisibility = Visibility.Hidden;
             FriendsViewVisibility = Visibility.Hidden;
         }
@@ -102,6 +102,47 @@ namespace DatPlex.ViewModel
             {
                 _friendsTabVM = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private int _SelectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get { return _SelectedTabIndex; }
+            set
+            {
+                if (_SelectedTabIndex != value)
+                {
+                    _SelectedTabIndex = value;
+                    
+                    switch (_SelectedTabIndex)
+                    {
+                        case 0:         // Scan Tab
+                            ScanViewVisibility = Visibility.Visible;
+                            LibraryViewVisibility = Visibility.Hidden;
+                            FriendsViewVisibility = Visibility.Hidden;
+
+                            break;
+
+                        case 1:         // Libraries Tab
+                            ScanViewVisibility = Visibility.Hidden;
+                            LibraryViewVisibility = Visibility.Visible;
+                            FriendsViewVisibility = Visibility.Hidden;
+
+                            break;
+
+                        case 2:         // Friends Tab
+                            ScanViewVisibility = Visibility.Hidden;
+                            LibraryViewVisibility = Visibility.Hidden;
+                            FriendsViewVisibility = Visibility.Visible;
+
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
             }
         }
 
