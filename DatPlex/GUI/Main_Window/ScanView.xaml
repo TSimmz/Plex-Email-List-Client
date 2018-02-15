@@ -85,21 +85,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height=".25*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ListView Height="225" Width="250" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
-                              HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,10,0" Background="#4F4F4F" Foreground="White" Grid.Row="0"
-                              ToolTip="Select Default to add new user. Select user to edit information">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Username" Width="95" DisplayMemberBinding="{Binding Username}" />
-                                <GridViewColumn Header="Email" Width="145" DisplayMemberBinding="{Binding Email}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    
                     <Grid Grid.Row="1">
                         <Button Content="Logout" Command="{Binding Logout_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Top"  
                                 Height="25" Width="90" Margin="0,5,25,0" Background="#4F4F4F" Foreground="White"/>
