@@ -22,9 +22,9 @@ namespace DatPlex.ViewModel
 
         #region Constructor
 
-        public LibraryTabVM(List<Library>lib)
+        public LibraryTabVM()
         {
-            _LibraryList = lib;
+
         }
 
         public void SetParent(Window iParent)
@@ -37,12 +37,6 @@ namespace DatPlex.ViewModel
 
         #region Setters/Getters
 
-        private List<Library> _LibraryList;
-        public List<Library> LibraryList
-        {
-            get { return _LibraryList; }
-            set { _LibraryList = value; }
-        }
         #endregion
     }
 }

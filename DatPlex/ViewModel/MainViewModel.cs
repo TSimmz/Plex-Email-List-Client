@@ -24,7 +24,7 @@ namespace DatPlex.ViewModel
             _PlexApp = new Plex();
 
             _scanTabVM = new ScanTabVM();
-            _libraryTabVM = new LibraryTabVM(_PlexApp.Libraries);
+            _libraryTabVM = new LibraryTabVM();
             _friendsTabVM = new FriendsTabVM();
             
             

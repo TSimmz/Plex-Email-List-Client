@@ -78,6 +78,7 @@ namespace DatPlex.ViewModel
             Console.WriteLine("Timer: " + Timer);
 
             PlexScanner mScanWindow = new PlexScanner();
+            mScanWindow.ShowInTaskbar = false;
             mScanWindow.Show();
         }
 
@@ -90,6 +91,7 @@ namespace DatPlex.ViewModel
         {
             ServerInformation wInfo = new ServerInformation();
             wInfo.DataContext = this;
+            wInfo.ShowInTaskbar = false;
             wInfo.ShowDialog();
 
             if ((bool)wInfo.DialogResult)
@@ -246,6 +248,19 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private string mProgress_Lbl = "Test Label";
+        public string Progress_Lbl
+        {
+            get { return mProgress_Lbl; }
+            set
+            {
+                if (mProgress_Lbl == value)
+                    return;
+                mProgress_Lbl = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Command Bindings
@@ -284,25 +299,14 @@ namespace DatPlex.ViewModel
             }
         }
 
-        DelegateCommand mLogout_Cmd;
-        public ICommand Logout_Cmd
+        DelegateCommand mSettings_Cmd;
+        public ICommand Settings_Cmd
         {
             get
             {
-                if (null == mLogout_Cmd)
-                    mLogout_Cmd = new DelegateCommand(Logout_Button);
-                return mLogout_Cmd;
-            }
-        }
-
-        DelegateCommand mServerInfo_Cmd;
-        public ICommand ServerInfo_Cmd
-        {
-            get
-            {
-                if (null == mServerInfo_Cmd)
-                    mServerInfo_Cmd = new DelegateCommand(UpdateServerInfo);
-                return mServerInfo_Cmd;
+                if (null == mSettings_Cmd)
+                    mSettings_Cmd = new DelegateCommand(UpdateServerInfo);
+                return mSettings_Cmd;
             }
         }
         #endregion
