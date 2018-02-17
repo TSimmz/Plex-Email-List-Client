@@ -146,6 +146,7 @@ namespace DatPlex.ViewModel
             set
             {
                 mUnits_SelIndex = value;
+                OnPropertyChanged();
             }
         }
 

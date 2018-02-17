@@ -87,8 +87,9 @@ namespace DatPlex.DataModel
     {
         #region Data Fields
 
+        private bool _include;
         private int _key;
-        private int itemCount;
+        private int _itemCount;
         private string _title;
         private List<Media> _mediaList;
 
@@ -96,20 +97,35 @@ namespace DatPlex.DataModel
 
         #region Constructor
 
-        public Library(int key, string title)
+        public Library(int key, int count, string title)
         {
+            _include = false;
             _key = key;
+            _itemCount = count;
             _title = title;
             _mediaList = new List<Media>();
         }
 
         public int GetLibKey { get { return _key; } }
 
+        public int GetItemCount { get { return _itemCount; } }
+
         public string GetLibTitle { get { return _title; } }
+
+
 
         #endregion
 
         #region General
+
+        public bool Include_Library
+        {
+            get { return _include; }
+            set
+            {
+                _include = value;
+            }
+        }
 
         #endregion
 

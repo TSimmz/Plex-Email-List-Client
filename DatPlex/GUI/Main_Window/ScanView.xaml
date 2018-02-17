@@ -8,7 +8,7 @@
              xmlns:chilview="clr-namespace:DatPlex.GUI.Child_Window"
              xmlns:common="clr-namespace:DatPlex.Common"
              xmlns:vm="clr-namespace:DatPlex.ViewModel"
-             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="750">
+             mc:Ignorable="d" d:DesignHeight="429" d:DesignWidth="732">
     <Grid Background="#202020">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

@@ -107,12 +107,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private List<Library> _LibraryList;
-        public List<Library> LibraryList
-        {
-            get { return _LibraryList; }
-            set { _LibraryList = value; }
-        }
+        
 
         private int _SelectedTabIndex;
         public int SelectedTabIndex

@@ -10,6 +10,7 @@ namespace DatPlex.DataModel
 {
     public class SharedUser : User
     {
+        private bool _include;
 
         #region Constructor
 
@@ -18,6 +19,19 @@ namespace DatPlex.DataModel
             Title = title;
             Username = username;
             Email = email;
+        }
+
+        #endregion
+
+        #region General
+
+        public bool Include_SharedUser
+        {
+            get { return _include; }
+            set
+            {
+                _include = value;
+            }
         }
 
         #endregion

@@ -7,7 +7,7 @@
              xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
              xmlns:common="clr-namespace:DatPlex.Common"
              xmlns:vm="clr-namespace:DatPlex.ViewModel"
-             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="750">
+             mc:Ignorable="d" d:DesignHeight="429" d:DesignWidth="732">
     <Grid Background="#202020">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -18,22 +18,31 @@
               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView Height="300" Width="455" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
-                              HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,0,0,0" Background="#4F4F4F" Foreground="White" Grid.Row="0">
+            <ListView Height="300" Width="455" TextElement.FontSize="16" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
+                              HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Background="#4F4F4F" Foreground="White" Grid.Row="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     </Style>
                 </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <CheckBox Content="{Binding Include_SharedUser}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Include" Width="60"/>
-                        <GridViewColumn Header="Title" Width="100"/>
-                        <GridViewColumn Header="Username" Width="100"/>
-                        <GridViewColumn Header="Email" Width="185" DisplayMemberBinding="{Binding Email}" />
+                        <GridViewColumn Header="Include" TextElement.FontSize="14" Width="60"/>
+                        <GridViewColumn Header="Title" TextElement.FontSize="14" Width="100" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Username" TextElement.FontSize="14" Width="100" DisplayMemberBinding="{Binding Username}"/>
+                        <GridViewColumn Header="Email" TextElement.FontSize="14" Width="185" DisplayMemberBinding="{Binding Email}" />
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Button Content="Update Friends" Command="{Binding UpdateFriends_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
+                            Width="200" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
         </Grid>
     </Grid>
 </UserControl>

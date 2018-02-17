@@ -16,7 +16,10 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         Window Parent;
-        
+
+
+
+        private List<Library> _LibraryList;
 
         #endregion Data Fields
 
@@ -37,6 +40,30 @@ namespace DatPlex.ViewModel
 
         #region Setters/Getters
 
+        private int _SelIndex_Library;
+        public int SelIndex_Library
+        {
+            get { return _SelIndex_Library; }
+            set
+            {
+                _SelIndex_Library = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public List<Library> LibraryList
+        {
+            get { return _LibraryList; }
+            set
+            {
+                _LibraryList = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        
         #endregion
     }
 }
