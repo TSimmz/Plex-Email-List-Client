@@ -1,0 +1,19 @@
+<Plex>
+	<Server ip="" port="" token="">
+	<Account title="" username="" email="" password=""/>
+	<SharedUsers>
+		<SharedUser title="" username="" email=""/> 
+		<SharedUser title="" username="" email=""/> 
+		<SharedUser title="" username="" email=""/> 
+	</SharedUsers>
+    <Libraries> 
+		<Library key="" title=""> 
+			<Media id="" type="" title="" summary="" contentRating=""/> 
+			<Media id="" type="" title="" summary="" contentRating=""/> 
+		</Library> 
+		<Library key="" title=""> 
+			<Media id="" type="" title="" summary="" contentRating=""/> 
+			<Media id="" type="" title="" summary="" contentRating=""/> 
+		</Library> 
+	</Libraries> 
+</Plex>
