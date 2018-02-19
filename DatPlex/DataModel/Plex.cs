@@ -18,17 +18,26 @@ namespace DatPlex.DataModel
 {
     public class Plex
     {
+        #region Data Fields
+
         private string _plexdata;
+        private Tuple<string, string, string> _serverInfo;
         private Account _owner;
         private SharedUsers _sharedUserList;
-        private MediaList _mediaList;
+        private List<Library> _libraries;
+
+        #endregion
+
+        #region Constructors
 
         public Plex()
         {
-            _owner = new Account();
-            _sharedUserList = new SharedUsers();
-            _mediaList = new MediaList();
+            
         }
+
+        #endregion
+
+        #region Setters/Getters
 
         public string PlexSaveData
         {
@@ -45,7 +54,7 @@ namespace DatPlex.DataModel
             set
             {
                 _owner = value;
-                PlexSaveData = "PlexData_" + Owner.Email + ".xml";
+                _plexdata = "PlexData_" + _owner.Email + ".xml";
             }
         }
 
@@ -58,15 +67,29 @@ namespace DatPlex.DataModel
             }
         }
 
-        public MediaList MediaList
+        public List<Library> Libraries
         {
-            get { return _mediaList; }
+            get { return _libraries; }
             set
             {
-                _mediaList = value;
+                _libraries = value;
             }
         }
-       
+
+        public Tuple<string, string, string> ServerInfo
+        {
+            get { return _serverInfo; }
+            set
+            {
+                _serverInfo = value;
+            }
+        }
+
+
+        #endregion
+
+        #region Load/Save
+
         public bool Load()
         {
             try
@@ -127,16 +150,31 @@ namespace DatPlex.DataModel
                 return false;
             }
         }
-        
+
+        #endregion
+
+        #region Read/Write Xml
+
         public void ReadXml(XmlReader reader)
         {
             reader.MoveToContent();
             reader.ReadStartElement("Plex");
-            Owner.SignedIn = Convert.ToBoolean(reader.ReadElementString("SignedIn"));
+
+            reader.ReadStartElement("Server");
+            _serverInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"), 
+                                                            reader.GetAttribute("port"), 
+                                                            reader.GetAttribute("token"));
+            reader.ReadEndElement();
 
             _owner.ReadXml(reader);
             _sharedUserList.ReadXml(reader);
-            _mediaList.ReadXml(reader);
+
+            reader.ReadStartElement("Libraries");
+            foreach(Library library in _libraries)
+            {
+                library.ReadXml(reader);
+            }
+            reader.ReadEndElement();
 
             reader.ReadEndElement();
         }
@@ -145,45 +183,81 @@ namespace DatPlex.DataModel
         {
             writer.WriteStartElement("Plex");
 
-            writer.WriteElementString("SignedIn", Owner.SignedIn.ToString());
+            writer.WriteStartElement("Server");
+            writer.WriteAttributeString("ip", ServerInfo.Item1);
+            writer.WriteAttributeString("port", ServerInfo.Item2);
+            writer.WriteAttributeString("token", ServerInfo.Item3);
+            writer.WriteEndElement();
 
-            Owner.WriteXml(writer);
-            SharedUserList.WriteXml(writer);
-            MediaList.WriteXml(writer);
+            _owner.WriteXml(writer);
+            _sharedUserList.WriteXml(writer);
 
+            writer.WriteStartElement("Libraries");
+            foreach(Library library in _libraries)
+            {
+                library.WriteXml(writer);
+            }
+            writer.WriteEndElement();
+            
             writer.WriteEndElement();
 
         }
 
-        //static async Task RunAsync(HttpClient p)
+        #endregion
+
+        #region WebAPI
+
+        //public void Login_Task(string email, string password)
         //{
-        //    // Update port # in the following line.
-        //    p.BaseAddress = new Uri(Utility.PLEX_URL);
-        //    p.DefaultRequestHeaders.Accept.Clear();
-        //    p.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    //var token = GetToken(email, password);
         //}
 
-        static async Task Login(string email, string password)
+        //TODO: URI is https://[ExternalIP]:[PORT]/
+
+        //private static async Task<string> GetToken(string email, string password)
+        //{
+        //    using (var PlexAPI = new HttpClient())
+        //    {
+        //        PlexAPI.BaseAddress = new Uri(Utility.PLEX_URL);
+        //        PlexAPI.DefaultRequestHeaders.Accept.Clear();
+        //        //PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(Utility.PLEX_CLIENT_ID + "=q6j4irkusklo4164j61u6ea0"));
+        //        PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        var login_credentials = new FormUrlEncodedContent(new[]
+        //        {
+        //             new KeyValuePair<string, string>("grant_type", "password"),
+        //             new KeyValuePair<string, string>("email", email),
+        //             new KeyValuePair<string, string>("password", password)
+        //        });
+
+        //        HttpResponseMessage response = await PlexAPI.PostAsync(Utility.POST_SIGNIN, login_credentials);
+
+        //        var responseJSON = await response.Content.ReadAsStringAsync();
+        //        var jObject = JObject.Parse(responseJSON);
+
+        //        return jObject.GetValue("authToken").ToString();
+        //    }
+        //}
+
+        public void Get_Friends()
         {
-            using (var PlexAPI = new HttpClient())
+            using (var api = new HttpClient())
             {
-                PlexAPI.BaseAddress = new Uri(Utility.PLEX_URL);
-                PlexAPI.DefaultRequestHeaders.Accept.Clear();
-                PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                api.BaseAddress = new Uri(Utility.PLEX_URL);
+                api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var login_credentials = new FormUrlEncodedContent(new[]
+                var response = api.GetAsync(Utility.GET_SERVER_SHARES + Utility.Plex_Token).Result;
+
+                string res = "";
+
+                using (HttpContent c = response.Content)
                 {
-                     new KeyValuePair<string, string>("grant_type", "password"),
-                     new KeyValuePair<string, string>("email", email),
-                     new KeyValuePair<string, string>("password", password)
-                });
-
-                HttpResponseMessage response = await PlexAPI.PostAsync(Utility.POST_SIGNIN, login_credentials);
-
-                var responseJSON = await response.Content.ReadAsStringAsync();
-                var jObject = JObject.Parse(responseJSON);
-                var token = jObject.GetValue("token").ToString();
+                    Task<string> r = c.ReadAsStringAsync();
+                    res = r.Result;
+                }
             }
         }
+
+        #endregion
     }
 }

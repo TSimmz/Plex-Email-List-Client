@@ -9,37 +9,58 @@ namespace DatPlex.DataModel
 {
     public class Account : User
     {
-        private bool _signedin;
-        private List<Media> _media;
+        #region Data Fields
 
-        public Account() : base()
+        private bool _rememberMe;
+        private string _password;
+
+        #endregion
+
+        #region Constructors
+
+        public Account(string title, string username, string email, string password) : base(title, username, email)   
         {
-
+            Title = title;
+            Username = username;
+            Email = email;
+            Password = "";
         }
 
-        public Account(string u, string e, string p) : base(u, e, p)   
-        {
-            Username = u;
-            Email = e;
-            Password = p;
-        }
+        #endregion
 
-        public bool SignedIn
+        #region Setters/Getters
+
+        public bool RememberMe
         {
-            get { return _signedin; }
+            get { return _rememberMe; }
             set
             {
-                _signedin = value;
+                _rememberMe = value;
             }
         }
+
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+            }
+        }
+
+
+        #endregion
+
+        #region Read/Write Xml
 
         public void ReadXml(XmlReader reader)
         {
             reader.ReadStartElement("Account");
 
-            this.Username = reader.ReadElementString("Username");
-            this.Email = reader.ReadElementString("Email");
-            this.Password = reader.ReadElementString("Password");
+            this.Title = reader.GetAttribute("title");
+            this.Username = reader.GetAttribute("username");
+            this.Email = reader.GetAttribute("email");
+            this.Password = reader.GetAttribute("password");
 
             reader.ReadEndElement();
         }
@@ -48,12 +69,19 @@ namespace DatPlex.DataModel
         {
             writer.WriteStartElement("Account");
 
-            writer.WriteElementString("Username", Username);
-            writer.WriteElementString("Email", Email);
-            writer.WriteElementString("Password", Password);
+            writer.WriteAttributeString("title", Title);
+            writer.WriteAttributeString("username", Username);
+            writer.WriteAttributeString("email", Email);
+
+            if (RememberMe)
+                writer.WriteAttributeString("password", Password);
+            else
+                writer.WriteAttributeString("password", "");
 
             writer.WriteEndElement();
         }
+
+        #endregion
 
     }
 }

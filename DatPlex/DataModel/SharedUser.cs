@@ -10,21 +10,82 @@ namespace DatPlex.DataModel
 {
     public class SharedUser : User
     {
-        public SharedUser(string u, string e): base(u, e)
+        private bool _include;
+
+        #region Constructor
+
+        public SharedUser(string title, string username, string email): base(title, username, email)
         {
-            Username = u;
-            Email = e;
+            Title = title;
+            Username = username;
+            Email = email;
         }
+
+        #endregion
+
+        #region General
+
+        public bool Include_SharedUser
+        {
+            get { return _include; }
+            set
+            {
+                _include = value;
+            }
+        }
+
+        #endregion
+
     }
 
-    public partial class SharedUsers : ObservableCollection<SharedUsers>
+    public class SharedUsers : ObservableCollection<SharedUsers>
     {
-        ObservableCollection<SharedUser> _sharedUserList;
+        #region Data Fields
+
+        private ObservableCollection<SharedUser> _sharedUserList;
+
+        #endregion
+
+        #region Constructor
 
         public SharedUsers()
         {
             _sharedUserList = new ObservableCollection<SharedUser>();  
         }
+
+        #endregion
+
+        #region Add/Remove Logic
+
+        public bool AddUser(SharedUser user)
+        {
+            try
+            {
+                _sharedUserList.Add(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveUser(SharedUser user)
+        {
+            try
+            {
+                _sharedUserList.Remove(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Read/Write Xml
 
         public void ReadXml(XmlReader reader)
         {
@@ -33,8 +94,9 @@ namespace DatPlex.DataModel
             while (reader.Name.Equals("SharedUser") && reader.NodeType == XmlNodeType.Element)
             {
                     SharedUser s = new SharedUser(
-                        reader.GetAttribute("Username"),
-                        reader.GetAttribute("Email"));
+                        reader.GetAttribute("title"),
+                        reader.GetAttribute("username"),
+                        reader.GetAttribute("email"));
 
                     _sharedUserList.Add(s);
             }
@@ -50,8 +112,9 @@ namespace DatPlex.DataModel
             {
                 writer.WriteStartElement("SharedUser");
 
-                writer.WriteAttributeString("Username", s.Username);
-                writer.WriteAttributeString("Email", s.Email);
+                writer.WriteAttributeString("title", s.Title);
+                writer.WriteAttributeString("username", s.Username);
+                writer.WriteAttributeString("email", s.Email);
 
                 writer.WriteEndElement();
             }
@@ -59,6 +122,8 @@ namespace DatPlex.DataModel
             writer.WriteEndElement();
 
         }
+
+        #endregion
 
     }
 }

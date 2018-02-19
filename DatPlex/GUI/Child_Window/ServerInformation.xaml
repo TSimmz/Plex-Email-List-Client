@@ -1,0 +1,35 @@
+﻿<Window x:Class="DatPlex.GUI.Child_Window.ServerInformation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DatPlex.GUI.Child_Window"
+        mc:Ignorable="d"
+     	Title="Plex Media Server Information" Height="200" Width="350" Icon="/Images/plex_icon.png" 
+        BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock Text="IP Address: " Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="5,0,0,20" Height="24" Width="70"/>
+            <TextBox Text="{Binding IP_Address}" TextWrapping="NoWrap" Margin="0,0,90,25" Height="20" Width="85"/>
+            <TextBlock Text="Port: " Foreground="White" FontSize="14" HorizontalAlignment="Right" Margin="0,0,110,20" Height="24" Width="50"/>
+            <TextBox Text="{Binding Port_Number}" TextWrapping="NoWrap" Margin="175,0,0,25" Height="20" Width="85"/>
+            <TextBlock Text="Token: " Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="30,45,0,0" Height="24" Width="50"/>
+            <TextBox Text="{Binding Plex_Token}" TextWrapping="NoWrap" Height="20" Width="215" Margin="40,45,0,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Content="OK" Background="#4F4F4F" Foreground="White" 
+                Grid.Row="1" Grid.Column="0" Height="25" Width="85" Click="OK_Click"/>
+            <Button Content="Cancel" Background="#4F4F4F" Foreground="White" 
+                Grid.Row="1" Grid.Column="1" Height="25" Width="85" Click="Cancel_Click"/>
+        </Grid>
+    </Grid>
+</Window>

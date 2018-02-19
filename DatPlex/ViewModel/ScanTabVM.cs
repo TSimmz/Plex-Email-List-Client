@@ -10,21 +10,19 @@ using DatPlex.GUI.Child_Window;
 
 namespace DatPlex.ViewModel
 {
-    public class MainScreenVM : BaseViewModel
+    public class ScanTabVM : BaseViewModel
     {
         #region Data Fields
 
         Window Parent;
 
-        //int mFileViewIndex = -1;
-
         #endregion Data Fields
 
         #region Constructor
 
-        public MainScreenVM()
+        public ScanTabVM()
         {
- 
+
         }
 
         public void SetParent(Window iParent)
@@ -80,18 +78,15 @@ namespace DatPlex.ViewModel
             Console.WriteLine("Timer: " + Timer);
 
             PlexScanner mScanWindow = new PlexScanner();
+            mScanWindow.ShowInTaskbar = false;
             mScanWindow.Show();
-        }
-
-        public void Logout_Button(object obj)
-        {
-            //TODO: Logout procedure
         }
 
         public void UpdateServerInfo(object obj)
         {
             ServerInformation wInfo = new ServerInformation();
             wInfo.DataContext = this;
+            wInfo.ShowInTaskbar = false;
             wInfo.ShowDialog();
 
             if ((bool)wInfo.DialogResult)
@@ -103,7 +98,9 @@ namespace DatPlex.ViewModel
                 Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
 
                 App.MainViewModel.PlexApp.ServerInfo = info;
-            }           
+            }
+
+            App.MainViewModel.PlexApp.Get_Friends();
         }
 
         #endregion General
@@ -146,10 +143,11 @@ namespace DatPlex.ViewModel
             set
             {
                 mUnits_SelIndex = value;
+                OnPropertyChanged();
             }
         }
 
-        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default","Default", "Default") };
+        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default", "Default", "Default") };
         public ObservableCollection<SharedUser> SharedUsers
         {
             get { return mSharedUsers; }
@@ -248,6 +246,19 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private string mProgress_Lbl = "Test Label";
+        public string Progress_Lbl
+        {
+            get { return mProgress_Lbl; }
+            set
+            {
+                if (mProgress_Lbl == value)
+                    return;
+                mProgress_Lbl = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Command Bindings
@@ -281,32 +292,22 @@ namespace DatPlex.ViewModel
             get
             {
                 if (null == mScan_Plex_Cmd)
-                    mScan_Plex_Cmd = new DelegateCommand(Man_Scan_Plex); 
+                    mScan_Plex_Cmd = new DelegateCommand(Man_Scan_Plex);
                 return mScan_Plex_Cmd;
             }
         }
 
-        DelegateCommand mLogout_Cmd;
-        public ICommand Logout_Cmd
+        DelegateCommand mSettings_Cmd;
+        public ICommand Settings_Cmd
         {
             get
             {
-                if (null == mLogout_Cmd)
-                    mLogout_Cmd = new DelegateCommand(Logout_Button);
-                return mLogout_Cmd;
-            }
-        }
-
-        DelegateCommand mServerInfo_Cmd;
-        public ICommand ServerInfo_Cmd
-        {
-            get
-            {
-                if (null == mServerInfo_Cmd)
-                    mServerInfo_Cmd = new DelegateCommand(UpdateServerInfo);
-                return mServerInfo_Cmd;
+                if (null == mSettings_Cmd)
+                    mSettings_Cmd = new DelegateCommand(UpdateServerInfo);
+                return mSettings_Cmd;
             }
         }
         #endregion
     }
+
 }
