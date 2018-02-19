@@ -93,10 +93,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModel\Email.cs" />
+    <Compile Include="DataModel\LogEntry.cs" />
+    <Compile Include="GUI\Child_Window\LogEntryViewer.xaml.cs">
+      <DependentUpon>LogEntryViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Child_Window\ServerInformation.xaml.cs">
       <DependentUpon>ServerInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Main_Window\FriendsView.xaml.cs">
+      <DependentUpon>FriendsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Main_Window\LibraryView.xaml.cs">
+      <DependentUpon>LibraryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Main_Window\ScanView.xaml.cs">
+      <DependentUpon>ScanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\FriendsTabVM.cs" />
+    <Compile Include="ViewModel\LibraryTabVM.cs" />
     <Compile Include="ViewModel\PlexScannerVM.cs" />
+    <Compile Include="ViewModel\ScanTabVM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -115,12 +131,6 @@
     <Compile Include="GUI\Child_Window\ScanInProgress.xaml.cs">
       <DependentUpon>ScanInProgress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Main_Window\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Main_Window\MainScreen.xaml.cs">
-      <DependentUpon>MainScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,8 +139,6 @@
       <DependentUpon>PlexScanner.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\LoginVM.cs" />
-    <Compile Include="ViewModel\MainScreenVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -185,6 +193,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GUI\Child_Window\LogEntryViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Child_Window\ScanComplete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,11 +209,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Main_Window\Login.xaml">
+    <Page Include="GUI\Main_Window\FriendsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Main_Window\MainScreen.xaml">
+    <Page Include="GUI\Main_Window\LibraryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Main_Window\ScanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

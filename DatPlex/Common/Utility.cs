@@ -10,15 +10,23 @@ namespace DatPlex.Common
 {
     public class Utility
     {
-        public static string PLEX_URL = "https://plex.tv/";                      //Plex Base url
-        public static string POST_SIGNIN = "users/sign_in.xml";                 //Basic auth to sign in to plex.tv
-        public static string TOKEN = "?X-Plex-Token=";
-        public static string GET_SERVERS = "servers.xml";                       //Gets a list of servers and their sections
-        public static string GET_DEVICES = "devices.xml";                       //Gets a list of available clients and servers
+        public static string PLEX_URL = "https://plex.tv/";                             //Plex Base url
+        public static string LOCAL_URL = "https://" + Plex_IP + ":" + Plex_Port + "/";  //Local plex url
+        public static string TOKEN = "/?X-Plex-Token=";                                 //Plex Account Token 
+
+        //###########################################
+        // Plex URL Requests
+        //###########################################
         public static string GET_ACCOUNT_INFO = "users/account";                //Gets account information
         public static string GET_SERVER_SHARES = "pms/friends/all";             //Gets PMS server shares
         public static string GET_SERVER_REQS = "pms/friends/requests";          //Gets PMS server share requests
         public static string GET_CLIENT_IP = "pms/:/ip";                        //Gets current client remote IP
+
+        //###########################################
+        //Local URL Requests
+        //###########################################
+        public static string GET_LIBRARIES = "library/sections";
+        public static string GET_METADATA = "library/metadata";
 
         public static string XML_SAVE_PATH = "%APPDATA%/Plex Email/Account Data/";
 

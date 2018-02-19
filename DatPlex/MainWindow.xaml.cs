@@ -45,16 +45,22 @@ namespace DatPlex
 
             _ViewModel = App.MainViewModel;
 
-            mLoginView.ViewModel = _ViewModel;
-            mMainScreenView.ViewModel = _ViewModel;
+            _ScanView.ViewModel = _ViewModel;
+            _LibraryView.ViewModel = _ViewModel;
+            _FriendsView.ViewModel = _ViewModel;
+
+            _ScanView.SetDataContext(_ViewModel.ScanTabVM);
+            _LibraryView.SetDataContext(_ViewModel.LibraryTabVM);
+            _FriendsView.SetDataContext(_ViewModel.FriendsTabVM);
 
             //_ViewModel.TaskStarting += TaskStarted;
             //_ViewModel.ProgressChanged += ProgressChanged;
             //_ViewModel.TaskCompleted += TaskCompleted;
 
-            mLoginView.SetDataContext(_ViewModel.LoginVM);
-            mMainScreenView.SetDataContext(_ViewModel.MainScreenVM);
+
+
         }
+
 
         #endregion
     }

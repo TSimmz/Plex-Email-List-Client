@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
         xmlns:common="clr-namespace:DatPlex.Common"
-        Title="Plex User Update" Width="600" Height="400" Icon="/Images/plex_icon.png"
+        Title="Plex User Update" Width="750" Height="500" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
@@ -14,13 +14,41 @@
             <i:InvokeCommandAction Command="{Binding File_ExitCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <UserControl Visibility="{Binding LoginVisibility}">
-            <mainview:Login x:Name="mLoginView"/>
-        </UserControl>
-        <UserControl Visibility="{Binding MainScreenVisibility}">
-            <mainview:MainScreen x:Name="mMainScreenView"/>
-        </UserControl>
+    <Grid Background="#202020">
+        <TabControl SelectedIndex="{Binding SelectedTabIndex}" BorderThickness="0" Background="#202020">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderBrush="#4F4F4F" BorderThickness="1.5,1.5,0,0" >
+                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="15,5"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#202020"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="#4F4F4F"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style TargetType="Border">
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="   Scan    " Foreground="White" >
+                <mainview:ScanView x:Name="_ScanView"/>
+            </TabItem>
+            <TabItem Header=" Libraries " Foreground="White">
+                <mainview:LibraryView x:Name="_LibraryView"/>
+            </TabItem>
+            <TabItem Header="  Friends  " Foreground="White">
+                <mainview:FriendsView x:Name="_FriendsView"/>
+            </TabItem>
+        </TabControl>
     </Grid>
     
 </Window>

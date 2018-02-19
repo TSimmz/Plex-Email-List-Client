@@ -7,11 +7,24 @@
              xmlns:vm="clr-namespace:DatPlex.ViewModel"
              mc:Ignorable="d">
     <Application.Resources>
-        <!--<DataTemplate DataType="{x:Type vm:LoginVM}">
-            <mviews:Login />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:MainScreenVM}">
-            <mviews:MainScreen />
-        </DataTemplate>-->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#4f4f4f"/>
+            <Setter Property="Foreground" Value="#e5ba1a"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#404040"/>
+                    <Setter Property="Foreground" Value="#ebebeb"/>
+                </Trigger> 
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

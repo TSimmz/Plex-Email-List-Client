@@ -10,43 +10,40 @@ namespace DatPlex.DataModel
     {
         #region Data Fields
 
-        private string _uname;
+        private string _title;
+        private string _username;
         private string _email;
-        private string _password;
 
         #endregion
 
         #region Constructors
 
-        public User()
+        public User(string title, string username, string email)
         {
-
-        }
-
-        public User(string u, string e, string p)
-        {
-            Username = u;
-            Email = e;
-            Password = p;
-        }
-
-        public User(string u, string e)
-        {
-            Username = u;
-            Email = e;
-            Password = "";
+            _title = title;
+            _username = username;
+            _email = email;
         }
 
         #endregion
 
         #region Setters/Getters
 
-        public string Username
+        public string Title
         {
-            get { return _uname; }
+            get { return _title; }
             set
             {
-                _uname = value;
+                _title = value;
+            }
+        }
+
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                _username = value;
             }
         }
 
@@ -56,15 +53,6 @@ namespace DatPlex.DataModel
             set
             {
                 _email = value;
-            }
-        }
-
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                _password = value;
             }
         }
 
