@@ -41,8 +41,10 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Button Content="Add Friends" Command="{Binding AddFriends_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,75"
+                            Width="200" Height="40" TextElement.FontSize="18"/>
             <Button Content="Update Friends" Command="{Binding UpdateFriends_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
-                            Width="200" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
+                            Width="200" Height="40" TextElement.FontSize="18"/>
         </Grid>
     </Grid>
 </UserControl>

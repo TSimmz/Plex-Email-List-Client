@@ -12,7 +12,7 @@ namespace DatPlex.Common
     {
         public static string PLEX_URL = "https://plex.tv/";                             //Plex Base url
         public static string LOCAL_URL = "https://" + Plex_IP + ":" + Plex_Port + "/";  //Local plex url
-        public static string TOKEN = "/?X-Plex-Token=" + Plex_Token;                     //Plex Account Token 
+        public static string TOKEN = "/?X-Plex-Token=";                                 //Plex Account Token 
 
         //###########################################
         // Plex URL Requests

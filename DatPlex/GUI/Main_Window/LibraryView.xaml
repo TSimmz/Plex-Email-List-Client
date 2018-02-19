@@ -42,7 +42,7 @@
                 </ListView.View>
             </ListView>
             <Button Content="Update Libraries" Command="{Binding UpdateLibrary_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
-                            Width="200" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18"/>
+                            Width="200" Height="40" TextElement.FontSize="18"/>
         </Grid>
     </Grid>
 </UserControl>

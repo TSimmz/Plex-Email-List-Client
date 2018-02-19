@@ -82,11 +82,6 @@ namespace DatPlex.ViewModel
             mScanWindow.Show();
         }
 
-        public void Logout_Button(object obj)
-        {
-            //TODO: Logout procedure
-        }
-
         public void UpdateServerInfo(object obj)
         {
             ServerInformation wInfo = new ServerInformation();
@@ -104,6 +99,8 @@ namespace DatPlex.ViewModel
 
                 App.MainViewModel.PlexApp.ServerInfo = info;
             }
+
+            App.MainViewModel.PlexApp.Get_Friends();
         }
 
         #endregion General

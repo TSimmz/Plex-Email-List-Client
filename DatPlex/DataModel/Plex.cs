@@ -207,10 +207,10 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        public void Login_Task(string email, string password)
-        {
-            //var token = GetToken(email, password);
-        }
+        //public void Login_Task(string email, string password)
+        //{
+        //    //var token = GetToken(email, password);
+        //}
 
         //TODO: URI is https://[ExternalIP]:[PORT]/
 
@@ -238,6 +238,25 @@ namespace DatPlex.DataModel
         //        return jObject.GetValue("authToken").ToString();
         //    }
         //}
+
+        public void Get_Friends()
+        {
+            using (var api = new HttpClient())
+            {
+                api.BaseAddress = new Uri(Utility.PLEX_URL);
+                api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = api.GetAsync(Utility.GET_SERVER_SHARES + Utility.Plex_Token).Result;
+
+                string res = "";
+
+                using (HttpContent c = response.Content)
+                {
+                    Task<string> r = c.ReadAsStringAsync();
+                    res = r.Result;
+                }
+            }
+        }
 
         #endregion
     }

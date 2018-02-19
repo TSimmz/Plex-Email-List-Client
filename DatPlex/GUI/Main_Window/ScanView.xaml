@@ -44,10 +44,10 @@
                     </GroupBox>
                 </Grid>
                 <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,40"
-                            Width="235" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
+                            Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
                 
                 <Button Content="Settings" Command="{Binding Settings_Cmd}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,80,0,0"
-                        Width="235" Height="40" Background="#4F4F4F" Foreground="White" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
+                        Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
 
                 <Label Name="_ScanLabel" Content="{Binding Progress_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,35" Height="25" Width="300"  
                         Grid.Column="0" Grid.Row="2" Foreground="White"/>
@@ -67,7 +67,7 @@
                             <ComboBoxItem>H</ComboBoxItem>
                             <ComboBoxItem>D</ComboBoxItem>
                         </ComboBox>
-                        <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="90" Background="#4F4F4F" Foreground="White" Grid.Column="2"/>
+                        <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="90" Grid.Column="2"/>
                     </Grid>
                 </GroupBox>
                 <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="300,0,25,0">
