@@ -20,47 +20,20 @@
         <Grid Grid.Row="1">
             <ListView Height="300" Width="455" TextElement.FontSize="16" ItemsSource="{Binding LibraryList}" SelectedIndex="{Binding Library_Index}"
                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Grid.Row="0">
-                <ListView.Resources>
-                    
-                </ListView.Resources>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="Background" Value="#4f4f4f"/>
-                        <Setter Property="Foreground" Value="#e5ba1a"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#404040"/>
-                                <Setter Property="Foreground" Value="#ebebeb"/>
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="#404040"/>
-                                <Setter Property="Foreground" Value="#ebebeb"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <CheckBox Content="{Binding Include_Library}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
                 <ListView.View>
                     <GridView>
-                        <GridView.ColumnHeaderContainerStyle>
-                            <Style TargetType="GridViewColumnHeader">
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                <Setter Property="BorderBrush" Value="#4f4f4f"/>
-                                <Setter Property="Background" Value="#404040"/>
-                                <Setter Property="Foreground" Value="#e5ba1a"/>
-                            </Style>
-                        </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn Header="Include" Width="60"/>
+                        <GridViewColumn Header="  " Width="30">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <CheckBox Tag="{Binding Include}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Key" Width="65" DisplayMemberBinding="{Binding GetLibKey }"/>
                         <GridViewColumn Header="Items" Width="65" DisplayMemberBinding="{Binding GetItemCount }"/>
-                        <GridViewColumn Header="Title" Width="255"  DisplayMemberBinding="{Binding GetLibTitle }"/>
+                        <GridViewColumn Header="Title" Width="288"  DisplayMemberBinding="{Binding GetLibTitle }"/>
                     </GridView>
                 </ListView.View>
             </ListView>

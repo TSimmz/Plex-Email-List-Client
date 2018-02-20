@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Windows.Controls;
 
 namespace DatPlex.DataModel
 {
@@ -91,6 +92,7 @@ namespace DatPlex.DataModel
         private int _key;
         private int _itemCount;
         private string _title;
+        private CheckBox _included;
         private List<Media> _mediaList;
 
         #endregion
@@ -100,6 +102,7 @@ namespace DatPlex.DataModel
         public Library(int key, int count, string title)
         {
             _include = false;
+            _included = new CheckBox();
             _key = key;
             _itemCount = count;
             _title = title;
@@ -112,7 +115,7 @@ namespace DatPlex.DataModel
 
         public string GetLibTitle { get { return _title; } }
 
-
+        public CheckBox Include { get { return _included; } }
 
         #endregion
 
