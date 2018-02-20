@@ -124,7 +124,6 @@ namespace DatPlex.DataModel
             set
             {
                 _include = value;
-                Console.WriteLine("Library " + _title + ": " + value.ToString());
             }
         }
 

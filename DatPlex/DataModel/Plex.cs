@@ -23,7 +23,7 @@ namespace DatPlex.DataModel
         private string _plexdata;
         private Tuple<string, string, string> _serverInfo;
         private Account _owner;
-        private SharedUsers _sharedUserList;
+        private FriendList _friendList;
         private List<Library> _libraries;
 
         #endregion
@@ -58,12 +58,12 @@ namespace DatPlex.DataModel
             }
         }
 
-        public SharedUsers SharedUserList
+        public FriendList FriendList
         {
-            get { return _sharedUserList; }
+            get { return _friendList; }
             set
             {
-                _sharedUserList = value;
+                _friendList = value;
             }
         }
 
@@ -167,7 +167,7 @@ namespace DatPlex.DataModel
             reader.ReadEndElement();
 
             _owner.ReadXml(reader);
-            _sharedUserList.ReadXml(reader);
+            _friendList.ReadXml(reader);
 
             reader.ReadStartElement("Libraries");
             foreach(Library library in _libraries)
@@ -190,7 +190,7 @@ namespace DatPlex.DataModel
             writer.WriteEndElement();
 
             _owner.WriteXml(writer);
-            _sharedUserList.WriteXml(writer);
+            _friendList.WriteXml(writer);
 
             writer.WriteStartElement("Libraries");
             foreach(Library library in _libraries)

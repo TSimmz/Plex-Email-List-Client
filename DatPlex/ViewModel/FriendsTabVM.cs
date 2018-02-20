@@ -16,7 +16,7 @@ namespace DatPlex.ViewModel
 
         Window Parent;
 
-        private SharedUsers _FriendsList;
+        private FriendList _FriendList;
 
         #endregion Data Fields
 
@@ -24,9 +24,9 @@ namespace DatPlex.ViewModel
 
         public FriendsTabVM()
         {
-            _FriendsList = new SharedUsers();
-            SharedUser u = new SharedUser("title", "username", "email@email");
-            _FriendsList.AddUser(u);
+            _FriendList = new FriendList();
+            Friend f = new Friend("title", "username", "email@email");
+            _FriendList.AddUser(f);
         }
 
         public void SetParent(Window iParent)
@@ -34,12 +34,12 @@ namespace DatPlex.ViewModel
             Parent = iParent;
         }
 
-        public SharedUsers FriendsList
+        public FriendList Friend2List
             {
-            get { return _FriendsList; }
+            get { return _FriendList; }
             set
             {
-                _FriendsList = value;
+                _FriendList = value;
                 OnPropertyChanged();
             }
         }

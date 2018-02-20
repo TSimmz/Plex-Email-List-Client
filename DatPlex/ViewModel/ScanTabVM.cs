@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Timers;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using DatPlex.Common;
@@ -147,8 +147,8 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default", "Default", "Default") };
-        public ObservableCollection<SharedUser> SharedUsers
+        private List<Friend> mSharedUsers = new List<Friend> { new Friend("Default", "Default", "Default") };
+        public List<Friend> SharedUsers
         {
             get { return mSharedUsers; }
             set
