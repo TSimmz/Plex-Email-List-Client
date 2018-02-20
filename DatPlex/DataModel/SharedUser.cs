@@ -55,6 +55,8 @@ namespace DatPlex.DataModel
 
         #endregion
 
+        #region General
+
         #region Add/Remove Logic
 
         public bool AddUser(SharedUser user)
@@ -82,6 +84,12 @@ namespace DatPlex.DataModel
                 return false;
             }
         }
+
+        #endregion
+
+        #endregion
+
+        #region Setters/Getters
 
         #endregion
 

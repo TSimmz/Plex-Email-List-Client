@@ -92,7 +92,7 @@ namespace DatPlex.DataModel
         private int _key;
         private int _itemCount;
         private string _title;
-        private CheckBox _included;
+
         private List<Media> _mediaList;
 
         #endregion
@@ -102,7 +102,6 @@ namespace DatPlex.DataModel
         public Library(int key, int count, string title)
         {
             _include = false;
-            _included = new CheckBox();
             _key = key;
             _itemCount = count;
             _title = title;
@@ -114,9 +113,7 @@ namespace DatPlex.DataModel
         public int GetItemCount { get { return _itemCount; } }
 
         public string GetLibTitle { get { return _title; } }
-
-        public CheckBox Include { get { return _included; } }
-
+        
         #endregion
 
         #region General
@@ -127,6 +124,7 @@ namespace DatPlex.DataModel
             set
             {
                 _include = value;
+                Console.WriteLine("Library " + _title + ": " + value.ToString());
             }
         }
 
