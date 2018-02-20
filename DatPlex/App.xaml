@@ -26,5 +26,11 @@
                 </Trigger> 
             </Style.Triggers>
         </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#4F4F4F"/>
+            <Setter Property="Foreground" Value="#ebebeb"/>
+        </Style>
     </Application.Resources>
 </Application>
+    
+    

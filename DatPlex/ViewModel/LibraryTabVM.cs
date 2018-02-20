@@ -27,7 +27,9 @@ namespace DatPlex.ViewModel
 
         public LibraryTabVM()
         {
-
+            _LibraryList = new List<Library>();
+            Library lib = new Library(1, 200, "movies");
+            _LibraryList.Add(lib);
         }
 
         public void SetParent(Window iParent)
