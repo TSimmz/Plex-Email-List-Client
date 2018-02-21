@@ -100,7 +100,7 @@ namespace DatPlex.ViewModel
                 App.MainViewModel.PlexApp.ServerInfo = info;
             }
 
-            App.MainViewModel.PlexApp.Get_Friends();
+            App.MainViewModel.PlexApp.GetRequest();
         }
 
         #endregion General

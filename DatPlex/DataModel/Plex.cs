@@ -2,17 +2,13 @@
 using System.IO;
 using System.Windows;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using DatPlex.Common;
 using System.Xml;
 using System.Threading;
-using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace DatPlex.DataModel
 {
@@ -32,7 +28,7 @@ namespace DatPlex.DataModel
 
         public Plex()
         {
-            
+
         }
 
         #endregion
@@ -122,7 +118,7 @@ namespace DatPlex.DataModel
                 return false;
             }
         }
-        
+
         public bool Save()
         {
             try
@@ -161,8 +157,8 @@ namespace DatPlex.DataModel
             reader.ReadStartElement("Plex");
 
             reader.ReadStartElement("Server");
-            _serverInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"), 
-                                                            reader.GetAttribute("port"), 
+            _serverInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"),
+                                                            reader.GetAttribute("port"),
                                                             reader.GetAttribute("token"));
             reader.ReadEndElement();
 
@@ -170,7 +166,7 @@ namespace DatPlex.DataModel
             _sharedUserList.ReadXml(reader);
 
             reader.ReadStartElement("Libraries");
-            foreach(Library library in _libraries)
+            foreach (Library library in _libraries)
             {
                 library.ReadXml(reader);
             }
@@ -193,12 +189,12 @@ namespace DatPlex.DataModel
             _sharedUserList.WriteXml(writer);
 
             writer.WriteStartElement("Libraries");
-            foreach(Library library in _libraries)
+            foreach (Library library in _libraries)
             {
                 library.WriteXml(writer);
             }
             writer.WriteEndElement();
-            
+
             writer.WriteEndElement();
 
         }
@@ -207,54 +203,53 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        //public void Login_Task(string email, string password)
-        //{
-        //    //var token = GetToken(email, password);
-        //}
-
-        //TODO: URI is https://[ExternalIP]:[PORT]/
-
-        //private static async Task<string> GetToken(string email, string password)
-        //{
-        //    using (var PlexAPI = new HttpClient())
-        //    {
-        //        PlexAPI.BaseAddress = new Uri(Utility.PLEX_URL);
-        //        PlexAPI.DefaultRequestHeaders.Accept.Clear();
-        //        //PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(Utility.PLEX_CLIENT_ID + "=q6j4irkusklo4164j61u6ea0"));
-        //        PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //        var login_credentials = new FormUrlEncodedContent(new[]
-        //        {
-        //             new KeyValuePair<string, string>("grant_type", "password"),
-        //             new KeyValuePair<string, string>("email", email),
-        //             new KeyValuePair<string, string>("password", password)
-        //        });
-
-        //        HttpResponseMessage response = await PlexAPI.PostAsync(Utility.POST_SIGNIN, login_credentials);
-
-        //        var responseJSON = await response.Content.ReadAsStringAsync();
-        //        var jObject = JObject.Parse(responseJSON);
-
-        //        return jObject.GetValue("authToken").ToString();
-        //    }
-        //}
-
-        public void Get_Friends()
+        public bool Get_Plex_Data()
         {
-            using (var api = new HttpClient())
+            try
             {
-                api.BaseAddress = new Uri(Utility.PLEX_URL);
-                api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = api.GetAsync(Utility.GET_SERVER_SHARES + Utility.Plex_Token).Result;
+                XmlDocument doc = new XmlDocument();
+                //doc.Load(Utility.PLEX_URL + Utility.GET_SERVER_SHARES + Utility.Plex_Token);
+                doc.Load("https://192.168.0.5:32400/" + Utility.GET_LIBRARIES + Utility.Plex_Token);
 
-                string res = "";
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-                using (HttpContent c = response.Content)
-                {
-                    Task<string> r = c.ReadAsStringAsync();
-                    res = r.Result;
-                }
+        public bool GetRequest()
+        {
+            try
+            {
+                //using (var api = new HttpClient())
+                //{
+                //    api.BaseAddress = new Uri("https://192.168.0.5:32400/");
+                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //    var response = api.GetAsync(Utility.GET_LIBRARIES + Utility.Plex_Token).Result;
+
+                //    string res = "";
+
+                //    using (HttpContent c = response.Content)
+                //    {
+                //        Task<string> r = c.ReadAsStringAsync();
+                //        res = r.Result;
+                //    }
+                //}
+
+                HttpRequest req = WebRequest.CreateHttp(@"https://192.168.0.5:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m");
+
+                WebResponse res = req.GetResponse();
+
+                return true;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.Write(e.ToString());
+                return false;
             }
         }
 
