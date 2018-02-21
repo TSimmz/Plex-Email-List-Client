@@ -69,7 +69,7 @@ namespace DatPlex.ViewModel
         }
 
         private bool _Include;
-        public bool Include
+        public bool Include_Library
         {
             get { return _Include; }
             set
