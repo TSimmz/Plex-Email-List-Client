@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Windows.Controls;
 
 namespace DatPlex.DataModel
 {
@@ -91,6 +92,7 @@ namespace DatPlex.DataModel
         private int _key;
         private int _itemCount;
         private string _title;
+
         private List<Media> _mediaList;
 
         #endregion
@@ -111,9 +113,7 @@ namespace DatPlex.DataModel
         public int GetItemCount { get { return _itemCount; } }
 
         public string GetLibTitle { get { return _title; } }
-
-
-
+        
         #endregion
 
         #region General
