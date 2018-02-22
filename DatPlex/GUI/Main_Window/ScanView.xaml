@@ -43,7 +43,7 @@
                         </Grid>
                     </GroupBox>
                 </Grid>
-                <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,40"
+                <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,40"
                             Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
                 
                 <Button Content="Settings" Command="{Binding Settings_Cmd}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,80,0,0"
@@ -60,14 +60,12 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Timer}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Margin="20,0,0,0" Width="80" Grid.Column="0"/>
-                        <ComboBox SelectedIndex="{Binding Units_SelIndex}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="25" Grid.Column="1">
-                            <ComboBoxItem></ComboBoxItem>
-                            <ComboBoxItem>M</ComboBoxItem>
-                            <ComboBoxItem>H</ComboBoxItem>
+                        <TextBox Text="{Binding Timer}" IsEnabled="{Binding Automatic_State}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Margin="20,0,0,0" Width="80" Grid.Column="0"/>
+                        <ComboBox SelectedIndex="{Binding Units_SelIndex}" IsEnabled="{Binding Automatic_State}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="25" Grid.Column="1">
+                            <ComboBoxItem> </ComboBoxItem>
                             <ComboBoxItem>D</ComboBoxItem>
                         </ComboBox>
-                        <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="90" Grid.Column="2"/>
+                        <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" IsEnabled="{Binding Automatic_State}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="90" Grid.Column="2"/>
                     </Grid>
                 </GroupBox>
                 <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="300,0,25,0">

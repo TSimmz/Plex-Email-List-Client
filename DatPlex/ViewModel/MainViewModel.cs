@@ -26,8 +26,10 @@ namespace DatPlex.ViewModel
             _scanTabVM = new ScanTabVM();
             _libraryTabVM = new LibraryTabVM();
             _friendsTabVM = new FriendsTabVM();
-            
-            
+
+            _scanTabVM.SetParent(App.MainWindow);
+            _libraryTabVM.SetParent(App.MainWindow);
+            _friendsTabVM.SetParent(App.MainWindow);            
 
             ScanViewVisibility = Visibility.Hidden;
             LibraryViewVisibility = Visibility.Hidden;
