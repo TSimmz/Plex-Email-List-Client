@@ -206,117 +206,27 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        public bool Get_Plex_Data()
-        {
-            try
-            {
-
-                XmlDocument doc = new XmlDocument();
-                //doc.Load(Utility.PLEX_URL + Utility.GET_SERVER_SHARES + Utility.Plex_Token);
-                doc.Load("https://192.168.0.5:32400/" + Utility.GET_LIBRARIES + Utility.Plex_Token);
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool GetRequest()
-        {
-            try
-            {
-                //using (var api = new HttpClient())
-                //{
-                //    api.BaseAddress = new Uri("https://192.168.0.5:32400/");
-                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //    var response = api.GetAsync(Utility.GET_LIBRARIES + Utility.Plex_Token).Result;
-
-                //    string res = "";
-
-                //    using (HttpContent c = response.Content)
-                //    {
-                //        Task<string> r = c.ReadAsStringAsync();
-                //        res = r.Result;
-                //    }
-                //}
-
         public void Get_Friends()
         {
             try
             {
 
-                #region HTTPCLIENT
-
-                //using (var api = new HttpClient())
-                //{
-                //    api.BaseAddress = new Uri("https://192.168.0.5:32400");
-                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-
-                //    HttpRequestMessage request = new HttpRequestMessage
-                //    (
-                //        HttpMethod.Get,
-                //        new Uri("/libary/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m")
-                //    );
-
-
-
-                //    request.Content.Headers.ContentLength = 2065;
-                //    request.Content.Headers.ContentType = new MediaTypeHeaderValue("text/xml;charset=utf-8");
-
-                //    api.SendAsync(request).ContinueWith(responseTask =>
-                //    {
-                //        Console.WriteLine("Response: {0}", responseTask.Result);
-                //    });
-
-                //    HttpResponseMessage response = null;
-
-                //    foreach (int i in Enumerable.Range(0, 25))
-                //    {
-                //        try
-                //        {
-                //            response = api.GetAsync(Utility.GET_LIBRARIES + "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m").Result;
-                //            break;
-                //        }
-                //        catch
-                //        {
-                //            Console.WriteLine("Error");
-                //        }
-
-                //    }
-
-
-                //    string res = "";
-
-                //    using (HttpContent c = response.Content)
-                //    {
-                //        Task<string> r = c.ReadAsStringAsync();
-                //        res = r.Result;
-                //    }
-                //}
-                #endregion
-
-                string url = "https://192.168.0.5:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
+                string url = "https://192.168.0.4:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
+                //string url = "https://plex.tv/pms/friends/all/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
 
                 WebRequest request = WebRequest.CreateHttp(url);
                 request.Method = "GET";
-                //request.ContentType = "application/xml;charset=utf-8";
+                request.ContentType = "application/xml;charset=utf-8";
 
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
                 using (WebResponse response = request.GetResponse())
                 {
                     using (Stream stream = response.GetResponseStream())
                     {
-                        StreamReader s = new StreamReader(stream);
-                        string s1 = s.ReadToEnd();
+                        XmlDocument xml = new XmlDocument();
+                        xml.Load(stream);
                     }
                 }
-
-
-
             }
             catch (Exception e)
             {
