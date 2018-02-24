@@ -9,8 +9,9 @@ using System.Web;
 using DatPlex.Common;
 using System.Xml;
 using System.Threading;
-using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace DatPlex.DataModel
 {
@@ -205,37 +206,42 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        //public void Login_Task(string email, string password)
-        //{
-        //    //var token = GetToken(email, password);
-        //}
+        public bool Get_Plex_Data()
+        {
+            try
+            {
 
-        //TODO: URI is https://[ExternalIP]:[PORT]/
+                XmlDocument doc = new XmlDocument();
+                //doc.Load(Utility.PLEX_URL + Utility.GET_SERVER_SHARES + Utility.Plex_Token);
+                doc.Load("https://192.168.0.5:32400/" + Utility.GET_LIBRARIES + Utility.Plex_Token);
 
-        //private static async Task<string> GetToken(string email, string password)
-        //{
-        //    using (var PlexAPI = new HttpClient())
-        //    {
-        //        PlexAPI.BaseAddress = new Uri(Utility.PLEX_URL);
-        //        PlexAPI.DefaultRequestHeaders.Accept.Clear();
-        //        //PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(Utility.PLEX_CLIENT_ID + "=q6j4irkusklo4164j61u6ea0"));
-        //        PlexAPI.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-        //        var login_credentials = new FormUrlEncodedContent(new[]
-        //        {
-        //             new KeyValuePair<string, string>("grant_type", "password"),
-        //             new KeyValuePair<string, string>("email", email),
-        //             new KeyValuePair<string, string>("password", password)
-        //        });
+        public bool GetRequest()
+        {
+            try
+            {
+                //using (var api = new HttpClient())
+                //{
+                //    api.BaseAddress = new Uri("https://192.168.0.5:32400/");
+                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        //        HttpResponseMessage response = await PlexAPI.PostAsync(Utility.POST_SIGNIN, login_credentials);
+                //    var response = api.GetAsync(Utility.GET_LIBRARIES + Utility.Plex_Token).Result;
 
-        //        var responseJSON = await response.Content.ReadAsStringAsync();
-        //        var jObject = JObject.Parse(responseJSON);
+                //    string res = "";
 
-        //        return jObject.GetValue("authToken").ToString();
-        //    }
-        //}
+                //    using (HttpContent c = response.Content)
+                //    {
+                //        Task<string> r = c.ReadAsStringAsync();
+                //        res = r.Result;
+                //    }
+                //}
 
         public void Get_Friends()
         {
