@@ -2,12 +2,10 @@
 using System.IO;
 using System.Windows;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web;
 using DatPlex.Common;
 using System.Xml;
 using System.Threading;
@@ -23,7 +21,7 @@ namespace DatPlex.DataModel
         private string _plexdata;
         private Tuple<string, string, string> _serverInfo;
         private Account _owner;
-        private SharedUsers _sharedUserList;
+        private FriendList _friendList;
         private List<Library> _libraries;
 
         #endregion
@@ -32,7 +30,7 @@ namespace DatPlex.DataModel
 
         public Plex()
         {
-            
+
         }
 
         #endregion
@@ -58,12 +56,12 @@ namespace DatPlex.DataModel
             }
         }
 
-        public SharedUsers SharedUserList
+        public FriendList FriendList
         {
-            get { return _sharedUserList; }
+            get { return _friendList; }
             set
             {
-                _sharedUserList = value;
+                _friendList = value;
             }
         }
 
@@ -122,7 +120,7 @@ namespace DatPlex.DataModel
                 return false;
             }
         }
-        
+
         public bool Save()
         {
             try
@@ -161,16 +159,16 @@ namespace DatPlex.DataModel
             reader.ReadStartElement("Plex");
 
             reader.ReadStartElement("Server");
-            _serverInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"), 
-                                                            reader.GetAttribute("port"), 
+            _serverInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"),
+                                                            reader.GetAttribute("port"),
                                                             reader.GetAttribute("token"));
             reader.ReadEndElement();
 
             _owner.ReadXml(reader);
-            _sharedUserList.ReadXml(reader);
+            _friendList.ReadXml(reader);
 
             reader.ReadStartElement("Libraries");
-            foreach(Library library in _libraries)
+            foreach (Library library in _libraries)
             {
                 library.ReadXml(reader);
             }
@@ -190,15 +188,15 @@ namespace DatPlex.DataModel
             writer.WriteEndElement();
 
             _owner.WriteXml(writer);
-            _sharedUserList.WriteXml(writer);
+            _friendList.WriteXml(writer);
 
             writer.WriteStartElement("Libraries");
-            foreach(Library library in _libraries)
+            foreach (Library library in _libraries)
             {
                 library.WriteXml(writer);
             }
             writer.WriteEndElement();
-            
+
             writer.WriteEndElement();
 
         }
@@ -241,20 +239,82 @@ namespace DatPlex.DataModel
 
         public void Get_Friends()
         {
-            using (var api = new HttpClient())
+            try
             {
-                api.BaseAddress = new Uri(Utility.PLEX_URL);
-                api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = api.GetAsync(Utility.GET_SERVER_SHARES + Utility.Plex_Token).Result;
+                #region HTTPCLIENT
 
-                string res = "";
+                //using (var api = new HttpClient())
+                //{
+                //    api.BaseAddress = new Uri("https://192.168.0.5:32400");
+                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
 
-                using (HttpContent c = response.Content)
+                //    HttpRequestMessage request = new HttpRequestMessage
+                //    (
+                //        HttpMethod.Get,
+                //        new Uri("/libary/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m")
+                //    );
+
+
+
+                //    request.Content.Headers.ContentLength = 2065;
+                //    request.Content.Headers.ContentType = new MediaTypeHeaderValue("text/xml;charset=utf-8");
+
+                //    api.SendAsync(request).ContinueWith(responseTask =>
+                //    {
+                //        Console.WriteLine("Response: {0}", responseTask.Result);
+                //    });
+
+                //    HttpResponseMessage response = null;
+
+                //    foreach (int i in Enumerable.Range(0, 25))
+                //    {
+                //        try
+                //        {
+                //            response = api.GetAsync(Utility.GET_LIBRARIES + "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m").Result;
+                //            break;
+                //        }
+                //        catch
+                //        {
+                //            Console.WriteLine("Error");
+                //        }
+
+                //    }
+
+
+                //    string res = "";
+
+                //    using (HttpContent c = response.Content)
+                //    {
+                //        Task<string> r = c.ReadAsStringAsync();
+                //        res = r.Result;
+                //    }
+                //}
+                #endregion
+
+                string url = "https://192.168.0.5:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
+
+                WebRequest request = WebRequest.CreateHttp(url);
+                request.Method = "GET";
+                //request.ContentType = "application/xml;charset=utf-8";
+
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+                using (WebResponse response = request.GetResponse())
                 {
-                    Task<string> r = c.ReadAsStringAsync();
-                    res = r.Result;
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        StreamReader s = new StreamReader(stream);
+                        string s1 = s.ReadToEnd();
+                    }
                 }
+
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Response error:" + e.ToString());
             }
         }
 

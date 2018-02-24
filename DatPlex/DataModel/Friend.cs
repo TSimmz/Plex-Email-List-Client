@@ -8,13 +8,13 @@ using System.Xml;
 
 namespace DatPlex.DataModel
 {
-    public class SharedUser : User
+    public class Friend : User
     {
         private bool _include;
 
         #region Constructor
 
-        public SharedUser(string title, string username, string email): base(title, username, email)
+        public Friend(string title, string username, string email) : base(title, username, email)
         {
             Title = title;
             Username = username;
@@ -25,7 +25,7 @@ namespace DatPlex.DataModel
 
         #region General
 
-        public bool Include_SharedUser
+        public bool Include_Friend
         {
             get { return _include; }
             set
@@ -38,30 +38,32 @@ namespace DatPlex.DataModel
 
     }
 
-    public class SharedUsers : ObservableCollection<SharedUsers>
+    public class FriendList : List<Friend>
     {
         #region Data Fields
 
-        private ObservableCollection<SharedUser> _sharedUserList;
+        private List<Friend> _friendList;
 
         #endregion
 
         #region Constructor
 
-        public SharedUsers()
+        public FriendList()
         {
-            _sharedUserList = new ObservableCollection<SharedUser>();  
+            _friendList = new List<Friend>();
         }
 
         #endregion
 
+        #region General
+        
         #region Add/Remove Logic
 
-        public bool AddUser(SharedUser user)
+        public bool AddUser(Friend friend)
         {
             try
             {
-                _sharedUserList.Add(user);
+                _friendList.Add(friend);
                 return true;
             }
             catch
@@ -70,17 +72,28 @@ namespace DatPlex.DataModel
             }
         }
 
-        public bool RemoveUser(SharedUser user)
+        public bool RemoveUser(Friend friend)
         {
             try
             {
-                _sharedUserList.Remove(user);
+                _friendList.Remove(friend);
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Setters/Getters
+
+        public List<Friend> GetFriendList
+        {
+            get { return _friendList; }
         }
 
         #endregion
@@ -89,16 +102,16 @@ namespace DatPlex.DataModel
 
         public void ReadXml(XmlReader reader)
         {
-            reader.ReadStartElement("SharedUserList");
+            reader.ReadStartElement("FriendList");
 
-            while (reader.Name.Equals("SharedUser") && reader.NodeType == XmlNodeType.Element)
+            while (reader.Name.Equals("Friend") && reader.NodeType == XmlNodeType.Element)
             {
-                    SharedUser s = new SharedUser(
-                        reader.GetAttribute("title"),
-                        reader.GetAttribute("username"),
-                        reader.GetAttribute("email"));
+                Friend s = new Friend(
+                    reader.GetAttribute("title"),
+                    reader.GetAttribute("username"),
+                    reader.GetAttribute("email"));
 
-                    _sharedUserList.Add(s);
+                _friendList.Add(s);
             }
             reader.ReadEndElement();
         }
@@ -108,13 +121,13 @@ namespace DatPlex.DataModel
         {
             writer.WriteStartElement("SharedUserList");
 
-            foreach(SharedUser s in _sharedUserList)
+            foreach (Friend f in _friendList)
             {
                 writer.WriteStartElement("SharedUser");
 
-                writer.WriteAttributeString("title", s.Title);
-                writer.WriteAttributeString("username", s.Username);
-                writer.WriteAttributeString("email", s.Email);
+                writer.WriteAttributeString("title", f.Title);
+                writer.WriteAttributeString("username", f.Username);
+                writer.WriteAttributeString("email", f.Email);
 
                 writer.WriteEndElement();
             }

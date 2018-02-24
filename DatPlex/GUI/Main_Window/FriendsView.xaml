@@ -18,26 +18,22 @@
               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView Height="300" Width="455" TextElement.FontSize="16" ItemsSource="{Binding SharedUsers}" SelectedIndex="{Binding SharedUser_SelIndex}"
+            <ListView Height="300" Width="455" TextElement.FontSize="16" ItemsSource="{Binding FriendList}" SelectedIndex="{Binding SelIndex_Friend}"
                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Background="#4F4F4F" Foreground="White" Grid.Row="0">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <CheckBox Content="{Binding Include_SharedUser}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Include" TextElement.FontSize="14" Width="60"/>
-                        <GridViewColumn Header="Title" TextElement.FontSize="14" Width="100" DisplayMemberBinding="{Binding Title}"/>
-                        <GridViewColumn Header="Username" TextElement.FontSize="14" Width="100" DisplayMemberBinding="{Binding Username}"/>
-                        <GridViewColumn Header="Email" TextElement.FontSize="14" Width="185" DisplayMemberBinding="{Binding Email}" />
+                        <GridViewColumn Header="  " Width="30">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <CheckBox Tag="{Binding Include_Friend}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Title" TextElement.FontSize="14" Width="110" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Username" TextElement.FontSize="14" Width="110" DisplayMemberBinding="{Binding Username}"/>
+                        <GridViewColumn Header="Email" TextElement.FontSize="14" Width="195" DisplayMemberBinding="{Binding Email}" />
                     </GridView>
                 </ListView.View>
             </ListView>

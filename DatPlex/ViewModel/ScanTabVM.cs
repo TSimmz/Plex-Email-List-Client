@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Timers;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using DatPlex.Common;
@@ -14,7 +14,7 @@ namespace DatPlex.ViewModel
     {
         #region Data Fields
 
-        Window Parent;
+        private Window _Parent;
 
         #endregion Data Fields
 
@@ -27,7 +27,7 @@ namespace DatPlex.ViewModel
 
         public void SetParent(Window iParent)
         {
-            Parent = iParent;
+            _Parent = iParent;
         }
 
         #endregion Constructor
@@ -51,17 +51,17 @@ namespace DatPlex.ViewModel
                     Timer = 0;
                     break;
                 case 1:
-                    Time.Interval = Timer * Utility.MINUTES;
-                    Time.Enabled = true;
-                    break;
-                case 2:
-                    Time.Interval = Timer * Utility.HOURS;
-                    Time.Enabled = true;
-                    break;
-                case 3:
                     Time.Interval = Timer * Utility.DAYS;
                     Time.Enabled = true;
                     break;
+                //case 2:
+                //    Time.Interval = Timer * Utility.HOURS;
+                //    Time.Enabled = true;
+                //    break;
+                //case 3:
+                //    Time.Interval = Timer * Utility.DAYS;
+                //    Time.Enabled = true;
+                //    break;
             }
 
         }
@@ -74,12 +74,7 @@ namespace DatPlex.ViewModel
 
         private void Man_Scan_Plex(object obj)
         {
-            Console.WriteLine("Scan Plex Button Pressed");
-            Console.WriteLine("Timer: " + Timer);
-
-            PlexScanner mScanWindow = new PlexScanner();
-            mScanWindow.ShowInTaskbar = false;
-            mScanWindow.Show();
+            // TODO
         }
 
         public void UpdateServerInfo(object obj)
@@ -147,8 +142,8 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private ObservableCollection<SharedUser> mSharedUsers = new ObservableCollection<SharedUser> { new SharedUser("Default", "Default", "Default") };
-        public ObservableCollection<SharedUser> SharedUsers
+        private List<Friend> mSharedUsers = new List<Friend> { new Friend("Default", "Default", "Default") };
+        public List<Friend> SharedUsers
         {
             get { return mSharedUsers; }
             set
