@@ -1,17 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
-using DatPlex.Common;
 using System.Xml;
 using System.Threading;
+using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using DatPlex.Common;
 
 namespace DatPlex.DataModel
 {
@@ -20,6 +14,8 @@ namespace DatPlex.DataModel
         #region Data Fields
 
         private string _plexdata;
+        private string _localURL;
+        private string _plexToken;
         private Tuple<string, string, string> _serverInfo;
         private Account _owner;
         private FriendList _friendList;
@@ -31,7 +27,7 @@ namespace DatPlex.DataModel
 
         public Plex()
         {
-
+            _libraries = new List<Library>();
         }
 
         #endregion
@@ -75,12 +71,36 @@ namespace DatPlex.DataModel
             }
         }
 
+        public void AddLibrary(Library l)
+        {
+            _libraries.Add(l);
+        }
+
         public Tuple<string, string, string> ServerInfo
         {
             get { return _serverInfo; }
             set
             {
                 _serverInfo = value;
+                LocalURL = "https://" + _serverInfo.Item1 + ":" + _serverInfo.Item2;
+                PlexToken = "/?X-Plex-Token=" + _serverInfo.Item3;
+            }
+        }
+
+        public string LocalURL
+        {
+            get { return _localURL; }
+            set
+            {
+                _localURL = value;
+            }
+        }
+        public string PlexToken
+        {
+            get { return _plexToken; }
+            set
+            {
+                _plexToken = value;
             }
         }
 
@@ -206,33 +226,7 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        public void Get_Friends()
-        {
-            try
-            {
 
-                string url = "https://192.168.0.4:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
-                //string url = "https://plex.tv/pms/friends/all/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
-
-                WebRequest request = WebRequest.CreateHttp(url);
-                request.Method = "GET";
-                request.ContentType = "application/xml;charset=utf-8";
-
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        XmlDocument xml = new XmlDocument();
-                        xml.Load(stream);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Response error:" + e.ToString());
-            }
-        }
 
         #endregion
     }

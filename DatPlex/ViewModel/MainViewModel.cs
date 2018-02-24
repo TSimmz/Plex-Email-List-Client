@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.IO;
+using System.Xml;
 using System.Windows;
 using System.Windows.Input;
 using DatPlex.DataModel;
@@ -29,7 +28,7 @@ namespace DatPlex.ViewModel
 
             _scanTabVM.SetParent(App.MainWindow);
             _libraryTabVM.SetParent(App.MainWindow);
-            _friendsTabVM.SetParent(App.MainWindow);            
+            _friendsTabVM.SetParent(App.MainWindow);
 
             ScanViewVisibility = Visibility.Hidden;
             LibraryViewVisibility = Visibility.Hidden;
@@ -49,12 +48,73 @@ namespace DatPlex.ViewModel
         public bool OpenPlex()
         {
             //If XML file exists for account, load from disk
-            
+
             //else, create new file
 
             //create new plex object once complete
 
             return true;
+        }
+
+        public XmlDocument Get_Request(string url)
+        {
+            XmlDocument data = new XmlDocument();
+            XmlReader reader;
+
+            //try
+            //{
+                //string url = "https://192.168.0.4:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
+                //string url = "https://plex.tv/pms/friends/all/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
+                
+
+                WebRequest request = WebRequest.CreateHttp(url);
+                request.Method = "GET";
+                request.ContentType = "application/xml;charset=utf-8";
+
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        data.Load(stream);
+                    }
+                }
+                return data;
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Response error:" + e.ToString());
+                
+            //    return reader;
+            //}
+
+        }
+
+
+        public void Get_Account_Info()
+        {
+            XmlDocument account = Get_Request(Utility.PLEX_URL + Utility.GET_ACCOUNT_INFO + PlexApp.PlexToken);
+        }
+
+        public void Get_Libraries()
+        {
+            XmlDocument libraries = Get_Request(PlexApp.LocalURL + Utility.GET_LIBRARIES + PlexApp.PlexToken);
+            XmlNodeList lib_nodes = libraries.GetElementsByTagName("Directory");
+            Library lib;
+
+            foreach(XmlNode i in lib_nodes)
+            {
+                lib = new Library(
+                    Convert.ToInt32(i.Attributes["key"].Value),
+                    i.Attributes["type"].Value,
+                    i.Attributes["title"].Value
+                );
+
+                PlexApp.Libraries.Add(lib);
+            }
+
+            _libraryTabVM.LibraryList = PlexApp.Libraries;
+           
         }
 
         private void ExitApp(object obj)
@@ -109,7 +169,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        
+
 
         private int _SelectedTabIndex;
         public int SelectedTabIndex
@@ -120,7 +180,7 @@ namespace DatPlex.ViewModel
                 if (_SelectedTabIndex != value)
                 {
                     _SelectedTabIndex = value;
-                    
+
                     switch (_SelectedTabIndex)
                     {
                         case 0:         // Scan Tab

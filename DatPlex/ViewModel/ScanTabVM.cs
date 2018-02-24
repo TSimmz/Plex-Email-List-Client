@@ -74,7 +74,7 @@ namespace DatPlex.ViewModel
 
         private void Man_Scan_Plex(object obj)
         {
-            // TODO
+            App.MainViewModel.Get_Libraries();
         }
 
         public void UpdateServerInfo(object obj)
@@ -86,16 +86,9 @@ namespace DatPlex.ViewModel
 
             if ((bool)wInfo.DialogResult)
             {
-                Utility.Plex_IP = IP_Address;
-                Utility.Plex_Port = Port_Number;
-                Utility.Plex_Token = Plex_Token;
-
                 Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
-
                 App.MainViewModel.PlexApp.ServerInfo = info;
             }
-
-            App.MainViewModel.PlexApp.Get_Friends();
         }
 
         #endregion General

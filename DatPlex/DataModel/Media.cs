@@ -90,6 +90,7 @@ namespace DatPlex.DataModel
 
         private bool _include;
         private int _key;
+        private string _type;
         private int _itemCount;
         private string _title;
 
@@ -99,11 +100,11 @@ namespace DatPlex.DataModel
 
         #region Constructor
 
-        public Library(int key, int count, string title)
+        public Library(int key, string type, string title)
         {
             _include = false;
             _key = key;
-            _itemCount = count;
+            //_itemCount = count;
             _title = title;
             _mediaList = new List<Media>();
         }
