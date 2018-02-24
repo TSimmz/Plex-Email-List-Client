@@ -56,7 +56,7 @@ namespace DatPlex.DataModel
         #endregion
 
         #region General
-
+        
         #region Add/Remove Logic
 
         public bool AddUser(Friend friend)
@@ -90,6 +90,11 @@ namespace DatPlex.DataModel
         #endregion
 
         #region Setters/Getters
+
+        public List<Friend> GetFriendList
+        {
+            get { return _friendList; }
+        }
 
         #endregion
 

@@ -18,27 +18,15 @@
               VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
-            <ListView Height="300" Width="455" TextElement.FontSize="16" ItemsSource="{Binding FriendsList}" SelectedIndex="{Binding SharedUser_SelIndex}"
+            <ListView Height="300" Width="455" TextElement.FontSize="16" ItemsSource="{Binding FriendList}" SelectedIndex="{Binding SelIndex_Friend}"
                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Background="#4F4F4F" Foreground="White" Grid.Row="0">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <CheckBox Content="{Binding Include_SharedUser}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="  " Width="30">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <CheckBox Tag="{Binding Include}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                                        <CheckBox Tag="{Binding Include_Friend}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

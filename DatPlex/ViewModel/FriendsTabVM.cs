@@ -34,7 +34,18 @@ namespace DatPlex.ViewModel
             Parent = iParent;
         }
 
-        public FriendList Friend2List
+        private int _SelIndex_Friend = -1;
+        public int SelIndex_Friend
+        {
+            get { return _SelIndex_Friend; }
+            set
+            {
+                _SelIndex_Friend = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public FriendList FriendList
             {
             get { return _FriendList; }
             set
@@ -45,7 +56,7 @@ namespace DatPlex.ViewModel
         }
 
         private bool _Include;
-        public bool Include
+        public bool Include_Friend
         {
             get { return _Include; }
             set

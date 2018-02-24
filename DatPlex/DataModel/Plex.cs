@@ -2,7 +2,10 @@
 using System.IO;
 using System.Windows;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
 using DatPlex.Common;
 using System.Xml;
 using System.Threading;
@@ -240,16 +243,84 @@ namespace DatPlex.DataModel
                 //    }
                 //}
 
-                HttpRequest req = WebRequest.CreateHttp(@"https://192.168.0.5:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m");
-
-                WebResponse res = req.GetResponse();
-
-                return true;
-            }
-            catch (HttpRequestException e)
+        public void Get_Friends()
+        {
+            try
             {
-                Console.Write(e.ToString());
-                return false;
+
+                #region HTTPCLIENT
+
+                //using (var api = new HttpClient())
+                //{
+                //    api.BaseAddress = new Uri("https://192.168.0.5:32400");
+                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+
+                //    HttpRequestMessage request = new HttpRequestMessage
+                //    (
+                //        HttpMethod.Get,
+                //        new Uri("/libary/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m")
+                //    );
+
+
+
+                //    request.Content.Headers.ContentLength = 2065;
+                //    request.Content.Headers.ContentType = new MediaTypeHeaderValue("text/xml;charset=utf-8");
+
+                //    api.SendAsync(request).ContinueWith(responseTask =>
+                //    {
+                //        Console.WriteLine("Response: {0}", responseTask.Result);
+                //    });
+
+                //    HttpResponseMessage response = null;
+
+                //    foreach (int i in Enumerable.Range(0, 25))
+                //    {
+                //        try
+                //        {
+                //            response = api.GetAsync(Utility.GET_LIBRARIES + "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m").Result;
+                //            break;
+                //        }
+                //        catch
+                //        {
+                //            Console.WriteLine("Error");
+                //        }
+
+                //    }
+
+
+                //    string res = "";
+
+                //    using (HttpContent c = response.Content)
+                //    {
+                //        Task<string> r = c.ReadAsStringAsync();
+                //        res = r.Result;
+                //    }
+                //}
+                #endregion
+
+                string url = "https://192.168.0.5:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
+
+                WebRequest request = WebRequest.CreateHttp(url);
+                request.Method = "GET";
+                //request.ContentType = "application/xml;charset=utf-8";
+
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        StreamReader s = new StreamReader(stream);
+                        string s1 = s.ReadToEnd();
+                    }
+                }
+
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Response error:" + e.ToString());
             }
         }
 
