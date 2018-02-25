@@ -10,9 +10,9 @@ namespace DatPlex.Common
 {
     public class Utility
     {
-        public static string PLEX_URL = "https://plex.tv/";                             //Plex Base url
-        public static string LOCAL_URL = "https://" + Plex_IP + ":" + Plex_Port + "/";  //Local plex url
-        public static string TOKEN = "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";                                 //Plex Account Token 
+        public static string PLEX_URL = "https://plex.tv";                             //Plex Base url
+        //public static string LOCAL_URL = "https://" + Plex_IP + ":" + Plex_Port + "/";  //Local plex url
+        //public static string TOKEN = "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";                                 //Plex Account Token 
 
         //###########################################
         // Plex URL Requests
@@ -37,27 +37,6 @@ namespace DatPlex.Common
         public static int MINUTES { get { return 60000; } }
         public static int HOURS { get { return 3600000; } }
         public static int DAYS { get { return 86400000; } }
-
-        private static string _Plex_IP;
-        public static string Plex_IP
-        {
-            get { return _Plex_IP; }
-            set { _Plex_IP = value; }
-        }
-
-        private static string _Plex_Port;
-        public static string Plex_Port
-        {
-            get { return _Plex_Port; }
-            set { _Plex_Port = value; }
-        }
-
-        private static string _Plex_Token;
-        public static string Plex_Token
-        {
-            get { return _Plex_Token; }
-            set { _Plex_Token = TOKEN + value; }
-        }
 
         public static Object LoadXmlData(string path)
         {

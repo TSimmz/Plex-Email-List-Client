@@ -22,11 +22,11 @@ namespace DatPlex.ViewModel
 
         public LibraryTabVM()
         {
-            _LibraryList = new List<Library>();
-            Library lib = new Library(1, 200, "movies");
-            Library lib1 = new Library(3, 59, "tv shows");
-            _LibraryList.Add(lib);
-            _LibraryList.Add(lib1);
+            //_LibraryList = new List<Library>();
+            //Library lib = new Library(1, 200, "movies");
+            //Library lib1 = new Library(3, 59, "tv shows");
+            //_LibraryList.Add(lib);
+            //_LibraryList.Add(lib1);
         }
 
         public void SetParent(Window iParent)

@@ -32,7 +32,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Key" Width="65" DisplayMemberBinding="{Binding GetLibKey }"/>
-                        <GridViewColumn Header="Items" Width="65" DisplayMemberBinding="{Binding GetItemCount }"/>
+                        <GridViewColumn Header="Items" Width="65" DisplayMemberBinding="{Binding ItemCount }"/>
                         <GridViewColumn Header="Title" Width="288"  DisplayMemberBinding="{Binding GetLibTitle }"/>
                     </GridView>
                 </ListView.View>

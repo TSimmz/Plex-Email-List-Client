@@ -1,11 +1,11 @@
 <Plex>
 	<Server ip="" port="" token="">
 	<Account title="" username="" email="" password=""/>
-	<SharedUsers>
-		<SharedUser title="" username="" email=""/> 
-		<SharedUser title="" username="" email=""/> 
-		<SharedUser title="" username="" email=""/> 
-	</SharedUsers>
+	<FriendsList>
+		<Friend title="" username="" email=""/> 
+		<Friend title="" username="" email=""/> 
+		<Friend title="" username="" email=""/> 
+	</FriendsList>
     <Libraries> 
 		<Library key="" title=""> 
 			<Media id="" type="" title="" summary="" contentRating=""/> 
