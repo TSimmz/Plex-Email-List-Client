@@ -23,13 +23,14 @@ namespace DatPlex.DataModel
 
         #region Constructors
 
-        public Media(int id, string type, string title, string summary, string content)
+        public Media(int id, string type, string title, string content, string summary)
         {
             _id = id;
             _type = type;
             _title = title;
-            _summary = summary;
             _contentRating = content;
+            _summary = summary;
+           
         }
 
         #endregion
@@ -105,13 +106,20 @@ namespace DatPlex.DataModel
             _include = false;
             _key = key;
             //_itemCount = count;
+            _type = type;
             _title = title;
             _mediaList = new List<Media>();
         }
 
         public int GetLibKey { get { return _key; } }
 
-        public int GetItemCount { get { return _itemCount; } }
+        public string GetLibType { get { return _type; } }
+
+        public int ItemCount
+        {
+            get { return _itemCount; }
+            set { _itemCount = value; }
+        }
 
         public string GetLibTitle { get { return _title; } }
         

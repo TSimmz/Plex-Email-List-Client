@@ -16,6 +16,7 @@ namespace DatPlex.DataModel
 
         public Friend(string title, string username, string email) : base(title, username, email)
         {
+            _include = false;
             Title = title;
             Username = username;
             Email = email;
@@ -86,6 +87,8 @@ namespace DatPlex.DataModel
         }
 
         #endregion
+
+        public List<Friend> GetList { get { return _friendList; } }
 
         #endregion
 

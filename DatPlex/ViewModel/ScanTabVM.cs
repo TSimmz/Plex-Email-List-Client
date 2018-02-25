@@ -75,6 +75,8 @@ namespace DatPlex.ViewModel
         private void Man_Scan_Plex(object obj)
         {
             App.MainViewModel.Get_Libraries();
+            App.MainViewModel.Get_Media();
+            App.MainViewModel.Get_Friends();
         }
 
         public void UpdateServerInfo(object obj)

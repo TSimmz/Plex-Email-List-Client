@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Timers;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using DatPlex.Common;
@@ -55,6 +55,10 @@ namespace DatPlex.ViewModel
             }
         }
 
+        public List<Friend> FriendsList
+        {
+            get { return _FriendList.GetList; }
+        }
         private bool _Include;
         public bool Include_Friend
         {
