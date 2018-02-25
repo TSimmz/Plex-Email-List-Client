@@ -1,17 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
-using DatPlex.Common;
 using System.Xml;
 using System.Threading;
+using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using DatPlex.Common;
 
 namespace DatPlex.DataModel
 {
@@ -20,6 +14,8 @@ namespace DatPlex.DataModel
         #region Data Fields
 
         private string _plexdata;
+        private string _localURL;
+        private string _plexToken;
         private Tuple<string, string, string> _serverInfo;
         private Account _owner;
         private FriendList _friendList;
@@ -31,7 +27,7 @@ namespace DatPlex.DataModel
 
         public Plex()
         {
-
+            _libraries = new List<Library>();
         }
 
         #endregion
@@ -75,12 +71,36 @@ namespace DatPlex.DataModel
             }
         }
 
+        public void AddLibrary(Library l)
+        {
+            _libraries.Add(l);
+        }
+
         public Tuple<string, string, string> ServerInfo
         {
             get { return _serverInfo; }
             set
             {
                 _serverInfo = value;
+                LocalURL = "https://" + _serverInfo.Item1 + ":" + _serverInfo.Item2;
+                PlexToken = "/?X-Plex-Token=" + _serverInfo.Item3;
+            }
+        }
+
+        public string LocalURL
+        {
+            get { return _localURL; }
+            set
+            {
+                _localURL = value;
+            }
+        }
+        public string PlexToken
+        {
+            get { return _plexToken; }
+            set
+            {
+                _plexToken = value;
             }
         }
 
@@ -206,123 +226,7 @@ namespace DatPlex.DataModel
 
         #region WebAPI
 
-        public bool Get_Plex_Data()
-        {
-            try
-            {
 
-                XmlDocument doc = new XmlDocument();
-                //doc.Load(Utility.PLEX_URL + Utility.GET_SERVER_SHARES + Utility.Plex_Token);
-                doc.Load("https://192.168.0.5:32400/" + Utility.GET_LIBRARIES + Utility.Plex_Token);
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool GetRequest()
-        {
-            try
-            {
-                //using (var api = new HttpClient())
-                //{
-                //    api.BaseAddress = new Uri("https://192.168.0.5:32400/");
-                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //    var response = api.GetAsync(Utility.GET_LIBRARIES + Utility.Plex_Token).Result;
-
-                //    string res = "";
-
-                //    using (HttpContent c = response.Content)
-                //    {
-                //        Task<string> r = c.ReadAsStringAsync();
-                //        res = r.Result;
-                //    }
-                //}
-
-        public void Get_Friends()
-        {
-            try
-            {
-
-                #region HTTPCLIENT
-
-                //using (var api = new HttpClient())
-                //{
-                //    api.BaseAddress = new Uri("https://192.168.0.5:32400");
-                //    api.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-
-                //    HttpRequestMessage request = new HttpRequestMessage
-                //    (
-                //        HttpMethod.Get,
-                //        new Uri("/libary/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m")
-                //    );
-
-
-
-                //    request.Content.Headers.ContentLength = 2065;
-                //    request.Content.Headers.ContentType = new MediaTypeHeaderValue("text/xml;charset=utf-8");
-
-                //    api.SendAsync(request).ContinueWith(responseTask =>
-                //    {
-                //        Console.WriteLine("Response: {0}", responseTask.Result);
-                //    });
-
-                //    HttpResponseMessage response = null;
-
-                //    foreach (int i in Enumerable.Range(0, 25))
-                //    {
-                //        try
-                //        {
-                //            response = api.GetAsync(Utility.GET_LIBRARIES + "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m").Result;
-                //            break;
-                //        }
-                //        catch
-                //        {
-                //            Console.WriteLine("Error");
-                //        }
-
-                //    }
-
-
-                //    string res = "";
-
-                //    using (HttpContent c = response.Content)
-                //    {
-                //        Task<string> r = c.ReadAsStringAsync();
-                //        res = r.Result;
-                //    }
-                //}
-                #endregion
-
-                string url = "https://192.168.0.5:32400/library/sections/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";
-
-                WebRequest request = WebRequest.CreateHttp(url);
-                request.Method = "GET";
-                //request.ContentType = "application/xml;charset=utf-8";
-
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        StreamReader s = new StreamReader(stream);
-                        string s1 = s.ReadToEnd();
-                    }
-                }
-
-
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Response error:" + e.ToString());
-            }
-        }
 
         #endregion
     }
