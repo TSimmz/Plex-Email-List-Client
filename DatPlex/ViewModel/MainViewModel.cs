@@ -23,7 +23,7 @@ namespace DatPlex.ViewModel
         {
             _PlexApp = new Plex();
 
-            _scanTabVM = new ScanTabVM();
+            _scanTabVM = new ScanTabVM(this);
             _libraryTabVM = new LibraryTabVM();
             _friendsTabVM = new FriendsTabVM();
 
@@ -55,6 +55,11 @@ namespace DatPlex.ViewModel
             //create new plex object once complete
 
             return true;
+        }
+
+        public void ImportExport()
+        {
+            
         }
 
         public string MediaType(string type)

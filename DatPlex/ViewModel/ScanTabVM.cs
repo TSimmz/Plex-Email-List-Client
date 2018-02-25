@@ -15,14 +15,15 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         private Window _Parent;
+        private MainViewModel _MainViewModel;
 
         #endregion Data Fields
 
         #region Constructor
 
-        public ScanTabVM()
+        public ScanTabVM(MainViewModel mainViewModel)
         {
-
+            _MainViewModel = mainViewModel;
         }
 
         public void SetParent(Window iParent)
@@ -136,6 +137,8 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public MainViewModel MainViewModel { get { return _MainViewModel; } }
 
         private List<Friend> mSharedUsers = new List<Friend> { new Friend("Default", "Default", "Default") };
         public List<Friend> SharedUsers
@@ -297,6 +300,18 @@ namespace DatPlex.ViewModel
                 return mSettings_Cmd;
             }
         }
+
+        DelegateCommand mImportExport_Cmd;
+        public ICommand ImportExport_Cmd
+        {
+            get
+            {
+                if (null == mImportExport_Cmd)
+                    mImportExport_Cmd = new DelegateCommand(MainViewModel.ImportExport);
+                return mImportExport_Cmd;
+            }
+        }
+
         #endregion
     }
 
