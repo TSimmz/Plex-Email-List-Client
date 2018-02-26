@@ -101,21 +101,12 @@
     <Compile Include="GUI\Child_Window\ServerInformation.xaml.cs">
       <DependentUpon>ServerInformation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Main_Window\FriendsView.xaml.cs">
-      <DependentUpon>FriendsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Main_Window\LibraryView.xaml.cs">
-      <DependentUpon>LibraryView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\Main_Window\ScanView.xaml.cs">
       <DependentUpon>ScanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Main_Window\SharingView.xaml.cs">
       <DependentUpon>SharingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\FriendsTabVM.cs" />
-    <Compile Include="ViewModel\LibraryTabVM.cs" />
-    <Compile Include="ViewModel\PlexScannerVM.cs" />
     <Compile Include="ViewModel\ScanTabVM.cs" />
     <Compile Include="ViewModel\SharingTabVM.cs" />
     <Page Include="App.xaml">
@@ -129,18 +120,9 @@
     <Compile Include="DataModel\Media.cs" />
     <Compile Include="DataModel\Plex.cs" />
     <Compile Include="DataModel\User.cs" />
-    <Compile Include="GUI\Child_Window\ScanComplete.xaml.cs">
-      <DependentUpon>ScanComplete.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Child_Window\ScanInProgress.xaml.cs">
-      <DependentUpon>ScanInProgress.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GUI\Child_Window\PlexScanner.xaml.cs">
-      <DependentUpon>PlexScanner.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -201,23 +183,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Child_Window\ScanComplete.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Child_Window\ScanInProgress.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\Child_Window\ServerInformation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Main_Window\FriendsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Main_Window\LibraryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,10 +196,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Child_Window\PlexScanner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
