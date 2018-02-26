@@ -110,10 +110,14 @@
     <Compile Include="GUI\Main_Window\ScanView.xaml.cs">
       <DependentUpon>ScanView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Main_Window\SharingView.xaml.cs">
+      <DependentUpon>SharingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\FriendsTabVM.cs" />
     <Compile Include="ViewModel\LibraryTabVM.cs" />
     <Compile Include="ViewModel\PlexScannerVM.cs" />
     <Compile Include="ViewModel\ScanTabVM.cs" />
+    <Compile Include="ViewModel\SharingTabVM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -218,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\Main_Window\ScanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Main_Window\SharingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

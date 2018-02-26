@@ -15,6 +15,7 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         Window Parent;
+        private bool _isProjectLoaded;
 
         #endregion
 
@@ -24,16 +25,13 @@ namespace DatPlex.ViewModel
             _PlexApp = new Plex();
 
             _scanTabVM = new ScanTabVM(this);
-            _libraryTabVM = new LibraryTabVM();
-            _friendsTabVM = new FriendsTabVM();
+            _sharingTabVM = new SharingTabVM();
 
             _scanTabVM.SetParent(App.MainWindow);
-            _libraryTabVM.SetParent(App.MainWindow);
-            _friendsTabVM.SetParent(App.MainWindow);
+            _sharingTabVM.SetParent(App.MainWindow);
 
             ScanViewVisibility = Visibility.Hidden;
-            LibraryViewVisibility = Visibility.Hidden;
-            FriendsViewVisibility = Visibility.Hidden;
+            _SharingViewVisibility = Visibility.Hidden;
         }
 
         public void SetParent(Window iParent)
@@ -211,6 +209,17 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private static SharingTabVM _sharingTabVM;
+        public SharingTabVM SharingTabVM
+        {
+            get { return _sharingTabVM; }
+            set
+            {
+                _sharingTabVM = value;
+                OnPropertyChanged();
+            }
+        }
+
         private static LibraryTabVM _libraryTabVM;
         public LibraryTabVM LibraryTabVM
         {
@@ -233,7 +242,15 @@ namespace DatPlex.ViewModel
             }
         }
 
-
+        public bool IsProjectLoaded
+        {
+            get { return _isProjectLoaded; }
+            set
+            {
+                _isProjectLoaded = value;
+                OnPropertyChanged();
+            }
+        }
 
         private int _SelectedTabIndex;
         public int SelectedTabIndex
@@ -249,23 +266,12 @@ namespace DatPlex.ViewModel
                     {
                         case 0:         // Scan Tab
                             ScanViewVisibility = Visibility.Visible;
-                            LibraryViewVisibility = Visibility.Hidden;
-                            FriendsViewVisibility = Visibility.Hidden;
-
+                            SharingViewVisibility = Visibility.Hidden;
                             break;
 
-                        case 1:         // Libraries Tab
+                        case 1:         // Sharing Tab
                             ScanViewVisibility = Visibility.Hidden;
-                            LibraryViewVisibility = Visibility.Visible;
-                            FriendsViewVisibility = Visibility.Hidden;
-
-                            break;
-
-                        case 2:         // Friends Tab
-                            ScanViewVisibility = Visibility.Hidden;
-                            LibraryViewVisibility = Visibility.Hidden;
-                            FriendsViewVisibility = Visibility.Visible;
-
+                            SharingViewVisibility = Visibility.Visible;
                             break;
 
                         default:
@@ -287,24 +293,13 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private Visibility _LibraryViewVisibility;
-        public Visibility LibraryViewVisibility
+        private Visibility _SharingViewVisibility;
+        public Visibility SharingViewVisibility
         {
-            get { return _LibraryViewVisibility; }
+            get { return _SharingViewVisibility; }
             set
             {
-                _LibraryViewVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private Visibility _FriendsViewVisibility;
-        public Visibility FriendsViewVisibility
-        {
-            get { return _FriendsViewVisibility; }
-            set
-            {
-                _FriendsViewVisibility = value;
+                _SharingViewVisibility = value;
                 OnPropertyChanged();
             }
         }

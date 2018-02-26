@@ -22,7 +22,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
                                 <Border Name="Border" BorderBrush="#4F4F4F" BorderThickness="1.5,1.5,0,0" >
-                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="15,5"/>
+                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="25,5"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
@@ -42,11 +42,8 @@
             <TabItem Header="   Scan    " Foreground="White" >
                 <mainview:ScanView x:Name="_ScanView"/>
             </TabItem>
-            <TabItem Header=" Libraries " Foreground="White">
-                <mainview:LibraryView x:Name="_LibraryView"/>
-            </TabItem>
-            <TabItem Header="  Friends  " Foreground="White">
-                <mainview:FriendsView x:Name="_FriendsView"/>
+            <TabItem Header="  Sharing  " Foreground="White" >
+                <mainview:SharingView x:Name="_SharingView"/>
             </TabItem>
         </TabControl>
     </Grid>
