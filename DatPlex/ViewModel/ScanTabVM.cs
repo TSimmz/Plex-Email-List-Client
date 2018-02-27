@@ -97,17 +97,8 @@ namespace DatPlex.ViewModel
         #endregion General
 
         #region Setters/Getters
-
-        private string mWindowTitle = "Plex Email Updates";
-        public string WindowTitle
-        {
-            get { return mWindowTitle; }
-            set
-            {
-                mWindowTitle = value;
-                OnPropertyChanged();
-            }
-        }
+        
+        public MainViewModel MainViewModel { get { return _MainViewModel; } }
 
         private Timer _time;
         public Timer Time
@@ -138,28 +129,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public MainViewModel MainViewModel { get { return _MainViewModel; } }
-
-        private List<Friend> mSharedUsers = new List<Friend> { new Friend("Default", "Default", "Default") };
-        public List<Friend> SharedUsers
-        {
-            get { return mSharedUsers; }
-            set
-            {
-                mSharedUsers = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int mSharedUsers_SelIndex = 0;
-        public int SharedUsers_SelIndex
-        {
-            get { return mSharedUsers_SelIndex; }
-            set
-            {
-                mSharedUsers_SelIndex = value;
-            }
-        }
 
         private bool mManual_State = true;
         public bool Manual_State
@@ -182,30 +151,6 @@ namespace DatPlex.ViewModel
                 mAutomatic_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Manual_State");
-            }
-        }
-
-        private bool mSendSel_State;
-        public bool SendSel_State
-        {
-            get { return mSendSel_State; }
-            set
-            {
-                mSendSel_State = value;
-                OnPropertyChanged();
-                OnPropertyChanged("SendAll_State");
-            }
-        }
-
-        private bool mSendAll_State;
-        public bool SendAll_State
-        {
-            get { return mSendAll_State; }
-            set
-            {
-                mSendAll_State = value;
-                OnPropertyChanged();
-                OnPropertyChanged("SendSel_State");
             }
         }
 
@@ -239,7 +184,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string mProgress_Lbl = "Test Label";
+        private string mProgress_Lbl = "Test Label: This is only a test.";
         public string Progress_Lbl
         {
             get { return mProgress_Lbl; }

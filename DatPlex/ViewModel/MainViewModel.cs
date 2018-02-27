@@ -15,7 +15,7 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         Window Parent;
-        private bool _isProjectLoaded;
+        private bool _IsPlexLoaded;
 
         #endregion
 
@@ -104,8 +104,6 @@ namespace DatPlex.ViewModel
                 }
             }
             return data;
-
-
         }
 
 
@@ -188,6 +186,17 @@ namespace DatPlex.ViewModel
 
         #region Setter/Getters
 
+        private string mWindowTitle = "Plex Email Updates : Blurgh";
+        public string WindowTitle
+        {
+            get { return mWindowTitle; }
+            set
+            {
+                mWindowTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
         private Plex _PlexApp;
         public Plex PlexApp
         {
@@ -220,34 +229,12 @@ namespace DatPlex.ViewModel
             }
         }
 
-        //private static LibraryTabVM _libraryTabVM;
-        //public LibraryTabVM LibraryTabVM
-        //{
-        //    get { return _libraryTabVM; }
-        //    set
-        //    {
-        //        _libraryTabVM = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private static FriendsTabVM _friendsTabVM;
-        //public FriendsTabVM FriendsTabVM
-        //{
-        //    get { return _friendsTabVM; }
-        //    set
-        //    {
-        //        _friendsTabVM = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        public bool IsProjectLoaded
+        public bool IsPlexLoaded
         {
-            get { return _isProjectLoaded; }
+            get { return _IsPlexLoaded; }
             set
             {
-                _isProjectLoaded = value;
+                _IsPlexLoaded = value;
                 OnPropertyChanged();
             }
         }
