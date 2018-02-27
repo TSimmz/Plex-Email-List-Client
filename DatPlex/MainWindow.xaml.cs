@@ -25,7 +25,7 @@ namespace DatPlex
             try
             {
                 InitializeComponent();
-                InitializeSystemTray();
+                //InitializeSystemTray();
 
             }
             catch (Exception e)
