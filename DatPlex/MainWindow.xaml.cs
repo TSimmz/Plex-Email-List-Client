@@ -48,24 +48,24 @@ namespace DatPlex
             //_ViewModel.TaskCompleted += TaskCompleted;
         }
 
-        protected void InitializeSystemTray()
-        {
-            _NotifyIcon = new NotifyIcon();
-            _NotifyIcon.Icon = new Icon("../../Images/test_icon.ico");
-            _NotifyIcon.BalloonTipText = "Plex Email Updater";
-            _NotifyIcon.BalloonTipTitle = "Plex Email Updater";
+        //protected void InitializeSystemTray()
+        //{
+        //    _NotifyIcon = new NotifyIcon();
+        //    _NotifyIcon.Icon = new Icon("../../Images/test_icon.ico");
+        //    _NotifyIcon.BalloonTipText = "Plex Email Updater";
+        //    _NotifyIcon.BalloonTipTitle = "Plex Email Updater";
 
-            _NotifyIcon.DoubleClick += delegate (object sender, EventArgs e)
-            {
-                this.Show();
+        //    _NotifyIcon.DoubleClick += delegate (object sender, EventArgs e)
+        //    {
+        //        this.Show();
 
-                if (this.WindowState == WindowState.Normal)
-                    this.WindowState = WindowState.Minimized;
-                else
-                    this.WindowState = WindowState.Normal;
-            };
-            _NotifyIcon.Visible = true;
-        }
+        //        if (this.WindowState == WindowState.Normal)
+        //            this.WindowState = WindowState.Minimized;
+        //        else
+        //            this.WindowState = WindowState.Normal;
+        //    };
+        //    _NotifyIcon.Visible = true;
+        //}
 
         protected override void OnStateChanged(EventArgs e)
         {
