@@ -161,7 +161,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private bool mManual_State;
+        private bool mManual_State = true;
         public bool Manual_State
         {
             get { return mManual_State; }
@@ -173,7 +173,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private bool mAutomatic_State;
+        private bool mAutomatic_State = false;
         public bool Automatic_State
         {
             get { return mAutomatic_State; }

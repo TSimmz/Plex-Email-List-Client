@@ -29,7 +29,7 @@
                         </GridViewColumn>
                         <GridViewColumn Header="Key" Width="65" DisplayMemberBinding="{Binding GetLibKey }"/>
                         <GridViewColumn Header="Items" Width="65" DisplayMemberBinding="{Binding ItemCount }"/>
-                        <GridViewColumn Header="Title" Width="288"  DisplayMemberBinding="{Binding GetLibTitle }"/>
+                        <GridViewColumn Header="Title" Width="333"  DisplayMemberBinding="{Binding GetLibTitle }"/>
                     </GridView>
                 </ListView.View>
             </ListView>

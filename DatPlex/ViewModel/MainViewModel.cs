@@ -129,7 +129,7 @@ namespace DatPlex.ViewModel
                 PlexApp.Libraries.Add(lib);
             }
 
-            _libraryTabVM.LibraryList = PlexApp.Libraries;
+            _sharingTabVM.LibraryList = PlexApp.Libraries;
         }
 
         public void Get_Media()
@@ -180,7 +180,7 @@ namespace DatPlex.ViewModel
                 friendList.AddUser(friend);
             }
             PlexApp.FriendList = friendList;
-            _friendsTabVM.FriendList = PlexApp.FriendList;
+            _sharingTabVM.FriendList = PlexApp.FriendList;
 
         }
 
@@ -220,27 +220,27 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private static LibraryTabVM _libraryTabVM;
-        public LibraryTabVM LibraryTabVM
-        {
-            get { return _libraryTabVM; }
-            set
-            {
-                _libraryTabVM = value;
-                OnPropertyChanged();
-            }
-        }
+        //private static LibraryTabVM _libraryTabVM;
+        //public LibraryTabVM LibraryTabVM
+        //{
+        //    get { return _libraryTabVM; }
+        //    set
+        //    {
+        //        _libraryTabVM = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-        private static FriendsTabVM _friendsTabVM;
-        public FriendsTabVM FriendsTabVM
-        {
-            get { return _friendsTabVM; }
-            set
-            {
-                _friendsTabVM = value;
-                OnPropertyChanged();
-            }
-        }
+        //private static FriendsTabVM _friendsTabVM;
+        //public FriendsTabVM FriendsTabVM
+        //{
+        //    get { return _friendsTabVM; }
+        //    set
+        //    {
+        //        _friendsTabVM = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public bool IsProjectLoaded
         {

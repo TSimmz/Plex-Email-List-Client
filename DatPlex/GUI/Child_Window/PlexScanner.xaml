@@ -21,10 +21,10 @@
         </Grid>
         <Grid Grid.Row="1">
             <UserControl Visibility="{Binding ScanInProgressVisibility}">
-                <mainview:ScanInProgress x:Name="mScanInProgView"/>
+              <!-->mainview:ScanInProgress x:Name="mScanInProgView"/-->
             </UserControl>
             <UserControl Visibility="{Binding ScanCompleteVisibility}">
-                <mainview:ScanComplete x:Name="mScanCompleteView"/>
+              <!-->mainview:ScanComplete x:Name="mScanCompleteView"/-->
             </UserControl>
         </Grid>
         <Grid Grid.Row="2">
