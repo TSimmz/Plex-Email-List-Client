@@ -229,6 +229,26 @@ namespace DatPlex.ViewModel
             }
         }
 
+        public bool Tray_Manual_State
+        {
+            get { return _scanTabVM.Manual_State; }
+            set
+            {
+                _scanTabVM.Manual_State = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Tray_Automatic_State
+        {
+            get { return _scanTabVM.Automatic_State; }
+            set
+            {
+                _scanTabVM.Automatic_State = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsPlexLoaded
         {
             get { return _IsPlexLoaded; }
@@ -294,16 +314,6 @@ namespace DatPlex.ViewModel
         #endregion
 
         #region Command Bindings
-
-        //DelegateCommand _Tray_Manual_Cmd;
-        //public ICommand Tray_Manual_Cmd
-        //{
-        //    get
-        //    {
-        //        if (_Tray_Manual_Cmd == null)
-        //            _Tray_Manual_Cmd = new DelegateCommand(_scanTabVM.Manual_State);
-        //    }
-        //}
 
         DelegateCommand _Tray_Scan_Cmd;
         public ICommand Tray_Scan_Cmd

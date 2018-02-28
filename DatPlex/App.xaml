@@ -23,7 +23,11 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#404040"/>
                     <Setter Property="Foreground" Value="#ebebeb"/>
-                </Trigger> 
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#2F2F2F"/>
+                    <Setter Property="Foreground" Value="#ebebeb"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="ListView">

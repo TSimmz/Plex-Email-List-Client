@@ -13,19 +13,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image Source="/Images/plex.jpg" Height="60" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
+        <Image Source="/Images/plex.jpg" Height="50" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <RadioButton Content="Manual" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center" Foreground="White" FontSize="14" IsChecked="{Binding Manual_State}"/>
-            <RadioButton Content="Automatic" HorizontalAlignment="Center"  Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="14" IsChecked="{Binding Automatic_State}"/>
+            <RadioButton Content="Manual" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center" Foreground="White" FontSize="14" IsChecked="{Binding Tray_Manual_State}"/>
+            <RadioButton Content="Automatic" HorizontalAlignment="Center"  Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="14" IsChecked="{Binding Tray_Automatic_State}"/>
         </Grid>
         <Button Content="Refresh Libraries" Command="{Binding UpdateLibrary_Cmd}" IsEnabled="{Binding ServerInfo_State}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Row="2"/>
-        <Button Content="Scan Plex" Command="{Binding Tray_Scan_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+        <Button Content="Scan Plex" Command="{Binding Tray_Scan_Cmd}" IsEnabled="{Binding Tray_Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Row="3"/>
         <Button Content="Settings" Command="{Binding Tray_Settings_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Row="4"/>
