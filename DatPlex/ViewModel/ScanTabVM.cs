@@ -68,6 +68,12 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private List<bool> _Days_IsChecked = new List<bool>();
+        public void UpdatePeriod_Days()
+        {
+            //
+        }
+
         public void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
         {
             //TODO: Auto Scan Logic
@@ -200,6 +206,49 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private bool[] _IsChecked_Week = new bool[7];
+        public bool IsChecked_Sun
+        {
+            get { return _IsChecked_Week[0]; }
+            set { _IsChecked_Week[0] = value; }
+        }
+
+        public bool IsChecked_Mon
+        {
+            get { return _IsChecked_Week[1]; }
+            set { _IsChecked_Week[1] = value; }
+        }
+
+        public bool IsChecked_Tue
+        {
+            get { return _IsChecked_Week[2]; }
+            set { _IsChecked_Week[2] = value; }
+        }
+
+        public bool IsChecked_Wed
+        {
+            get { return _IsChecked_Week[3]; }
+            set { _IsChecked_Week[3] = value; }
+        }
+
+        public bool IsChecked_Thu
+        {
+            get { return _IsChecked_Week[4]; }
+            set { _IsChecked_Week[4] = value; }
+        }
+
+        public bool IsChecked_Fri
+        {
+            get { return _IsChecked_Week[5]; }
+            set { _IsChecked_Week[5] = value; }
+        }
+
+        public bool IsChecked_Sat
+        {
+            get { return _IsChecked_Week[6]; }
+            set { _IsChecked_Week[6] = value; }
+        }
+
         private string mProgress_Lbl = "Test Label: This is only a test.";
         public string Progress_Lbl
         {
@@ -238,7 +287,6 @@ namespace DatPlex.ViewModel
                 return mSetPeriod_Cmd;
             }
         }
-
 
         DelegateCommand mScan_Plex_Cmd;
         public ICommand Scan_Plex_Cmd

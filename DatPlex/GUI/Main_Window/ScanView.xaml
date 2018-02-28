@@ -37,38 +37,67 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton Content="Manual" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center" Foreground="White" FontSize="14" IsChecked="{Binding Manual_State}"/>
-                                <RadioButton Content="Automatic" HorizontalAlignment="Center"  Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="14" IsChecked="{Binding Automatic_State}"/>
+                                <RadioButton Content="Manual" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center" FontSize="14" IsChecked="{Binding Manual_State}"/>
+                                <RadioButton Content="Automatic" HorizontalAlignment="Center"  Grid.Column="1" VerticalAlignment="Center" FontSize="14" IsChecked="{Binding Automatic_State}"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
                 </Grid>
-                <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                        Margin="25,0,0,100" Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
+                <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        Margin="0,0,0,100" Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
                 
-                <Button Content="Settings" Command="{Binding Settings_Cmd}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0"
+                <Button Content="Settings" Command="{Binding Settings_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
 
-                <Button Content="Import/Export" Command="{Binding ImportExport_Cmd}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,100,0,0"
+                <Button Content="Import/Export" Command="{Binding ImportExport_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
 
                 <Label Name="_ScanLabel" Content="{Binding Progress_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,35" Height="25" Width="300"  
                         Grid.Column="0" Grid.Row="2" Foreground="White"/>
                 <ProgressBar Name="_ScanProgress" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
                         Height="25" Width="650" IsIndeterminate="False"/>
-                <GroupBox Header="Update Period" Margin="10,10,10,10" Foreground="White" BorderBrush="#4F4F4F" FontSize="15" VerticalAlignment="Top" Height="60" Grid.Column="1" Grid.Row="0">
-                    <Grid>
+                <GroupBox Header="Update Period" Margin="10,10,10,0" Foreground="White" BorderBrush="#4F4F4F" FontSize="15" VerticalAlignment="Top" Height="235" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                    <Grid IsEnabled="{Binding Automatic_State}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBox Text="{Binding Timer}" IsEnabled="{Binding Automatic_State}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Margin="20,0,0,0" Width="80" Grid.Column="0"/>
-                        <ComboBox SelectedIndex="{Binding Units_SelIndex}" IsEnabled="{Binding Automatic_State}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="25" Grid.Column="1">
-                            <ComboBoxItem></ComboBoxItem>
-                            <ComboBoxItem>D</ComboBoxItem>
-                        </ComboBox>
-                        <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" IsEnabled="{Binding Automatic_State}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="90" Grid.Column="2"/>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <CheckBox x:Name="SUN" Content="Sunday" IsChecked="{Binding IsChecked_Sun}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="0"/>
+                            <CheckBox x:Name="MON" Content="Monday" IsChecked="{Binding IsChecked_Mon}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="1"/>
+                            <CheckBox x:Name="TUE" Content="Tuesday" IsChecked="{Binding IsChecked_Tue}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="2"/>
+                            <CheckBox x:Name="WED" Content="Wednesday" IsChecked="{Binding IsChecked_Wed}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="3"/>
+                            <CheckBox x:Name="THU" Content="Thursday" IsChecked="{Binding IsChecked_Thu}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="4"/>
+                            <CheckBox x:Name="FRI" Content="Friday" IsChecked="{Binding IsChecked_Fri}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="5"/>
+                            <CheckBox x:Name="SAT" Content="Saturday" IsChecked="{Binding IsChecked_Sat}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Grid.Row="6"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5"/>
+                            <TextBox Text="{Binding Hours}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="20,0,0,5" Width="30" Grid.Column="0"/>
+                            <TextBlock Text=" : " Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,5" Height="25"/>
+                            <TextBox Text="{Binding Hours}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="62,0,0,5" Width="30" Grid.Column="0"/>
+                            <ComboBox Height="25" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,5">
+                                <ComboBoxItem>AM</ComboBoxItem>
+                                <ComboBoxItem>PM</ComboBoxItem>
+                            </ComboBox>
+                            <RadioButton Content="12-hour" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                            <RadioButton Content="24-hour" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" Height="Auto" Width="Auto" Margin="18" Grid.Row="2"/>
+                        </Grid>
                     </Grid>
                 </GroupBox>
             </Grid>
