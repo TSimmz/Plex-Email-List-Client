@@ -67,13 +67,13 @@ namespace DatPlex.ViewModel
 
         }
 
-        private static void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
+        public void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
         {
             //TODO: Auto Scan Logic
             Console.WriteLine("1 MORE MINUTE!");
         }
 
-        private void Man_Scan_Plex(object obj)
+        public void Man_Scan_Plex(object obj)
         {
             App.MainViewModel.Get_Libraries();
             App.MainViewModel.Get_Media();

@@ -23,6 +23,7 @@ namespace DatPlex.GUI.Child_Window
         public SystemTrayView()
         {
             InitializeComponent();
+            this.DataContext = App.MainViewModel;
         }
     }
 }

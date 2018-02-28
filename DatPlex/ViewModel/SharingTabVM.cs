@@ -76,7 +76,7 @@ namespace DatPlex.ViewModel
 
         #region General
 
-        public void UpdateLibraries()
+        public void RefreshLibraries()
         {
             // TODO: Update Libraries function
         }
@@ -126,18 +126,19 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged("Include");
             }
         }
+
         #endregion
 
         #region Command Bindings
 
-        DelegateCommand _UpdateLibrary_Cmd;
-        public ICommand UpdateLibrary_Cmd
+        DelegateCommand _RefreshLibraries_Cmd;
+        public ICommand RefreshLibraries_Cmd
         {
             get
             {
-                if (_UpdateLibrary_Cmd == null)
-                    _UpdateLibrary_Cmd = new DelegateCommand(UpdateLibraries);
-                return _UpdateLibrary_Cmd;
+                if (_RefreshLibraries_Cmd == null)
+                    _RefreshLibraries_Cmd = new DelegateCommand(RefreshLibraries);
+                return _RefreshLibraries_Cmd;
             }
         }
 

@@ -17,7 +17,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#202020">
-        <tb:TaskbarIcon>
+        <tb:TaskbarIcon ToolTipText="Plex Email Updater">
             <tb:TaskbarIcon.TrayPopup>
                 <childview:SystemTrayView x:Name="SystemTrayView" Height="300" Width="300"/>
             </tb:TaskbarIcon.TrayPopup>

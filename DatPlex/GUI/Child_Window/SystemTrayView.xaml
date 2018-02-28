@@ -25,9 +25,9 @@
         </Grid>
         <Button Content="Refresh Libraries" Command="{Binding UpdateLibrary_Cmd}" IsEnabled="{Binding ServerInfo_State}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Row="2"/>
-        <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+        <Button Content="Scan Plex" Command="{Binding Tray_Scan_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Row="3"/>
-        <Button Content="Settings" Command="{Binding Settings_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <Button Content="Settings" Command="{Binding Tray_Settings_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Row="4"/>
     </Grid>
 </UserControl>

@@ -295,6 +295,49 @@ namespace DatPlex.ViewModel
 
         #region Command Bindings
 
+        //DelegateCommand _Tray_Manual_Cmd;
+        //public ICommand Tray_Manual_Cmd
+        //{
+        //    get
+        //    {
+        //        if (_Tray_Manual_Cmd == null)
+        //            _Tray_Manual_Cmd = new DelegateCommand(_scanTabVM.Manual_State);
+        //    }
+        //}
+
+        DelegateCommand _Tray_Scan_Cmd;
+        public ICommand Tray_Scan_Cmd
+        {
+            get
+            {
+                if (_Tray_Scan_Cmd == null)
+                    _Tray_Scan_Cmd = new DelegateCommand(_scanTabVM.Man_Scan_Plex);
+                return _Tray_Scan_Cmd;
+            }
+        }
+
+        DelegateCommand _Tray_Settings_Cmd;
+        public ICommand Tray_Settings_Cmd
+        {
+            get
+            {
+                if (_Tray_Settings_Cmd == null)
+                    _Tray_Settings_Cmd = new DelegateCommand(_scanTabVM.UpdateServerInfo);
+                return _Tray_Settings_Cmd;
+            }
+        }
+
+        DelegateCommand _Tray_RefreshLibaries_Cmd;
+        public ICommand Tray_RefreshLibaries_Cmd
+        {
+            get
+            {
+                if (_Tray_RefreshLibaries_Cmd == null)
+                    _Tray_RefreshLibaries_Cmd = new DelegateCommand(_sharingTabVM.RefreshLibraries);
+                return _Tray_RefreshLibaries_Cmd;
+            }
+        }
+
         DelegateCommand mFile_Exit_Cmd;
         public ICommand File_ExitCommand
         {
