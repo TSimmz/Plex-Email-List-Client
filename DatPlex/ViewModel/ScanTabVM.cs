@@ -50,10 +50,12 @@ namespace DatPlex.ViewModel
                 case 0:
                     Time.Enabled = false;
                     Timer = 0;
+                    Utility.LogEntry("Timer Disabled");
                     break;
                 case 1:
                     Time.Interval = Timer * Utility.DAYS;
                     Time.Enabled = true;
+                    Utility.LogEntry("Timer Set : " + Timer.ToString() + " days");
                     break;
                 //case 2:
                 //    Time.Interval = Timer * Utility.HOURS;
@@ -64,7 +66,6 @@ namespace DatPlex.ViewModel
                 //    Time.Enabled = true;
                 //    break;
             }
-
         }
 
         public void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
@@ -92,16 +93,20 @@ namespace DatPlex.ViewModel
                 Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
                 App.MainViewModel.PlexApp.ServerInfo = info;
 
-                MainViewModel.LogEntries.Add(new LogEntry() { Index = MainViewModel.LogEntryIndex++, DateTime = DateTime.Now, Message = "Server information updated." });
+                Utility.LogEntry("Server information updated.");
             }
         }
 
         public void LogEntry_ModeChange()
         {
             if(Manual_State)
-                MainViewModel.LogEntries.Add(new LogEntry() { Index = MainViewModel.LogEntryIndex++, DateTime = DateTime.Now, Message = "Manual State Enabled" });
+            {
+                Utility.LogEntry("Manual State Enabled");
+                Units_SelIndex = 0;
+                SetPeriod();
+            }
             else
-                MainViewModel.LogEntries.Add(new LogEntry() { Index = MainViewModel.LogEntryIndex++, DateTime = DateTime.Now, Message = "Automatic State Enabled" });
+                Utility.LogEntry("Automatic State Enabled");
         }
 
         #endregion General

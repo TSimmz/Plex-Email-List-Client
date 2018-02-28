@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using DatPlex.DataModel;
+using DatPlex.Common;
 
 namespace DatPlex.GUI.Child_Window
 {
@@ -23,12 +24,10 @@ namespace DatPlex.GUI.Child_Window
     /// </summary>
     public partial class LogEntryViewer : UserControl
     {
-        public ObservableCollection<LogEntry> LogEntries { get; set; }
-
         public LogEntryViewer()
         {
             InitializeComponent();
-            DataContext = LogEntries = App.MainViewModel.LogEntries;
+            DataContext = Utility.LogEntryList = new ObservableCollection<LogEntry>();
         }
 
         #region Random

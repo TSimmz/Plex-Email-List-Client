@@ -17,7 +17,6 @@ namespace DatPlex.ViewModel
 
         Window Parent;
         private bool _IsPlexLoaded;
-        private int _LogEntryIndex;
         
         #endregion
 
@@ -34,8 +33,6 @@ namespace DatPlex.ViewModel
 
             ScanViewVisibility = Visibility.Hidden;
             _SharingViewVisibility = Visibility.Hidden;
-
-            LogEntries = new ObservableCollection<LogEntry>();
         }
 
         public void SetParent(Window iParent)
@@ -189,17 +186,6 @@ namespace DatPlex.ViewModel
         #endregion
 
         #region Setter/Getters
-
-        public ObservableCollection<LogEntry> LogEntries { get; set; }
-
-        public int LogEntryIndex
-        {
-            get { return _LogEntryIndex; }
-            set
-            {
-                _LogEntryIndex = value;
-            }
-        }
 
         private string mWindowTitle = "Plex Email Updates : Blurgh";
         public string WindowTitle
