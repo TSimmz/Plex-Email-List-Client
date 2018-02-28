@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,13 +31,19 @@ namespace DatPlex.Common
 
         public static string XML_SAVE_PATH = "%APPDATA%/Plex Email/Account Data/";
 
-        public static string USER_LABEL = "New Users: ";
-        public static string NITEM_LABEL = "New Items: ";
-        public static string RITEM_LABEL = "Removed Items: ";
+        public static string FOUND_LIBRARY = "**FOUND NEW LIBRARY** : ";
+        public static string FOUND_FRIEND = "**FOUND NEW FRIEND** : ";
 
         public static int MINUTES { get { return 60000; } }
         public static int HOURS { get { return 3600000; } }
         public static int DAYS { get { return 86400000; } }
+
+        public static ObservableCollection<LogEntry> LogEntryList { get; set; }
+        public static int LogIndex { get; set; }
+        public static void LogEntry(string message)
+        {
+            LogEntryList.Add(new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message });
+        }
 
         public static Object LoadXmlData(string path)
         {

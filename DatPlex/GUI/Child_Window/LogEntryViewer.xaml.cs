@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using DatPlex.DataModel;
+using DatPlex.Common;
 
 namespace DatPlex.GUI.Child_Window
 {
@@ -23,62 +24,46 @@ namespace DatPlex.GUI.Child_Window
     /// </summary>
     public partial class LogEntryViewer : UserControl
     {
-        private string TestData = "Hello";
-        private List<string> words;
-        private int maxword;
-        private int index;
-        private Timer Timer;
-        private Random random;
-
-        public ObservableCollection<LogEntry> LogEntries { get; set; }
-
         public LogEntryViewer()
         {
             InitializeComponent();
-
-            random = new Random();
-            words = TestData.Split(' ').ToList();
-            maxword = words.Count - 1;
-
-            DataContext = LogEntries = new ObservableCollection<LogEntry>();
-
-            Enumerable.Range(0, 5)
-                      .ToList()
-                      .ForEach(x => LogEntries.Add(GetRandomEntry()));
-
-            Timer = new Timer(x => AddRandomEntry(), null, 100000, 1000);
+            DataContext = Utility.LogEntryList = new ObservableCollection<LogEntry>();
         }
 
+        #region Random
 
-        private void AddRandomEntry()
-        {
-            Dispatcher.BeginInvoke((Action)(() => LogEntries.Add(GetRandomEntry())));
-        }
+        //private void AddRandomEntry()
+        //{
+        //    Dispatcher.BeginInvoke((Action)(() => LogEntries.Add(GetRandomEntry())));
+        //}
 
-        private LogEntry GetRandomEntry()
-        {
-            if (random.Next(1, 10) > 1)
-            {
-                return new LogEntry()
-                {
-                    Index = index++,
-                    DateTime = DateTime.Now,
-                    Message = string.Join(" ", Enumerable.Range(5, random.Next(10, 50))
-                                                         .Select(x => words[random.Next(0, maxword)])),
-                };
-            }
+        //private LogEntry GetRandomEntry()
+        //{
+        //    if (random.Next(1, 10) > 1)
+        //    {
+        //        return new LogEntry()
+        //        {
+        //            Index = index++,
+        //            DateTime = DateTime.Now,
+        //            Message = string.Join(" ", Enumerable.Range(5, random.Next(10, 50))
+        //                                                 .Select(x => words[random.Next(0, maxword)])),
+        //        };
+        //    }
 
-            return new CollapsibleLogEntry()
-            {
-                Index = index++,
-                DateTime = DateTime.Now,
-                Message = string.Join(" ", Enumerable.Range(5, random.Next(10, 50))
-                                                        .Select(x => words[random.Next(0, maxword)])),
-                Contents = Enumerable.Range(5, random.Next(5, 10))
-                                                .Select(i => GetRandomEntry())
-                                                .ToList()
-            };
+        //    return new CollapsibleLogEntry()
+        //    {
+        //        Index = index++,
+        //        DateTime = DateTime.Now,
+        //        Message = string.Join(" ", Enumerable.Range(5, random.Next(10, 50))
+        //                                                .Select(x => words[random.Next(0, maxword)])),
+        //        Contents = Enumerable.Range(5, random.Next(5, 10))
+        //                                        .Select(i => GetRandomEntry())
+        //                                        .ToList()
+        //    };
 
-        }
+        //}
+
+        #endregion
+
     }
 }

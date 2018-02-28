@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
-             xmlns:chilview="clr-namespace:DatPlex.GUI.Child_Window"
+             xmlns:childview="clr-namespace:DatPlex.GUI.Child_Window"
              xmlns:common="clr-namespace:DatPlex.Common"
              xmlns:vm="clr-namespace:DatPlex.ViewModel"
              mc:Ignorable="d" d:DesignHeight="429" d:DesignWidth="732">
@@ -72,7 +72,7 @@
                     </Grid>
                 </GroupBox>
                 <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="300,0,25,0">
-                    <chilview:LogEntryViewer x:Name="_LogViewer"/>
+                    <childview:LogEntryViewer x:Name="_LogViewer"/>
                 </UserControl>
             </Grid>
         </Grid>
