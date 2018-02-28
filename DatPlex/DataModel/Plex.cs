@@ -123,7 +123,7 @@ namespace DatPlex.DataModel
                         this.ReadXml(reader);
                     }
                 }
-                catch (IOException ex)
+                catch
                 {
                     Thread.Sleep(50);
                     using (XmlReader reader = XmlReader.Create(PlexSaveData, settings))

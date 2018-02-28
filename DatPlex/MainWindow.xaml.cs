@@ -15,7 +15,6 @@ namespace DatPlex
         #region Data Fields
 
         MainViewModel _ViewModel;
-        NotifyIcon _NotifyIcon;
         #endregion
 
         #region Constructor
