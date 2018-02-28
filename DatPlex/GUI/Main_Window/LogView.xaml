@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="DatPlex.GUI.Main_Window.LogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
+             xmlns:childview="clr-namespace:DatPlex.GUI.Child_Window"
+             xmlns:common="clr-namespace:DatPlex.Common"
+             xmlns:vm="clr-namespace:DatPlex.ViewModel"
+             mc:Ignorable="d" d:DesignHeight="429" d:DesignWidth="732">
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <UserControl Grid.Row="0" Margin="25,25,25,0">
+            <childview:LogEntryViewer x:Name="_LogViewer"/>
+        </UserControl>
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Save Logs" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Grid.Row="1" Grid.Column="2" Width="170" Height="40" TextElement.FontSize="18"/>
+                <Button Content="Clear Logs" Command="{Binding Scan_Plex_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Grid.Row="1" Grid.Column="3" Width="170" Height="40" TextElement.FontSize="18"/>
+            </Grid>
+        </Grid>
+        
+    </Grid>
+</UserControl>

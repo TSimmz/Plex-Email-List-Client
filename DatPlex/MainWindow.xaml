@@ -52,6 +52,9 @@
             <TabItem Header="  Sharing  " Foreground="White" >
                 <mainview:SharingView x:Name="_SharingView"/>
             </TabItem>
+            <TabItem Header="  Logging  " Foreground="White">
+                <mainview:LogView x:Name="_LogView"/>
+            </TabItem>
         </TabControl>
     </Grid>
     

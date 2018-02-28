@@ -65,15 +65,12 @@
                         </Grid.ColumnDefinitions>
                         <TextBox Text="{Binding Timer}" IsEnabled="{Binding Automatic_State}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Margin="20,0,0,0" Width="80" Grid.Column="0"/>
                         <ComboBox SelectedIndex="{Binding Units_SelIndex}" IsEnabled="{Binding Automatic_State}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Height="25" Grid.Column="1">
-                            <ComboBoxItem> </ComboBoxItem>
+                            <ComboBoxItem></ComboBoxItem>
                             <ComboBoxItem>D</ComboBoxItem>
                         </ComboBox>
                         <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" IsEnabled="{Binding Automatic_State}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="90" Grid.Column="2"/>
                     </Grid>
                 </GroupBox>
-                <UserControl Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="300,0,25,0">
-                    <childview:LogEntryViewer x:Name="_LogViewer"/>
-                </UserControl>
             </Grid>
         </Grid>
     </Grid>
