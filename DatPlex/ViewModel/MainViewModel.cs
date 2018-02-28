@@ -5,6 +5,7 @@ using System.Xml;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DatPlex.DataModel;
 using DatPlex.Common;
 
@@ -16,7 +17,7 @@ namespace DatPlex.ViewModel
 
         Window Parent;
         private bool _IsPlexLoaded;
-
+        
         #endregion
 
         #region Constructor

@@ -50,10 +50,12 @@ namespace DatPlex.ViewModel
                 case 0:
                     Time.Enabled = false;
                     Timer = 0;
+                    Utility.LogEntry("Timer Disabled");
                     break;
                 case 1:
                     Time.Interval = Timer * Utility.DAYS;
                     Time.Enabled = true;
+                    Utility.LogEntry("Timer Set : Next Scan on " + DateTime.Now.AddDays(Timer));
                     break;
                 //case 2:
                 //    Time.Interval = Timer * Utility.HOURS;
@@ -64,7 +66,6 @@ namespace DatPlex.ViewModel
                 //    Time.Enabled = true;
                 //    break;
             }
-
         }
 
         public void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
@@ -84,20 +85,34 @@ namespace DatPlex.ViewModel
         {
             ServerInformation wInfo = new ServerInformation();
             wInfo.DataContext = this;
-            wInfo.ShowInTaskbar = false;
+            //wInfo.ShowInTaskbar = false;
             wInfo.ShowDialog();
 
             if ((bool)wInfo.DialogResult)
             {
                 Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
                 App.MainViewModel.PlexApp.ServerInfo = info;
+
+                Utility.LogEntry("Server information updated.");
             }
+        }
+
+        public void LogEntry_ModeChange()
+        {
+            if(Manual_State)
+            {
+                Utility.LogEntry("Manual State Enabled");
+                Units_SelIndex = 0;
+                SetPeriod();
+            }
+            else
+                Utility.LogEntry("Automatic State Enabled");
         }
 
         #endregion General
 
         #region Setters/Getters
-        
+
         public MainViewModel MainViewModel { get { return _MainViewModel; } }
 
         private Timer _time;
@@ -139,6 +154,7 @@ namespace DatPlex.ViewModel
                 mManual_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Automatic_State");
+                LogEntry_ModeChange();
             }
         }
 
@@ -154,7 +170,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string _IP_Address;
+        private string _IP_Address = "75.115.71.34";
         public string IP_Address
         {
             get { return _IP_Address; }
@@ -164,7 +180,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string _Port_Number;
+        private string _Port_Number="32400";
         public string Port_Number
         {
             get { return _Port_Number; }
@@ -174,7 +190,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string _Plex_Token;
+        private string _Plex_Token= "yedx66JT2HqyEd2xxf4m";
         public string Plex_Token
         {
             get { return _Plex_Token; }
