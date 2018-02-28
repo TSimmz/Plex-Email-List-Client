@@ -55,7 +55,7 @@ namespace DatPlex.ViewModel
                 case 1:
                     Time.Interval = Timer * Utility.DAYS;
                     Time.Enabled = true;
-                    Utility.LogEntry("Timer Set : " + Timer.ToString() + " days");
+                    Utility.LogEntry("Timer Set : Next Scan on " + DateTime.Now.AddDays(Timer));
                     break;
                 //case 2:
                 //    Time.Interval = Timer * Utility.HOURS;
