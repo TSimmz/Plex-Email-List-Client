@@ -15,14 +15,15 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         private Window _Parent;
+        private MainViewModel _MainViewModel;
 
         #endregion Data Fields
 
         #region Constructor
 
-        public ScanTabVM()
+        public ScanTabVM(MainViewModel mainViewModel)
         {
-
+            _MainViewModel = mainViewModel;
         }
 
         public void SetParent(Window iParent)
@@ -66,13 +67,13 @@ namespace DatPlex.ViewModel
 
         }
 
-        private static void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
+        public void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
         {
             //TODO: Auto Scan Logic
             Console.WriteLine("1 MORE MINUTE!");
         }
 
-        private void Man_Scan_Plex(object obj)
+        public void Man_Scan_Plex(object obj)
         {
             App.MainViewModel.Get_Libraries();
             App.MainViewModel.Get_Media();
@@ -96,17 +97,8 @@ namespace DatPlex.ViewModel
         #endregion General
 
         #region Setters/Getters
-
-        private string mWindowTitle = "Plex Email Updates";
-        public string WindowTitle
-        {
-            get { return mWindowTitle; }
-            set
-            {
-                mWindowTitle = value;
-                OnPropertyChanged();
-            }
-        }
+        
+        public MainViewModel MainViewModel { get { return _MainViewModel; } }
 
         private Timer _time;
         public Timer Time
@@ -137,28 +129,8 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private List<Friend> mSharedUsers = new List<Friend> { new Friend("Default", "Default", "Default") };
-        public List<Friend> SharedUsers
-        {
-            get { return mSharedUsers; }
-            set
-            {
-                mSharedUsers = value;
-                OnPropertyChanged();
-            }
-        }
 
-        private int mSharedUsers_SelIndex = 0;
-        public int SharedUsers_SelIndex
-        {
-            get { return mSharedUsers_SelIndex; }
-            set
-            {
-                mSharedUsers_SelIndex = value;
-            }
-        }
-
-        private bool mManual_State;
+        private bool mManual_State = true;
         public bool Manual_State
         {
             get { return mManual_State; }
@@ -170,7 +142,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private bool mAutomatic_State;
+        private bool mAutomatic_State = false;
         public bool Automatic_State
         {
             get { return mAutomatic_State; }
@@ -179,30 +151,6 @@ namespace DatPlex.ViewModel
                 mAutomatic_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Manual_State");
-            }
-        }
-
-        private bool mSendSel_State;
-        public bool SendSel_State
-        {
-            get { return mSendSel_State; }
-            set
-            {
-                mSendSel_State = value;
-                OnPropertyChanged();
-                OnPropertyChanged("SendAll_State");
-            }
-        }
-
-        private bool mSendAll_State;
-        public bool SendAll_State
-        {
-            get { return mSendAll_State; }
-            set
-            {
-                mSendAll_State = value;
-                OnPropertyChanged();
-                OnPropertyChanged("SendSel_State");
             }
         }
 
@@ -236,7 +184,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string mProgress_Lbl = "Test Label";
+        private string mProgress_Lbl = "Test Label: This is only a test.";
         public string Progress_Lbl
         {
             get { return mProgress_Lbl; }
@@ -297,6 +245,18 @@ namespace DatPlex.ViewModel
                 return mSettings_Cmd;
             }
         }
+
+        DelegateCommand mImportExport_Cmd;
+        public ICommand ImportExport_Cmd
+        {
+            get
+            {
+                if (null == mImportExport_Cmd)
+                    mImportExport_Cmd = new DelegateCommand(MainViewModel.ImportExport);
+                return mImportExport_Cmd;
+            }
+        }
+
         #endregion
     }
 

@@ -15,6 +15,7 @@ namespace DatPlex.ViewModel
         #region Data Fields
 
         Window Parent;
+        private bool _IsPlexLoaded;
 
         #endregion
 
@@ -23,17 +24,14 @@ namespace DatPlex.ViewModel
         {
             _PlexApp = new Plex();
 
-            _scanTabVM = new ScanTabVM();
-            _libraryTabVM = new LibraryTabVM();
-            _friendsTabVM = new FriendsTabVM();
+            _scanTabVM = new ScanTabVM(this);
+            _sharingTabVM = new SharingTabVM();
 
             _scanTabVM.SetParent(App.MainWindow);
-            _libraryTabVM.SetParent(App.MainWindow);
-            _friendsTabVM.SetParent(App.MainWindow);
+            _sharingTabVM.SetParent(App.MainWindow);
 
             ScanViewVisibility = Visibility.Hidden;
-            LibraryViewVisibility = Visibility.Hidden;
-            FriendsViewVisibility = Visibility.Hidden;
+            _SharingViewVisibility = Visibility.Hidden;
         }
 
         public void SetParent(Window iParent)
@@ -55,6 +53,11 @@ namespace DatPlex.ViewModel
             //create new plex object once complete
 
             return true;
+        }
+
+        public void ImportExport()
+        {
+            
         }
 
         public string MediaType(string type)
@@ -101,8 +104,6 @@ namespace DatPlex.ViewModel
                 }
             }
             return data;
-
-
         }
 
 
@@ -126,7 +127,7 @@ namespace DatPlex.ViewModel
                 PlexApp.Libraries.Add(lib);
             }
 
-            _libraryTabVM.LibraryList = PlexApp.Libraries;
+            _sharingTabVM.LibraryList = PlexApp.Libraries;
         }
 
         public void Get_Media()
@@ -177,13 +178,24 @@ namespace DatPlex.ViewModel
                 friendList.AddUser(friend);
             }
             PlexApp.FriendList = friendList;
-            _friendsTabVM.FriendList = PlexApp.FriendList;
+            _sharingTabVM.FriendList = PlexApp.FriendList;
 
         }
 
         #endregion
 
         #region Setter/Getters
+
+        private string mWindowTitle = "Plex Email Updates : Blurgh";
+        public string WindowTitle
+        {
+            get { return mWindowTitle; }
+            set
+            {
+                mWindowTitle = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Plex _PlexApp;
         public Plex PlexApp
@@ -206,29 +218,46 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private static LibraryTabVM _libraryTabVM;
-        public LibraryTabVM LibraryTabVM
+        private static SharingTabVM _sharingTabVM;
+        public SharingTabVM SharingTabVM
         {
-            get { return _libraryTabVM; }
+            get { return _sharingTabVM; }
             set
             {
-                _libraryTabVM = value;
+                _sharingTabVM = value;
                 OnPropertyChanged();
             }
         }
 
-        private static FriendsTabVM _friendsTabVM;
-        public FriendsTabVM FriendsTabVM
+        public bool Tray_Manual_State
         {
-            get { return _friendsTabVM; }
+            get { return _scanTabVM.Manual_State; }
             set
             {
-                _friendsTabVM = value;
+                _scanTabVM.Manual_State = value;
                 OnPropertyChanged();
             }
         }
 
+        public bool Tray_Automatic_State
+        {
+            get { return _scanTabVM.Automatic_State; }
+            set
+            {
+                _scanTabVM.Automatic_State = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public bool IsPlexLoaded
+        {
+            get { return _IsPlexLoaded; }
+            set
+            {
+                _IsPlexLoaded = value;
+                OnPropertyChanged();
+            }
+        }
 
         private int _SelectedTabIndex;
         public int SelectedTabIndex
@@ -244,23 +273,12 @@ namespace DatPlex.ViewModel
                     {
                         case 0:         // Scan Tab
                             ScanViewVisibility = Visibility.Visible;
-                            LibraryViewVisibility = Visibility.Hidden;
-                            FriendsViewVisibility = Visibility.Hidden;
-
+                            SharingViewVisibility = Visibility.Hidden;
                             break;
 
-                        case 1:         // Libraries Tab
+                        case 1:         // Sharing Tab
                             ScanViewVisibility = Visibility.Hidden;
-                            LibraryViewVisibility = Visibility.Visible;
-                            FriendsViewVisibility = Visibility.Hidden;
-
-                            break;
-
-                        case 2:         // Friends Tab
-                            ScanViewVisibility = Visibility.Hidden;
-                            LibraryViewVisibility = Visibility.Hidden;
-                            FriendsViewVisibility = Visibility.Visible;
-
+                            SharingViewVisibility = Visibility.Visible;
                             break;
 
                         default:
@@ -282,24 +300,13 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private Visibility _LibraryViewVisibility;
-        public Visibility LibraryViewVisibility
+        private Visibility _SharingViewVisibility;
+        public Visibility SharingViewVisibility
         {
-            get { return _LibraryViewVisibility; }
+            get { return _SharingViewVisibility; }
             set
             {
-                _LibraryViewVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private Visibility _FriendsViewVisibility;
-        public Visibility FriendsViewVisibility
-        {
-            get { return _FriendsViewVisibility; }
-            set
-            {
-                _FriendsViewVisibility = value;
+                _SharingViewVisibility = value;
                 OnPropertyChanged();
             }
         }
@@ -307,6 +314,39 @@ namespace DatPlex.ViewModel
         #endregion
 
         #region Command Bindings
+
+        DelegateCommand _Tray_Scan_Cmd;
+        public ICommand Tray_Scan_Cmd
+        {
+            get
+            {
+                if (_Tray_Scan_Cmd == null)
+                    _Tray_Scan_Cmd = new DelegateCommand(_scanTabVM.Man_Scan_Plex);
+                return _Tray_Scan_Cmd;
+            }
+        }
+
+        DelegateCommand _Tray_Settings_Cmd;
+        public ICommand Tray_Settings_Cmd
+        {
+            get
+            {
+                if (_Tray_Settings_Cmd == null)
+                    _Tray_Settings_Cmd = new DelegateCommand(_scanTabVM.UpdateServerInfo);
+                return _Tray_Settings_Cmd;
+            }
+        }
+
+        DelegateCommand _Tray_RefreshLibaries_Cmd;
+        public ICommand Tray_RefreshLibaries_Cmd
+        {
+            get
+            {
+                if (_Tray_RefreshLibaries_Cmd == null)
+                    _Tray_RefreshLibaries_Cmd = new DelegateCommand(_sharingTabVM.RefreshLibraries);
+                return _Tray_RefreshLibaries_Cmd;
+            }
+        }
 
         DelegateCommand mFile_Exit_Cmd;
         public ICommand File_ExitCommand

@@ -5,8 +5,10 @@
         xmlns:toolkit2="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
+        xmlns:childview="clr-namespace:DatPlex.GUI.Child_Window"
         xmlns:common="clr-namespace:DatPlex.Common"
-        Title="Plex User Update" Width="750" Height="500" Icon="/Images/plex_icon.png"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        Title="{Binding WindowTitle}" Width="750" Height="500" Icon="/Images/plex_icon.png"
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
@@ -15,6 +17,11 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#202020">
+        <tb:TaskbarIcon ToolTipText="Plex Email Updater">
+            <tb:TaskbarIcon.TrayPopup>
+                <childview:SystemTrayView x:Name="SystemTrayView" Height="300" Width="300"/>
+            </tb:TaskbarIcon.TrayPopup>
+        </tb:TaskbarIcon>
         <TabControl SelectedIndex="{Binding SelectedTabIndex}" BorderThickness="0" Background="#202020">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
@@ -22,7 +29,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
                                 <Border Name="Border" BorderBrush="#4F4F4F" BorderThickness="1.5,1.5,0,0" >
-                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="15,5"/>
+                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="35,5"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
@@ -42,11 +49,8 @@
             <TabItem Header="   Scan    " Foreground="White" >
                 <mainview:ScanView x:Name="_ScanView"/>
             </TabItem>
-            <TabItem Header=" Libraries " Foreground="White">
-                <mainview:LibraryView x:Name="_LibraryView"/>
-            </TabItem>
-            <TabItem Header="  Friends  " Foreground="White">
-                <mainview:FriendsView x:Name="_FriendsView"/>
+            <TabItem Header="  Sharing  " Foreground="White" >
+                <mainview:SharingView x:Name="_SharingView"/>
             </TabItem>
         </TabControl>
     </Grid>
