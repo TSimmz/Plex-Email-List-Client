@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using DatPlex.Common;
 using DatPlex.DataModel;
 
@@ -78,7 +79,17 @@ namespace DatPlex.ViewModel
 
         public void RefreshLibraries()
         {
-            // TODO: Update Libraries function
+             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        public void AddFriends()
+        {
+             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        public void UpdateFriends()
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
         #endregion
@@ -139,6 +150,28 @@ namespace DatPlex.ViewModel
                 if (_RefreshLibraries_Cmd == null)
                     _RefreshLibraries_Cmd = new DelegateCommand(RefreshLibraries);
                 return _RefreshLibraries_Cmd;
+            }
+        }
+
+        DelegateCommand _AddFriends_Cmd;
+        public ICommand AddFriends_Cmd
+        {
+            get
+            {
+                if (_AddFriends_Cmd == null)
+                    _AddFriends_Cmd = new DelegateCommand(AddFriends);
+                return _AddFriends_Cmd;
+            }
+        }
+
+        DelegateCommand _UpdateFriends_Cmd;
+        public ICommand UpdateFriends_Cmd
+        {
+            get
+            {
+                if (_UpdateFriends_Cmd == null)
+                    _UpdateFriends_Cmd = new DelegateCommand(UpdateFriends);
+                return _UpdateFriends_Cmd;
             }
         }
 

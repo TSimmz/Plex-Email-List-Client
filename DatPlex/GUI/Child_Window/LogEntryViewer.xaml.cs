@@ -30,6 +30,8 @@ namespace DatPlex.GUI.Child_Window
             DataContext = Utility.LogEntryList = new ObservableCollection<LogEntry>();
         }
 
+
+
         #region Random
 
         //private void AddRandomEntry()

@@ -3,6 +3,8 @@ using System.Timers;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Reflection;
+using System.Globalization;
 using DatPlex.Common;
 using DatPlex.DataModel;
 using DatPlex.GUI.Main_Window;
@@ -42,43 +44,71 @@ namespace DatPlex.ViewModel
 
         public void SetPeriod()
         {
-            Time = new Timer();
-            Time.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
+            #region Old Timer
+            //Time = new Timer();
+            //Time.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
 
-            switch (Units_SelIndex)
+            //switch (Units_SelIndex)
+            //{
+            //    case 0:
+            //        Time.Enabled = false;
+            //        Timer = 0;
+            //        Utility.LogEntry("Timer Disabled");
+            //        break;
+            //    case 1:
+            //        Time.Interval = Timer * Utility.DAYS;
+            //        Time.Enabled = true;
+            //        Utility.LogEntry("Timer Set : Next Scan on " + DateTime.Now.AddDays(Timer));
+            //        break;
+            //    case 2:
+            //        Time.Interval = Timer * Utility.HOURS;
+            //        Time.Enabled = true;
+            //        break;
+            //    case 3:
+            //        Time.Interval = Timer * Utility.DAYS;
+            //        Time.Enabled = true;
+            //        break;
+            //}
+            #endregion
+
+            string time;
+
+            if ((Hours < 0 || Hours > 23) || (Minutes < 0 || Minutes > 59))
             {
-                case 0:
-                    Time.Enabled = false;
-                    Timer = 0;
-                    Utility.LogEntry("Timer Disabled");
-                    break;
-                case 1:
-                    Time.Interval = Timer * Utility.DAYS;
-                    Time.Enabled = true;
-                    Utility.LogEntry("Timer Set : Next Scan on " + DateTime.Now.AddDays(Timer));
-                    break;
-                //case 2:
-                //    Time.Interval = Timer * Utility.HOURS;
-                //    Time.Enabled = true;
-                //    break;
-                //case 3:
-                //    Time.Interval = Timer * Utility.DAYS;
-                //    Time.Enabled = true;
-                //    break;
+                MessageBox.Show("HH:MM is incorrect", "Incorrect Time", MessageBoxButton.OK, MessageBoxImage.Error);
+                Hours = 00; Minutes = 00;
+                return;
             }
+
+            if (HR12_State)
+            {
+                time = Hours + ":" + Minutes + ":00";
+                //UpdateTime = DateTime.ParseExact(time, "hh:mm:ss", CultureInfo.InvariantCulture);
+            }
+                        
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+
+        }
+
+        private List<bool> _Days_IsChecked = new List<bool>();
+        public void UpdatePeriod_Days()
+        {
+            //
         }
 
         public void Auto_Scan_Plex(object obj, ElapsedEventArgs e)
         {
-            //TODO: Auto Scan Logic
-            Console.WriteLine("1 MORE MINUTE!");
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
         public void Man_Scan_Plex(object obj)
         {
-            App.MainViewModel.Get_Libraries();
-            App.MainViewModel.Get_Media();
-            App.MainViewModel.Get_Friends();
+            //App.MainViewModel.Get_Libraries();
+            //App.MainViewModel.Get_Media();
+            //App.MainViewModel.Get_Friends();
+
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            
         }
 
         public void UpdateServerInfo(object obj)
@@ -100,11 +130,7 @@ namespace DatPlex.ViewModel
         public void LogEntry_ModeChange()
         {
             if(Manual_State)
-            {
                 Utility.LogEntry("Manual State Enabled");
-                Units_SelIndex = 0;
-                SetPeriod();
-            }
             else
                 Utility.LogEntry("Automatic State Enabled");
         }
@@ -115,31 +141,13 @@ namespace DatPlex.ViewModel
 
         public MainViewModel MainViewModel { get { return _MainViewModel; } }
 
-        private Timer _time;
-        public Timer Time
+        private int _AMPM_SelIndex;
+        public int AMPM_SelIndex
         {
-            get { return _time; }
-            set { _time = value; }
-        }
-
-        private int _timer = 0;
-        public int Timer
-        {
-            get { return _timer; }
+            get { return _AMPM_SelIndex; }
             set
             {
-                _timer = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int mUnits_SelIndex;
-        public int Units_SelIndex
-        {
-            get { return mUnits_SelIndex; }
-            set
-            {
-                mUnits_SelIndex = value;
+                _AMPM_SelIndex = value;
                 OnPropertyChanged();
             }
         }
@@ -167,6 +175,55 @@ namespace DatPlex.ViewModel
                 mAutomatic_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Manual_State");
+            }
+        }
+
+        private int _Hours;
+        public int Hours
+        {
+            get { return _Hours; }
+            set { _Hours = value; }
+        }
+
+        private int _Minutes;
+        public int Minutes
+        {
+            get { return _Minutes; }
+            set { _Minutes = value; }
+        }
+
+        private bool _12HR_State = true;
+        public bool HR12_State
+        {
+            get { return _12HR_State; }
+            set
+            {
+                _12HR_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("HR24_State");
+            }
+        }
+
+        private bool _24HR_State = false;
+        public bool HR24_State
+        {
+            get { return _24HR_State; }
+            set
+            {
+                _24HR_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("HR12_State");
+            }
+        }
+
+        private DateTime _UpdateTime;
+        public DateTime UpdateTime
+        {
+            get { return _UpdateTime; }
+            set
+            {
+                _UpdateTime = value;
+                OnPropertyChanged();
             }
         }
 
@@ -198,6 +255,49 @@ namespace DatPlex.ViewModel
             {
                 _Plex_Token = (_Plex_Token != value) ? value : _Plex_Token;
             }
+        }
+
+        private bool[] _IsChecked_Week = new bool[7];
+        public bool IsChecked_Sun
+        {
+            get { return _IsChecked_Week[0]; }
+            set { _IsChecked_Week[0] = value; }
+        }
+
+        public bool IsChecked_Mon
+        {
+            get { return _IsChecked_Week[1]; }
+            set { _IsChecked_Week[1] = value; }
+        }
+
+        public bool IsChecked_Tue
+        {
+            get { return _IsChecked_Week[2]; }
+            set { _IsChecked_Week[2] = value; }
+        }
+
+        public bool IsChecked_Wed
+        {
+            get { return _IsChecked_Week[3]; }
+            set { _IsChecked_Week[3] = value; }
+        }
+
+        public bool IsChecked_Thu
+        {
+            get { return _IsChecked_Week[4]; }
+            set { _IsChecked_Week[4] = value; }
+        }
+
+        public bool IsChecked_Fri
+        {
+            get { return _IsChecked_Week[5]; }
+            set { _IsChecked_Week[5] = value; }
+        }
+
+        public bool IsChecked_Sat
+        {
+            get { return _IsChecked_Week[6]; }
+            set { _IsChecked_Week[6] = value; }
         }
 
         private string mProgress_Lbl = "Test Label: This is only a test.";
@@ -238,7 +338,6 @@ namespace DatPlex.ViewModel
                 return mSetPeriod_Cmd;
             }
         }
-
 
         DelegateCommand mScan_Plex_Cmd;
         public ICommand Scan_Plex_Cmd
