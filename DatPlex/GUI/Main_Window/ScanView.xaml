@@ -86,11 +86,12 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5"/>
-                            <TextBox Text="{Binding Hours}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="20,0,0,5" Width="30" Grid.Column="0"/>
-                            <TextBlock Text=" : " Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,5" Height="25"/>
-                            <TextBox Text="{Binding Minutes}" TextAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Left" Height="25" VerticalAlignment="Bottom" Margin="62,0,0,5" Width="30" Grid.Column="0"/>
-                            <ComboBox IsEnabled="{Binding HR12_State}" SelectedIndex="{Binding AMPM_SelIndex, Mode=TwoWay}" Height="25" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,5">
+                            <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="5,10"/>
+                            <ComboBox SelectedIndex="{Binding Hour_Index}" DataContext="{Binding Utility.Hour_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5">
+                            </ComboBox>
+                            <ComboBox SelectedIndex="{Binding Minute_Index}" DataContext="{Binding Utility.Minute_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="55,0,0,5">
+                            </ComboBox>
+                            <ComboBox IsEnabled="{Binding HR12_State}" SelectedIndex="{Binding AMPM_SelIndex, Mode=TwoWay}" Height="25" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5">
                                 <ComboBoxItem>AM</ComboBoxItem>
                                 <ComboBoxItem>PM</ComboBoxItem>
                             </ComboBox>
