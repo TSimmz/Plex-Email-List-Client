@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Windows;
 using System.Windows.Input;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DatPlex.DataModel;
@@ -32,7 +33,9 @@ namespace DatPlex.ViewModel
             _sharingTabVM.SetParent(App.MainWindow);
 
             ScanViewVisibility = Visibility.Hidden;
-            _SharingViewVisibility = Visibility.Hidden;
+            SharingViewVisibility = Visibility.Hidden;
+            LogViewVisibility = Visibility.Hidden;
+
         }
 
         public void SetParent(Window iParent)
@@ -58,7 +61,7 @@ namespace DatPlex.ViewModel
 
         public void ImportExport()
         {
-            
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
         public string MediaType(string type)
@@ -76,6 +79,16 @@ namespace DatPlex.ViewModel
                 default:
                     return "MediaList";
             }
+        }
+
+        public void SaveLogs()
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        public void ClearLogs()
+        {
+             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
         private void ExitApp(object obj)
@@ -275,11 +288,19 @@ namespace DatPlex.ViewModel
                         case 0:         // Scan Tab
                             ScanViewVisibility = Visibility.Visible;
                             SharingViewVisibility = Visibility.Hidden;
+                            LogViewVisibility = Visibility.Hidden;
                             break;
 
                         case 1:         // Sharing Tab
                             ScanViewVisibility = Visibility.Hidden;
                             SharingViewVisibility = Visibility.Visible;
+                            LogViewVisibility = Visibility.Hidden;
+                            break;
+
+                        case 2:
+                            ScanViewVisibility = Visibility.Hidden;
+                            SharingViewVisibility = Visibility.Hidden;
+                            LogViewVisibility = Visibility.Visible;
                             break;
 
                         default:
@@ -312,9 +333,42 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private Visibility _LogViewVisibility;
+        public Visibility LogViewVisibility
+        {
+            get { return _LogViewVisibility; }
+            set
+            {
+                _LogViewVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Command Bindings
+
+        DelegateCommand _SaveLogs_Cmd;
+        public ICommand SaveLogs_Cmd
+        {
+            get
+            {
+                if (_SaveLogs_Cmd == null)
+                    _SaveLogs_Cmd = new DelegateCommand(SaveLogs);
+                return _SaveLogs_Cmd;
+            }
+        }
+
+        DelegateCommand _ClearLogs_Cmd;
+        public ICommand ClearLogs_Cmd
+        {
+            get
+            {
+                if (_ClearLogs_Cmd == null)
+                    _ClearLogs_Cmd = new DelegateCommand(ClearLogs);
+                return _ClearLogs_Cmd;
+            }
+        }
 
         DelegateCommand _Tray_Scan_Cmd;
         public ICommand Tray_Scan_Cmd

@@ -47,13 +47,13 @@
                 </Style>
             </TabControl.Resources>
             <TabItem Header="   Scan    " Foreground="White" >
-                <mainview:ScanView x:Name="_ScanView"/>
+                <mainview:ScanView x:Name="_ScanView" Visibility="{Binding ScanViewVisibility, Mode=TwoWay}"/>
             </TabItem>
             <TabItem Header="  Sharing  " Foreground="White" >
-                <mainview:SharingView x:Name="_SharingView"/>
+                <mainview:SharingView x:Name="_SharingView" Visibility="{Binding SharingViewVisibility, Mode=TwoWay}"/>
             </TabItem>
             <TabItem Header="  Logging  " Foreground="White">
-                <mainview:LogView x:Name="_LogView"/>
+                <mainview:LogView x:Name="_LogView" Visibility="{Binding LogViewVisibility, Mode=TwoWay}"/>
             </TabItem>
         </TabControl>
     </Grid>

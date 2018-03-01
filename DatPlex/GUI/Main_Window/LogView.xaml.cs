@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatPlex.ViewModel;
 
 namespace DatPlex.GUI.Main_Window
 {
@@ -20,9 +21,21 @@ namespace DatPlex.GUI.Main_Window
     /// </summary>
     public partial class LogView : UserControl
     {
+        MainViewModel _ViewModel;
+
         public LogView()
         {
             InitializeComponent();
+        }
+
+        public MainViewModel ViewModel
+        {
+            set { _ViewModel = value; }
+        }
+
+        public void SetDataContext(MainViewModel iViewModel)
+        {
+            this.DataContext = iViewModel;
         }
     }
 }
