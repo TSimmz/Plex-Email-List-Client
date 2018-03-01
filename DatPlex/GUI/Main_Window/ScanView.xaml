@@ -3,6 +3,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
              xmlns:childview="clr-namespace:DatPlex.GUI.Child_Window"
@@ -87,8 +88,9 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="5,10"/>
-                            <ComboBox SelectedIndex="{Binding Hour_Index}" DataContext="{Binding Utility.Hour_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5">
-                            </ComboBox>
+                            <toolkit:DateTimePicker Format="FullDateTime" ShowButtonSpinner="False" Height="25" Width="135" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                            <!--ComboBox SelectedIndex="{Binding Hour_Index}" DataContext="{Binding Utility.Hour_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5">
+                            </>
                             <ComboBox SelectedIndex="{Binding Minute_Index}" DataContext="{Binding Utility.Minute_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="55,0,0,5">
                             </ComboBox>
                             <ComboBox IsEnabled="{Binding HR12_State}" SelectedIndex="{Binding AMPM_SelIndex, Mode=TwoWay}" Height="25" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5">
@@ -96,7 +98,7 @@
                                 <ComboBoxItem>PM</ComboBoxItem>
                             </ComboBox>
                             <RadioButton IsChecked="{Binding HR12_State}" Content="12-hour" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-                            <RadioButton IsChecked="{Binding HR24_State}" Content="24-hour" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <RadioButton IsChecked="{Binding HR24_State}" Content="24-hour" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"/-->
                             <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" Height="Auto" Width="Auto" Margin="18" Grid.Row="2"/>
                         </Grid>
                     </Grid>
