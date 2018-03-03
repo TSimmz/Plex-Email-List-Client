@@ -24,8 +24,9 @@ namespace DatPlex.Common
         public static string GET_LIBRARIES = "/library/sections";
         public static string GET_METADATA = "/library/metadata";
 
-        public static string XML_SAVE_PATH = "%USERPROFILE%\\Documents\\Plex Email Updater\\";
-        public static string LOG_SAVE_PATH = "%USERPROFILE%\\Documents\\Plex Email Updater\\Logging\\";
+        public static string APPDATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string XML_SAVE_PATH = APPDATA + @"\Plex Email Updater\";
+        public static string LOG_SAVE_PATH = APPDATA + @"\Plex Email Updater\Logging\";
 
 
         public static string FOUND_LIBRARY = "**FOUND NEW LIBRARY** : ";

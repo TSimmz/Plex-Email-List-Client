@@ -494,7 +494,7 @@ namespace DatPlex.ViewModel
                 timeStamp = timeStamp.Replace("/", "-");
 
                 string fileName = "Plex_Logs_" + timeStamp + ".txt";
-
+                
                 DirectoryInfo dir = Directory.CreateDirectory(Global.LOG_SAVE_PATH);
                 string filePath = Path.Combine(Global.LOG_SAVE_PATH, fileName);
 
@@ -502,7 +502,7 @@ namespace DatPlex.ViewModel
                 {
                     foreach (LogEntry log in LogEntryList)
                     {
-                        string log_txt = log.Index.ToString() + " " + log.DateTime.ToString() + " " + log.Message + "\n";
+                        string log_txt = log.DateTime.ToString() + "\t" + log.Message + "\n";
                         file.WriteLine(log_txt);
                     }
                 }

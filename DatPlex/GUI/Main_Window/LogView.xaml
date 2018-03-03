@@ -22,11 +22,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Save Logs" Command="{Binding SaveLogs_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                    Grid.Row="1" Grid.Column="2" Width="170" Height="40" TextElement.FontSize="18"/>
-                <Button Content="Clear Logs" Command="{Binding ClearLogs_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                <!--Button Content="Save Logs" Command="{Binding SaveLogs_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Grid.Row="1" Grid.Column="2" Width="170" Height="40" TextElement.FontSize="18"/-->
+                <Button Content="Clear Logs" Command="{Binding ClearLogs_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="25"
                     Grid.Row="1" Grid.Column="3" Width="170" Height="40" TextElement.FontSize="18"/>
             </Grid>
         </Grid>
