@@ -120,6 +120,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Global.cs" />
     <Compile Include="DataModel\Email.cs" />
     <Compile Include="DataModel\Friend.cs" />
     <Compile Include="DataModel\LogEntry.cs" />
@@ -141,8 +142,6 @@
     <Compile Include="GUI\Main_Window\SharingView.xaml.cs">
       <DependentUpon>SharingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ScanTabVM.cs" />
-    <Compile Include="ViewModel\SharingTabVM.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

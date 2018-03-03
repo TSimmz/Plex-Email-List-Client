@@ -6,6 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
         xmlns:childview="clr-namespace:DatPlex.GUI.Child_Window"
+        xmlns:vm="clr-namespace:DatPlex.ViewModel"
         xmlns:common="clr-namespace:DatPlex.Common"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         Title="{Binding WindowTitle}" Width="750" Height="500" Icon="/Images/plex_icon.png"
@@ -13,11 +14,11 @@
         WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding File_ExitCommand}" />
+            <i:InvokeCommandAction Command="{Binding FileExit_Cmd}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#202020">
-        <tb:TaskbarIcon ToolTipText="Plex Email Updater">
+        <tb:TaskbarIcon ToolTipText="Plex Email Updater" IconSource="{Binding PlexIcon}">
             <tb:TaskbarIcon.TrayPopup>
                 <childview:SystemTrayView x:Name="SystemTrayView" Height="300" Width="300"/>
             </tb:TaskbarIcon.TrayPopup>

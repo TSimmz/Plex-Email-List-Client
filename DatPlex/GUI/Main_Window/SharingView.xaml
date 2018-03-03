@@ -45,7 +45,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <CheckBox Tag="{Binding Include_Friend}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                                        <CheckBox Tag="{Binding Include_Friend}" IsChecked="{Binding Include_Friend, Mode=Twoway}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

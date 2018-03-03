@@ -15,6 +15,7 @@ namespace DatPlex
         #region Data Fields
 
         MainViewModel _ViewModel;
+
         #endregion
 
         #region Constructor
@@ -24,8 +25,6 @@ namespace DatPlex
             try
             {
                 InitializeComponent();
-                //InitializeSystemTray();
-
             }
             catch (Exception e)
             {
@@ -36,46 +35,14 @@ namespace DatPlex
 
             _ViewModel = App.MainViewModel;
 
-            _ScanView.ViewModel = _ViewModel;
-            _SharingView.ViewModel = _ViewModel;
-            _LogView.ViewModel = _ViewModel;
-
-            _ScanView.SetDataContext(_ViewModel.ScanTabVM);
-            _SharingView.SetDataContext(_ViewModel.SharingTabVM);
+            _ScanView.SetDataContext(_ViewModel);
+            _SharingView.SetDataContext(_ViewModel);
             _LogView.SetDataContext(_ViewModel);
 
             //_ViewModel.TaskStarting += TaskStarted;
             //_ViewModel.ProgressChanged += ProgressChanged;
             //_ViewModel.TaskCompleted += TaskCompleted;
         }
-
-        //protected void InitializeSystemTray()
-        //{
-        //    _NotifyIcon = new NotifyIcon();
-        //    _NotifyIcon.Icon = new Icon("../../Images/test_icon.ico");
-        //    _NotifyIcon.BalloonTipText = "Plex Email Updater";
-        //    _NotifyIcon.BalloonTipTitle = "Plex Email Updater";
-
-        //    _NotifyIcon.DoubleClick += delegate (object sender, EventArgs e)
-        //    {
-        //        this.Show();
-
-        //        if (this.WindowState == WindowState.Normal)
-        //            this.WindowState = WindowState.Minimized;
-        //        else
-        //            this.WindowState = WindowState.Normal;
-        //    };
-        //    _NotifyIcon.Visible = true;
-        //}
-
-        protected override void OnStateChanged(EventArgs e)
-        {
-            if (WindowState == WindowState.Minimized)
-                this.Hide();
-
-            base.OnStateChanged(e);
-        }
-
 
         #endregion
     }

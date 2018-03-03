@@ -55,7 +55,7 @@
 
                 <Label Name="_ScanLabel" Content="{Binding Progress_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,45" Height="25" Width="300" HorizontalContentAlignment="Left"
                         Grid.Column="0" Grid.Row="2" Foreground="White"/>
-                <ProgressBar Name="_ScanProgress" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                <ProgressBar Name="_ScanProgress" Value="{Binding ScanProgress, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
                         Height="25" Width="650" IsIndeterminate="False"/>
                 <GroupBox Header="Update Period" Margin="10,10,10,0" Foreground="White" BorderBrush="#4F4F4F" FontSize="15" VerticalAlignment="Top" Height="235" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
                     <Grid IsEnabled="{Binding Automatic_State}">
@@ -88,17 +88,9 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="5,10"/>
+                            
                             <toolkit:DateTimePicker Format="FullDateTime" ShowButtonSpinner="False" Height="25" Width="135" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                            <!--ComboBox SelectedIndex="{Binding Hour_Index}" DataContext="{Binding Utility.Hour_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5">
-                            </>
-                            <ComboBox SelectedIndex="{Binding Minute_Index}" DataContext="{Binding Utility.Minute_List}" Height="25" Width="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="55,0,0,5">
-                            </ComboBox>
-                            <ComboBox IsEnabled="{Binding HR12_State}" SelectedIndex="{Binding AMPM_SelIndex, Mode=TwoWay}" Height="25" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5">
-                                <ComboBoxItem>AM</ComboBoxItem>
-                                <ComboBoxItem>PM</ComboBoxItem>
-                            </ComboBox>
-                            <RadioButton IsChecked="{Binding HR12_State}" Content="12-hour" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0"/>
-                            <RadioButton IsChecked="{Binding HR24_State}" Content="24-hour" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"/-->
+                            
                             <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" Height="Auto" Width="Auto" Margin="18" Grid.Row="2"/>
                         </Grid>
                     </Grid>

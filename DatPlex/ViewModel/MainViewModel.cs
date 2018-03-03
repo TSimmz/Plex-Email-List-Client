@@ -5,47 +5,61 @@ using System.Xml;
 using System.Windows;
 using System.Windows.Input;
 using System.Reflection;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DatPlex.DataModel;
 using DatPlex.Common;
+using DatPlex.GUI.Child_Window;
 
 namespace DatPlex.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
         #region Data Fields
-
-        Window Parent;
-        private bool _IsPlexLoaded;
         
+        BackgroundWorker BgWorker;
+
         #endregion
 
         #region Constructor
         public MainViewModel()
         {
-            _PlexApp = new Plex();
+            // Background worker
+            BgWorker = new BackgroundWorker();
+            BgWorker.WorkerReportsProgress = true;
 
-            _scanTabVM = new ScanTabVM(this);
-            _sharingTabVM = new SharingTabVM();
+            // Scan Tab
+            ScanViewVisibility = Visibility.Visible;
 
-            _scanTabVM.SetParent(App.MainWindow);
-            _sharingTabVM.SetParent(App.MainWindow);
-
-            ScanViewVisibility = Visibility.Hidden;
+            // Sharing Tab
+            LibraryList = new ObservableCollection<Library>();
+            FriendsList = new ObservableCollection<Friend>();
             SharingViewVisibility = Visibility.Hidden;
+
+            // Logging Tab
             LogViewVisibility = Visibility.Hidden;
-
-        }
-
-        public void SetParent(Window iParent)
-        {
-            Parent = iParent;
         }
 
         #endregion
 
         #region General
+
+        private string mWindowTitle = "Plex Email Updates";
+        public string WindowTitle
+        {
+            get { return mWindowTitle; }
+            set
+            {
+                mWindowTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PlexIcon
+        {
+            get { return "/Images/plex_icon.ico"; }
+        }
 
         //TODO: Open method
         public bool OpenPlex()
@@ -57,6 +71,34 @@ namespace DatPlex.ViewModel
             //create new plex object once complete
 
             return true;
+        }
+
+        public void Scan_Plex(object obj)
+        {
+            //App.MainViewModel.Get_Libraries();
+            //App.MainViewModel.Get_Media();
+            //App.MainViewModel.Get_Friends();
+
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            return;
+
+            // PROGRESS UPDATES
+            // **   SCANNING  **
+            // ** IN PROGRESS **
+            // **   FAILURE   **
+            // **   SUCCESS   **
+            // **   COMPLETE  **
+
+            // Test connection to Plex
+
+            // Get Libraries
+
+            // Get Media
+
+            // Get Friends
+
+            // Scan complete
+
         }
 
         public void ImportExport()
@@ -88,128 +130,9 @@ namespace DatPlex.ViewModel
 
         public void ClearLogs()
         {
-             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
-        private void ExitApp(object obj)
-        {
-            App.Current.Shutdown();
-        }
-
-        #endregion
-
-        #region Get Requests
-
-
-        public XmlDocument Get_Request(string url)
-        {
-            XmlDocument data = new XmlDocument();
-
-            WebRequest request = WebRequest.CreateHttp(url);
-            request.Method = "GET";
-            request.ContentType = "application/xml;charset=utf-8";
-
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            using (WebResponse response = request.GetResponse())
-            {
-                using (Stream stream = response.GetResponseStream())
-                {
-                    data.Load(stream);
-                }
-            }
-            return data;
-        }
-
-
-        public void Get_Account_Info()
-        {
-            XmlDocument account = Get_Request(Utility.PLEX_URL + Utility.GET_ACCOUNT_INFO + PlexApp.PlexToken);
-        }
-
-        public void Get_Libraries()
-        {
-            XmlDocument libraries = Get_Request(PlexApp.LocalURL + Utility.GET_LIBRARIES + PlexApp.PlexToken);
-            XmlNodeList lib_nodes = libraries.GetElementsByTagName("Directory");
-            Library lib;
-
-            foreach (XmlNode i in lib_nodes)
-            {
-                string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
-                string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
-
-                lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
-                PlexApp.Libraries.Add(lib);
-            }
-
-            _sharingTabVM.LibraryList = PlexApp.Libraries;
-        }
-
-        public void Get_Media()
-        {
-            XmlDocument mediaList;
-            XmlNodeList media_nodes;
-
-            foreach (Library lib in PlexApp.Libraries)
-            {
-                string section = "/" + lib.GetLibKey + "/all";
-                mediaList = Get_Request(PlexApp.LocalURL + Utility.GET_LIBRARIES + section + PlexApp.PlexToken);
-
-                media_nodes = mediaList.GetElementsByTagName("MediaContainer");
-                lib.ItemCount = Convert.ToInt32(media_nodes[0].Attributes["size"].Value);
-
-                media_nodes = mediaList.GetElementsByTagName(MediaType(lib.GetLibType));
-
-                foreach(XmlNode i in media_nodes)
-                {
-                    string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
-                    string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
-                    string content = (i.Attributes["contentRating"]?.Value != null) ? i.Attributes["contentRating"].Value : "n/a";
-                    string summary = (i.Attributes["summary"]?.Value != null) ? i.Attributes["summary"].Value : "n/a";
-
-                    Media media = new Media(Convert.ToInt32(i.Attributes["ratingKey"].Value), type, title, content, summary);
-                    lib.AddMedia(media);
-                }
-
-            }
-        }
-
-
-        public void Get_Friends()
-        {
-            XmlDocument friends = Get_Request(Utility.PLEX_URL + Utility.GET_SERVER_SHARES + PlexApp.PlexToken);
-            XmlNodeList friend_nodes = friends.GetElementsByTagName("User");
-            FriendList friendList = new FriendList();
-            Friend friend;
-
-            foreach (XmlNode i in friend_nodes)
-            {
-                friend = new Friend(
-                   i.Attributes["title"].Value,
-                   i.Attributes["username"].Value,
-                   i.Attributes["email"].Value
-                    );
-
-                friendList.AddUser(friend);
-            }
-            PlexApp.FriendList = friendList;
-            _sharingTabVM.FriendList = PlexApp.FriendList;
-
-        }
-
-        #endregion
-
-        #region Setter/Getters
-
-        private string mWindowTitle = "Plex Email Updates : Blurgh";
-        public string WindowTitle
-        {
-            get { return mWindowTitle; }
-            set
-            {
-                mWindowTitle = value;
-                OnPropertyChanged();
-            }
-        }
 
         private Plex _PlexApp;
         public Plex PlexApp
@@ -221,59 +144,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private static ScanTabVM _scanTabVM;
-        public ScanTabVM ScanTabVM
-        {
-            get { return _scanTabVM; }
-            set
-            {
-                _scanTabVM = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private static SharingTabVM _sharingTabVM;
-        public SharingTabVM SharingTabVM
-        {
-            get { return _sharingTabVM; }
-            set
-            {
-                _sharingTabVM = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool Tray_Manual_State
-        {
-            get { return _scanTabVM.Manual_State; }
-            set
-            {
-                _scanTabVM.Manual_State = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool Tray_Automatic_State
-        {
-            get { return _scanTabVM.Automatic_State; }
-            set
-            {
-                _scanTabVM.Automatic_State = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool IsPlexLoaded
-        {
-            get { return _IsPlexLoaded; }
-            set
-            {
-                _IsPlexLoaded = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int _SelectedTabIndex;
+        private int _SelectedTabIndex = 0;
         public int SelectedTabIndex
         {
             get { return _SelectedTabIndex; }
@@ -297,7 +168,7 @@ namespace DatPlex.ViewModel
                             LogViewVisibility = Visibility.Hidden;
                             break;
 
-                        case 2:
+                        case 2:         // Logging Tab
                             ScanViewVisibility = Visibility.Hidden;
                             SharingViewVisibility = Visibility.Hidden;
                             LogViewVisibility = Visibility.Visible;
@@ -307,9 +178,17 @@ namespace DatPlex.ViewModel
                             break;
                     }
                 }
-
             }
         }
+
+        private void ExitApp(object obj)
+        {
+            App.Current.Shutdown();
+        }
+
+        #endregion
+
+        #region Scan Tab
 
         private Visibility _ScanViewVisibility;
         public Visibility ScanViewVisibility
@@ -322,6 +201,153 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private bool _Manual_State = true;
+        public bool Manual_State
+        {
+            get { return _Manual_State; }
+            set
+            {
+                _Manual_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Automatic_State");
+                LogEntry_ModeChange();
+            }
+        }
+
+        private bool _Automatic_State = false;
+        public bool Automatic_State
+        {
+            get { return _Automatic_State; }
+            set
+            {
+                _Automatic_State = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Manual_State");
+            }
+        }
+
+        public void SendSelectedUsers(object obj)
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        public void SetPeriod()
+        {
+            #region Old Timer
+            //Time = new Timer();
+            //Time.Elapsed += new ElapsedEventHandler(Auto_Scan_Plex);
+
+            //switch (Units_SelIndex)
+            //{
+            //    case 0:
+            //        Time.Enabled = false;
+            //        Timer = 0;
+            //        Utility.LogEntry("Timer Disabled");
+            //        break;
+            //    case 1:
+            //        Time.Interval = Timer * Utility.DAYS;
+            //        Time.Enabled = true;
+            //        Utility.LogEntry("Timer Set : Next Scan on " + DateTime.Now.AddDays(Timer));
+            //        break;
+            //    case 2:
+            //        Time.Interval = Timer * Utility.HOURS;
+            //        Time.Enabled = true;
+            //        break;
+            //    case 3:
+            //        Time.Interval = Timer * Utility.DAYS;
+            //        Time.Enabled = true;
+            //        break;
+            //}
+            #endregion
+
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+
+        }
+
+        private DateTime _UpdateTime;
+        public DateTime UpdateTime
+        {
+            get { return _UpdateTime; }
+            set
+            {
+                _UpdateTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool[] _IsChecked_Week = new bool[7];
+        public bool IsChecked_Sun
+        {
+            get { return _IsChecked_Week[0]; }
+            set { _IsChecked_Week[0] = value; }
+        }
+
+        public bool IsChecked_Mon
+        {
+            get { return _IsChecked_Week[1]; }
+            set { _IsChecked_Week[1] = value; }
+        }
+
+        public bool IsChecked_Tue
+        {
+            get { return _IsChecked_Week[2]; }
+            set { _IsChecked_Week[2] = value; }
+        }
+
+        public bool IsChecked_Wed
+        {
+            get { return _IsChecked_Week[3]; }
+            set { _IsChecked_Week[3] = value; }
+        }
+
+        public bool IsChecked_Thu
+        {
+            get { return _IsChecked_Week[4]; }
+            set { _IsChecked_Week[4] = value; }
+        }
+
+        public bool IsChecked_Fri
+        {
+            get { return _IsChecked_Week[5]; }
+            set { _IsChecked_Week[5] = value; }
+        }
+
+        public bool IsChecked_Sat
+        {
+            get { return _IsChecked_Week[6]; }
+            set { _IsChecked_Week[6] = value; }
+        }
+
+        #region Progress Bar
+
+
+        private string _Progress_Lbl = "Test Label: This is only a test.";
+        public string Progress_Lbl
+        {
+            get { return _Progress_Lbl; }
+            set
+            {   _Progress_Lbl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _ScanProgress;
+        public int ScanProgress
+        {
+            get { return _ScanProgress; }
+            set
+            {
+                _ScanProgress = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion Progress Bar
+
+        #endregion Scan Tab
+
+        #region Sharing Tab
+
         private Visibility _SharingViewVisibility;
         public Visibility SharingViewVisibility
         {
@@ -333,6 +359,126 @@ namespace DatPlex.ViewModel
             }
         }
 
+        #region Library List
+
+        private ObservableCollection<Library> _LibraryList;
+        public ObservableCollection<Library> LibraryList
+        {
+            get { return _LibraryList; }
+            set
+            {
+                if (value != null)
+                    _LibraryList = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _IsLibrarySelected = false;
+        public bool IsLibrarySelected
+        {
+            get { return _IsLibrarySelected; }
+            set
+            {
+                _IsLibrarySelected = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        public void RefreshLibraries()
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        private int _SelIndex_Library = -1;
+        public int SelIndex_Library
+        {
+            get { return _SelIndex_Library; }
+            set
+            {
+                _SelIndex_Library = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private bool _Include_Library;
+        public bool Include_Library
+        {
+            get { return _Include_Library; }
+            set
+            {
+                _Include_Library = value;
+            }
+        }
+
+        #endregion Library List
+
+        #region Friends List
+
+        private ObservableCollection<Friend> _FriendsList;
+        public ObservableCollection<Friend> FriendsList
+        {
+            get { return _FriendsList; }
+            set
+            {
+                if (value != null)
+                    _FriendsList = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private int _SelIndex_Friend = -1;
+        public int SelIndex_Friend
+        {
+            get { return _SelIndex_Friend; }
+            set
+            {
+                _SelIndex_Friend = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _Include_Friend;
+        public bool Include_Friend
+        {
+            get { return _Include_Friend; }
+            set
+            {
+                _Include_Friend = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _IsFriendSelected = false;
+        public bool IsFriendSelected
+        {
+            get { return _IsFriendSelected; }
+            set
+            {
+                _IsFriendSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public void AddFriends()
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        public void UpdateFriends()
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        #endregion Friends List
+
+        #endregion Sharing Tab
+
+        #region Logging Tab       
+
         private Visibility _LogViewVisibility;
         public Visibility LogViewVisibility
         {
@@ -343,10 +489,235 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
+                
+        public void LogEntry_ModeChange()
+        {
+            if (Manual_State)
+                Utility.LogEntry("Manual State Enabled");
+            else
+                Utility.LogEntry("Automatic State Enabled");
+        }
+
+
+        #endregion Logging Tab
+
+        #region System Tray
+
+        #endregion System Tray
+
+        #region Settings
+
+        public void Settings(object obj)
+        {
+            ServerInformation wInfo = new ServerInformation();
+            wInfo.DataContext = this;
+            //wInfo.ShowInTaskbar = false;
+            wInfo.ShowDialog();
+
+            if ((bool)wInfo.DialogResult)
+            {
+                Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
+                App.MainViewModel.PlexApp.ServerInfo = info;
+                
+                Utility.LogEntry("Server information updated.");
+            }
+        }
+
+        private bool _ServerInfo_State;
+        public bool ServerInfo_State
+        {
+            get { return _ServerInfo_State; }
+            set
+            {
+                _ServerInfo_State = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _IP_Address = "75.115.71.34";
+        public string IP_Address
+        {
+            get { return _IP_Address; }
+            set
+            {
+                _IP_Address = (_IP_Address != value) ? value : _IP_Address;
+            }
+        }
+
+        private string _Port_Number = "32400";
+        public string Port_Number
+        {
+            get { return _Port_Number; }
+            set
+            {
+                _Port_Number = (_Port_Number != value) ? value : _Port_Number;
+            }
+        }
+
+        private string _Plex_Token = "yedx66JT2HqyEd2xxf4m";
+        public string Plex_Token
+        {
+            get { return _Plex_Token; }
+            set
+            {
+                _Plex_Token = (_Plex_Token != value) ? value : _Plex_Token;
+            }
+        }
+
+        #endregion Settings
+
+        #region Get Requests
+
+        public XmlDocument Get_Request(string url)
+        {
+            XmlDocument data = new XmlDocument();
+
+            WebRequest request = WebRequest.CreateHttp(url);
+            request.Method = "GET";
+            request.ContentType = "application/xml;charset=utf-8";
+
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            using (WebResponse response = request.GetResponse())
+            {
+                using (Stream stream = response.GetResponseStream())
+                {
+                    data.Load(stream);
+                }
+            }
+            return data;
+        }
+
+
+        public void Get_Account_Info()
+        {
+            //XmlDocument account = Get_Request(Global.PLEX_URL + Global.GET_ACCOUNT_INFO + PlexApp.PlexToken);
+
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+        }
+
+        public void Get_Libraries()
+        {
+            XmlDocument libraries = Get_Request(PlexApp.LocalURL + Global.GET_LIBRARIES + PlexApp.PlexToken);
+            XmlNodeList lib_nodes = libraries.GetElementsByTagName("Directory");
+            Library lib;
+
+            foreach (XmlNode i in lib_nodes)
+            {
+                string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
+                string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
+
+                lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
+
+                LibraryList.Add(lib);
+            }
+        }
+
+        public void Get_Media()
+        {
+            XmlDocument mediaList;
+            XmlNodeList media_nodes;
+
+            foreach (Library lib in PlexApp.LibraryList)
+            {
+                string section = "/" + lib.GetLibKey + "/all";
+                mediaList = Get_Request(PlexApp.LocalURL + Global.GET_LIBRARIES + section + PlexApp.PlexToken);
+
+                media_nodes = mediaList.GetElementsByTagName("MediaContainer");
+                lib.ItemCount = Convert.ToInt32(media_nodes[0].Attributes["size"].Value);
+
+                media_nodes = mediaList.GetElementsByTagName(MediaType(lib.GetLibType));
+
+                foreach (XmlNode i in media_nodes)
+                {
+                    string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
+                    string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
+                    string content = (i.Attributes["contentRating"]?.Value != null) ? i.Attributes["contentRating"].Value : "n/a";
+                    string summary = (i.Attributes["summary"]?.Value != null) ? i.Attributes["summary"].Value : "n/a";
+
+                    Media media = new Media(Convert.ToInt32(i.Attributes["ratingKey"].Value), type, title, content, summary);
+                    lib.AddMedia(media);
+                }
+
+            }
+        }
+
+
+        public void Get_Friends()
+        {
+            XmlDocument friends = Get_Request(Global.PLEX_URL + Global.GET_SERVER_SHARES + PlexApp.PlexToken);
+            XmlNodeList friend_nodes = friends.GetElementsByTagName("User");
+            Friend friend;
+
+            foreach (XmlNode i in friend_nodes)
+            {
+                friend = new Friend(
+                   i.Attributes["title"].Value,
+                   i.Attributes["username"].Value,
+                   i.Attributes["email"].Value
+                    );
+
+                FriendsList.Add(friend);
+            }
+        }
 
         #endregion
 
         #region Command Bindings
+
+        DelegateCommand _SendSel_Cmd;
+        public ICommand SendSel_Cmd
+        {
+            get
+            {
+                if (_SendSel_Cmd == null)
+                    _SendSel_Cmd = new DelegateCommand(SendSelectedUsers);
+                return _SendSel_Cmd;
+            }
+        }
+
+        DelegateCommand _SetPeriod_Cmd;
+        public ICommand SetPeriod_Cmd
+        {
+            get
+            {
+                if (_SetPeriod_Cmd == null)
+                    _SetPeriod_Cmd = new DelegateCommand(SetPeriod);
+                return _SetPeriod_Cmd;
+            }
+        }
+
+        DelegateCommand _Scan_Plex_Cmd;
+        public ICommand Scan_Plex_Cmd
+        {
+            get
+            {
+                if (_Scan_Plex_Cmd == null)
+                    _Scan_Plex_Cmd = new DelegateCommand(Scan_Plex);
+                return _Scan_Plex_Cmd;
+            }
+        }
+
+        DelegateCommand _Settings_Cmd;
+        public ICommand Settings_Cmd
+        {
+            get
+            {
+                if (_Settings_Cmd == null)
+                    _Settings_Cmd = new DelegateCommand(Settings);
+                return _Settings_Cmd;
+            }
+        }
+
+        DelegateCommand _ImportExport_Cmd;
+        public ICommand ImportExport_Cmd
+        {
+            get
+            {
+                if (_ImportExport_Cmd == null)
+                    _ImportExport_Cmd = new DelegateCommand(ImportExport);
+                return _ImportExport_Cmd;
+            }
+        }
 
         DelegateCommand _SaveLogs_Cmd;
         public ICommand SaveLogs_Cmd
@@ -370,47 +741,47 @@ namespace DatPlex.ViewModel
             }
         }
 
-        DelegateCommand _Tray_Scan_Cmd;
-        public ICommand Tray_Scan_Cmd
+        DelegateCommand _RefreshLibraries_Cmd;
+        public ICommand RefreshLibraries_Cmd
         {
             get
             {
-                if (_Tray_Scan_Cmd == null)
-                    _Tray_Scan_Cmd = new DelegateCommand(_scanTabVM.Man_Scan_Plex);
-                return _Tray_Scan_Cmd;
+                if (_RefreshLibraries_Cmd == null)
+                    _RefreshLibraries_Cmd = new DelegateCommand(RefreshLibraries);
+                return _RefreshLibraries_Cmd;
             }
         }
 
-        DelegateCommand _Tray_Settings_Cmd;
-        public ICommand Tray_Settings_Cmd
+        DelegateCommand _AddFriends_Cmd;
+        public ICommand AddFriends_Cmd
         {
             get
             {
-                if (_Tray_Settings_Cmd == null)
-                    _Tray_Settings_Cmd = new DelegateCommand(_scanTabVM.UpdateServerInfo);
-                return _Tray_Settings_Cmd;
+                if (_AddFriends_Cmd == null)
+                    _AddFriends_Cmd = new DelegateCommand(AddFriends);
+                return _AddFriends_Cmd;
             }
         }
 
-        DelegateCommand _Tray_RefreshLibaries_Cmd;
-        public ICommand Tray_RefreshLibaries_Cmd
+        DelegateCommand _UpdateFriends_Cmd;
+        public ICommand UpdateFriends_Cmd
         {
             get
             {
-                if (_Tray_RefreshLibaries_Cmd == null)
-                    _Tray_RefreshLibaries_Cmd = new DelegateCommand(_sharingTabVM.RefreshLibraries);
-                return _Tray_RefreshLibaries_Cmd;
+                if (_UpdateFriends_Cmd == null)
+                    _UpdateFriends_Cmd = new DelegateCommand(UpdateFriends);
+                return _UpdateFriends_Cmd;
             }
         }
 
-        DelegateCommand mFile_Exit_Cmd;
-        public ICommand File_ExitCommand
+        DelegateCommand _FileExit_Cmd;
+        public ICommand FileExit_Cmd
         {
             get
             {
-                if (mFile_Exit_Cmd == null)
-                    mFile_Exit_Cmd = new DelegateCommand(ExitApp);
-                return mFile_Exit_Cmd;
+                if (_FileExit_Cmd == null)
+                    _FileExit_Cmd = new DelegateCommand(ExitApp);
+                return _FileExit_Cmd;
             }
         }
 

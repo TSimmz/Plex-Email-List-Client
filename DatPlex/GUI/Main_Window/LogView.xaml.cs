@@ -16,26 +16,16 @@ using DatPlex.ViewModel;
 
 namespace DatPlex.GUI.Main_Window
 {
-    /// <summary>
-    /// Interaction logic for LogView.xaml
-    /// </summary>
     public partial class LogView : UserControl
     {
-        MainViewModel _ViewModel;
-
         public LogView()
         {
             InitializeComponent();
         }
 
-        public MainViewModel ViewModel
+        public void SetDataContext(MainViewModel context)
         {
-            set { _ViewModel = value; }
-        }
-
-        public void SetDataContext(MainViewModel iViewModel)
-        {
-            this.DataContext = iViewModel;
+            this.DataContext = context;
         }
     }
 }

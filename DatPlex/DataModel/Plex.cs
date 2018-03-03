@@ -18,8 +18,8 @@ namespace DatPlex.DataModel
         private string _plexToken;
         private Tuple<string, string, string> _serverInfo;
         private Account _owner;
-        private FriendList _friendList;
-        private List<Library> _libraries;
+        private List<Friend> _friendsList;
+        private List<Library> _libraryList;
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace DatPlex.DataModel
 
         public Plex()
         {
-            _libraries = new List<Library>();
+            _libraryList = new List<Library>();
         }
 
         #endregion
@@ -53,27 +53,27 @@ namespace DatPlex.DataModel
             }
         }
 
-        public FriendList FriendList
+        public List<Friend> FriendsList
         {
-            get { return _friendList; }
+            get { return _friendsList; }
             set
             {
-                _friendList = value;
+                _friendsList = value;
             }
         }
 
-        public List<Library> Libraries
+        public List<Library> LibraryList
         {
-            get { return _libraries; }
+            get { return _libraryList; }
             set
             {
-                _libraries = value;
+                _libraryList = value;
             }
         }
 
         public void AddLibrary(Library l)
         {
-            _libraries.Add(l);
+            _libraryList.Add(l);
         }
 
         public Tuple<string, string, string> ServerInfo
@@ -151,7 +151,7 @@ namespace DatPlex.DataModel
                 settings.IndentChars = "\t";
                 settings.ConformanceLevel = ConformanceLevel.Fragment;
 
-                Directory.CreateDirectory(Utility.XML_SAVE_PATH);
+                Directory.CreateDirectory(Global.XML_SAVE_PATH);
 
                 using (XmlWriter writer = XmlWriter.Create(PlexSaveData, settings))
                 {
@@ -186,10 +186,10 @@ namespace DatPlex.DataModel
             reader.ReadEndElement();
 
             _owner.ReadXml(reader);
-            _friendList.ReadXml(reader);
+            //_friendList.ReadXml(reader);
 
             reader.ReadStartElement("Libraries");
-            foreach (Library library in _libraries)
+            foreach (Library library in _libraryList)
             {
                 library.ReadXml(reader);
             }
@@ -209,10 +209,10 @@ namespace DatPlex.DataModel
             writer.WriteEndElement();
 
             _owner.WriteXml(writer);
-            _friendList.WriteXml(writer);
+            //_friendList.WriteXml(writer);
 
             writer.WriteStartElement("Libraries");
-            foreach (Library library in _libraries)
+            foreach (Library library in _libraryList)
             {
                 library.WriteXml(writer);
             }
