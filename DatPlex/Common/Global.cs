@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using DatPlex.DataModel;
 
 namespace DatPlex.Common
 {
-    class Global
+    public class Global
     {
         public static string PLEX_URL = "https://plex.tv";                             //Plex Base url
         //public static string LOCAL_URL = "https://" + Plex_IP + ":" + Plex_Port + "/";  //Local plex url
@@ -26,7 +24,9 @@ namespace DatPlex.Common
         public static string GET_LIBRARIES = "/library/sections";
         public static string GET_METADATA = "/library/metadata";
 
-        public static string XML_SAVE_PATH = "%APPDATA%/Plex Email/Account Data/";
+        public static string XML_SAVE_PATH = "%USERPROFILE%\\Documents\\Plex Email Updater\\";
+        public static string LOG_SAVE_PATH = "%USERPROFILE%\\Documents\\Plex Email Updater\\Logging\\";
+
 
         public static string FOUND_LIBRARY = "**FOUND NEW LIBRARY** : ";
         public static string FOUND_FRIEND = "**FOUND NEW FRIEND** : ";
@@ -34,5 +34,6 @@ namespace DatPlex.Common
         public static int MINUTES { get { return 60000; } }
         public static int HOURS { get { return 3600000; } }
         public static int DAYS { get { return 86400000; } }
+
     }
 }

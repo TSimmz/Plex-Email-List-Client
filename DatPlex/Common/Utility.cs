@@ -12,17 +12,11 @@ namespace DatPlex.Common
 {
     public class Utility
     {
-        public static ObservableCollection<LogEntry> LogEntryList { get; set; }
-        public static int LogIndex { get; set; }
-        public static void LogEntry(string message)
-        {
-            LogEntryList.Add(new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message });
-        }
-
         public static void IMPLEMENT(string method)
         {
             MessageBox.Show(method + " not implemented.", "NOT IMPLEMENTED", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
+
         public static Object LoadXmlData(string path)
         {
             XmlReaderSettings settings = new XmlReaderSettings();

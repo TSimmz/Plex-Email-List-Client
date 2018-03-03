@@ -39,6 +39,8 @@ namespace DatPlex.ViewModel
 
             // Logging Tab
             LogViewVisibility = Visibility.Hidden;
+            LogEntryList = new ObservableCollection<LogEntry>();
+            LogIndex++;
         }
 
         #endregion
@@ -123,17 +125,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public void SaveLogs()
-        {
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
-        }
-
-        public void ClearLogs()
-        {
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
-        }
-
-
         private Plex _PlexApp;
         public Plex PlexApp
         {
@@ -210,7 +201,11 @@ namespace DatPlex.ViewModel
                 _Manual_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Automatic_State");
-                LogEntry_ModeChange();
+
+                if (Manual_State)
+                    LogEntry("Manual State Enabled");
+                else
+                    LogEntry("Automatic State Enabled");
             }
         }
 
@@ -489,15 +484,73 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
-                
-        public void LogEntry_ModeChange()
+
+        public bool SaveLogs()
         {
-            if (Manual_State)
-                Utility.LogEntry("Manual State Enabled");
-            else
-                Utility.LogEntry("Automatic State Enabled");
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            try
+            {
+                string timeStamp = DateTime.Now.ToShortDateString();
+                timeStamp = timeStamp.Replace("/", "-");
+
+                string fileName = "Plex_Logs_" + timeStamp + ".txt";
+
+                DirectoryInfo dir = Directory.CreateDirectory(Global.LOG_SAVE_PATH);
+                string filePath = Path.Combine(Global.LOG_SAVE_PATH, fileName);
+
+                using (StreamWriter file = File.CreateText(filePath))
+                {
+                    foreach (LogEntry log in LogEntryList)
+                    {
+                        string log_txt = log.Index.ToString() + " " + log.DateTime.ToString() + " " + log.Message + "\n";
+                        file.WriteLine(log_txt);
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
+        public void ClearLogs()
+        {
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            if (MessageBox.Show("Would you like to save the logs first?", "Clear Logs", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+                LogEntryList.Clear();
+            else
+            {
+                if (SaveLogs())
+                {
+                    MessageBox.Show("Logs saved successfully.", "Logs Saved!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LogEntryList.Clear();
+                }
+                else
+                    MessageBox.Show("Logs were unable to be saved.", "Saving Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+            }
+
+        }
+
+        public static int LogIndex { get; set; }
+
+        private ObservableCollection<LogEntry> _LogEntryList;
+        public ObservableCollection<LogEntry> LogEntryList
+        {
+            get { return _LogEntryList; }
+            set
+            {
+                _LogEntryList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void LogEntry(string message)
+        {
+            LogEntryList.Add(new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message });
+        }
 
         #endregion Logging Tab
 
@@ -519,7 +572,7 @@ namespace DatPlex.ViewModel
                 Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
                 App.MainViewModel.PlexApp.ServerInfo = info;
                 
-                Utility.LogEntry("Server information updated.");
+                LogEntry("Server information updated.");
             }
         }
 
@@ -610,6 +663,8 @@ namespace DatPlex.ViewModel
 
                 LibraryList.Add(lib);
             }
+
+            OnPropertyChanged("LibraryList");
         }
 
         public void Get_Media()
@@ -658,6 +713,8 @@ namespace DatPlex.ViewModel
 
                 FriendsList.Add(friend);
             }
+
+            OnPropertyChanged("FriendsList");
         }
 
         #endregion
@@ -719,16 +776,16 @@ namespace DatPlex.ViewModel
             }
         }
 
-        DelegateCommand _SaveLogs_Cmd;
-        public ICommand SaveLogs_Cmd
-        {
-            get
-            {
-                if (_SaveLogs_Cmd == null)
-                    _SaveLogs_Cmd = new DelegateCommand(SaveLogs);
-                return _SaveLogs_Cmd;
-            }
-        }
+        //DelegateCommand _SaveLogs_Cmd;
+        //public ICommand SaveLogs_Cmd
+        //{
+        //    get
+        //    {
+        //        if (_SaveLogs_Cmd == null)
+        //            _SaveLogs_Cmd = new DelegateCommand(SaveLogs);
+        //        return _SaveLogs_Cmd;
+        //    }
+        //}
 
         DelegateCommand _ClearLogs_Cmd;
         public ICommand ClearLogs_Cmd

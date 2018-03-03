@@ -27,7 +27,7 @@ namespace DatPlex.GUI.Child_Window
         public LogEntryViewer()
         {
             InitializeComponent();
-            DataContext = Utility.LogEntryList = new ObservableCollection<LogEntry>();
+            this.DataContext = App.MainViewModel.LogEntryList;
         }
 
 
