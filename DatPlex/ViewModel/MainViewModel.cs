@@ -94,10 +94,13 @@ namespace DatPlex.ViewModel
             // Test connection to Plex
 
             // Get Libraries
-            Get_Libraries();
+            LogEntry(Get_Libraries());
+
             // Get Media
+            LogEntry(Get_Media());
 
             // Get Friends
+            LogEntry(Get_Friends());
 
             // Scan complete
 
@@ -621,21 +624,28 @@ namespace DatPlex.ViewModel
 
         public XmlDocument Get_Request(string url)
         {
-            XmlDocument data = new XmlDocument();
-
-            WebRequest request = WebRequest.CreateHttp(url);
-            request.Method = "GET";
-            request.ContentType = "application/xml;charset=utf-8";
-
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            using (WebResponse response = request.GetResponse())
+            try
             {
-                using (Stream stream = response.GetResponseStream())
+                XmlDocument data = new XmlDocument();
+
+                WebRequest request = WebRequest.CreateHttp(url);
+                request.Method = "GET";
+                request.ContentType = "application/xml;charset=utf-8";
+
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                using (WebResponse response = request.GetResponse())
                 {
-                    data.Load(stream);
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        data.Load(stream);
+                    }
                 }
+                return data;
             }
-            return data;
+            catch
+            {
+                return null;
+            }
         }
 
 
@@ -646,73 +656,100 @@ namespace DatPlex.ViewModel
             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
-        public void Get_Libraries()
+        public string Get_Libraries()
         {
-            XmlDocument libraries = Get_Request(Global.LOCAL_URL + Global.GET_LIBRARIES + Global.TOKEN);
-            XmlNodeList lib_nodes = libraries.GetElementsByTagName("Directory");
-            Library lib;
-
-            foreach (XmlNode i in lib_nodes)
+            try
             {
-                string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
-                string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
+                XmlDocument libraries = Get_Request(Global.LOCAL_URL + Global.GET_LIBRARIES + Global.TOKEN);
+                XmlNodeList lib_nodes = libraries.GetElementsByTagName("Directory");
+                Library lib;
 
-                lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
-
-                LibraryList.Add(lib);
-            }
-
-            OnPropertyChanged("LibraryList");
-        }
-
-        public void Get_Media()
-        {
-            XmlDocument mediaList;
-            XmlNodeList media_nodes;
-
-            foreach (Library lib in PlexApp.LibraryList)
-            {
-                string section = "/" + lib.GetLibKey + "/all";
-                mediaList = Get_Request(PlexApp.LocalURL + Global.GET_LIBRARIES + section + PlexApp.PlexToken);
-
-                media_nodes = mediaList.GetElementsByTagName("MediaContainer");
-                lib.ItemCount = Convert.ToInt32(media_nodes[0].Attributes["size"].Value);
-
-                media_nodes = mediaList.GetElementsByTagName(MediaType(lib.GetLibType));
-
-                foreach (XmlNode i in media_nodes)
+                foreach (XmlNode i in lib_nodes)
                 {
                     string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
                     string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
-                    string content = (i.Attributes["contentRating"]?.Value != null) ? i.Attributes["contentRating"].Value : "n/a";
-                    string summary = (i.Attributes["summary"]?.Value != null) ? i.Attributes["summary"].Value : "n/a";
 
-                    Media media = new Media(Convert.ToInt32(i.Attributes["ratingKey"].Value), type, title, content, summary);
-                    lib.AddMedia(media);
+                    lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
+
+                    LibraryList.Add(lib);
                 }
 
+                OnPropertyChanged("LibraryList");
+
+                return "Library Scan : " + Global.SUCCESS;
+            }
+            catch (Exception e)
+            {
+
+                return "Library Scan : " + Global.FAILURE + " " + e.ToString();
+            }
+        }
+
+        public string Get_Media()
+        {
+            try
+            {
+                XmlDocument mediaList;
+                XmlNodeList media_nodes;
+
+                foreach (Library lib in PlexApp.LibraryList)
+                {
+                    string section = "/" + lib.GetLibKey + "/all";
+                    mediaList = Get_Request(PlexApp.LocalURL + Global.GET_LIBRARIES + section + PlexApp.PlexToken);
+
+                    media_nodes = mediaList.GetElementsByTagName("MediaContainer");
+                    lib.ItemCount = Convert.ToInt32(media_nodes[0].Attributes["size"].Value);
+
+                    media_nodes = mediaList.GetElementsByTagName(MediaType(lib.GetLibType));
+
+                    foreach (XmlNode i in media_nodes)
+                    {
+                        string type = (i.Attributes["type"]?.Value != null) ? i.Attributes["type"].Value : "n/a";
+                        string title = (i.Attributes["title"]?.Value != null) ? i.Attributes["title"].Value : "n/a";
+                        string content = (i.Attributes["contentRating"]?.Value != null) ? i.Attributes["contentRating"].Value : "n/a";
+                        string summary = (i.Attributes["summary"]?.Value != null) ? i.Attributes["summary"].Value : "n/a";
+
+                        Media media = new Media(Convert.ToInt32(i.Attributes["ratingKey"].Value), type, title, content, summary);
+                        lib.AddMedia(media);
+                    }
+                }
+
+                return "Media Scan : " + Global.SUCCESS;
+            }
+            catch (Exception e)
+            {
+                return "Media Scan : " + Global.FAILURE + " " + e.ToString();
             }
         }
 
 
-        public void Get_Friends()
+        public string Get_Friends()
         {
-            XmlDocument friends = Get_Request(Global.PLEX_URL + Global.GET_SERVER_SHARES + PlexApp.PlexToken);
-            XmlNodeList friend_nodes = friends.GetElementsByTagName("User");
-            Friend friend;
-
-            foreach (XmlNode i in friend_nodes)
+            try
             {
-                friend = new Friend(
-                   i.Attributes["title"].Value,
-                   i.Attributes["username"].Value,
-                   i.Attributes["email"].Value
-                    );
+                XmlDocument friends = Get_Request(Global.PLEX_URL + Global.GET_SERVER_SHARES + PlexApp.PlexToken);
+                XmlNodeList friend_nodes = friends.GetElementsByTagName("User");
+                Friend friend;
 
-                FriendsList.Add(friend);
+                foreach (XmlNode i in friend_nodes)
+                {
+                    friend = new Friend(
+                       i.Attributes["title"].Value,
+                       i.Attributes["username"].Value,
+                       i.Attributes["email"].Value
+                        );
+
+                    FriendsList.Add(friend);
+                }
+
+                OnPropertyChanged("FriendsList");
+
+                return "Friend Scan : " + Global.SUCCESS;
             }
-
-            OnPropertyChanged("FriendsList");
+            catch (Exception e)
+            {
+                return "Friend Scan : " + Global.FAILURE + " " + e.ToString();
+            }
         }
 
         #endregion

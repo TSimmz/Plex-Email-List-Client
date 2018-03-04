@@ -32,6 +32,9 @@ namespace DatPlex.Common
         public static string XML_SAVE_PATH = APPDATA + @"\Plex Email Updater\";
         public static string LOG_SAVE_PATH = APPDATA + @"\Plex Email Updater\Logging\";
 
+        public static string SUCCESS = "**   SUCCESS   **";
+        public static string FAILURE = "**   FAILURE   **";
+
 
         public static string FOUND_LIBRARY = "**FOUND NEW LIBRARY** : ";
         public static string FOUND_FRIEND = "**FOUND NEW FRIEND** : ";
