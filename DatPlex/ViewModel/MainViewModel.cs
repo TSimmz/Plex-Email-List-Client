@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Reflection;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Threading;
 using System.Collections.ObjectModel;
 using DatPlex.DataModel;
 using DatPlex.Common;
@@ -93,16 +94,27 @@ namespace DatPlex.ViewModel
 
             // Test connection to Plex
 
-            // Get Libraries
-            LogEntry(Get_Libraries());
+            Thread t = new Thread(() =>
+            {
+                // Get Libraries
+                Scan_Label = "Checking for new libraries...";
+                LogEntry(Get_Libraries());
 
-            // Get Media
-            LogEntry(Get_Media());
+                // Get Media
 
-            // Get Friends
-            LogEntry(Get_Friends());
+                Scan_Label = "Checking for new media...";
+                LogEntry(Get_Media());
 
-            // Scan complete
+                // Get Friends
+                Scan_Label = "Checking for new friends...";
+                LogEntry(Get_Friends());
+
+                // Scan complete
+                Scan_Label = "Scan Complete!";
+            });
+            t.Start();
+
+
 
         }
 
@@ -319,12 +331,13 @@ namespace DatPlex.ViewModel
         #region Progress Bar
 
 
-        private string _Progress_Lbl = "Test Label: This is only a test.";
-        public string Progress_Lbl
+        private string _Scan_Label = "Test Label: This is only a test.";
+        public string Scan_Label
         {
-            get { return _Progress_Lbl; }
+            get { return _Scan_Label; }
             set
-            {   _Progress_Lbl = value;
+            {
+                _Scan_Label = value;
                 OnPropertyChanged();
             }
         }
@@ -654,6 +667,8 @@ namespace DatPlex.ViewModel
             //XmlDocument account = Get_Request(Global.PLEX_URL + Global.GET_ACCOUNT_INFO + PlexApp.PlexToken);
 
             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+
+            // Add Window title update here. 
         }
 
         public string Get_Libraries()

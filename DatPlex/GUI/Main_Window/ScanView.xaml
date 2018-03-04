@@ -53,7 +53,7 @@
                 <Button Content="Import/Export" Command="{Binding ImportExport_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
 
-                <Label Name="_ScanLabel" Content="{Binding Progress_Lbl}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,45" Height="25" Width="300" HorizontalContentAlignment="Left"
+                <Label Name="_ScanLabel" Content="{Binding Scan_Label}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,45" Height="25" Width="300" HorizontalContentAlignment="Left"
                         Grid.Column="0" Grid.Row="2" Foreground="White"/>
                 <ProgressBar Name="_ScanProgress" Value="{Binding ScanProgress, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,25" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
                         Height="25" Width="650" IsIndeterminate="False"/>
