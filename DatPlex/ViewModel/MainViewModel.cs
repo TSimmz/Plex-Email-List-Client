@@ -81,8 +81,8 @@ namespace DatPlex.ViewModel
             //App.MainViewModel.Get_Media();
             //App.MainViewModel.Get_Friends();
 
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
-            return;
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            //return;
 
             // PROGRESS UPDATES
             // **   SCANNING  **
@@ -94,7 +94,7 @@ namespace DatPlex.ViewModel
             // Test connection to Plex
 
             // Get Libraries
-
+            Get_Libraries();
             // Get Media
 
             // Get Friends
@@ -569,10 +569,8 @@ namespace DatPlex.ViewModel
 
             if ((bool)wInfo.DialogResult)
             {
-                Tuple<string, string, string> info = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
-                App.MainViewModel.PlexApp.ServerInfo = info;
-                
-                LogEntry("Server information updated.");
+                Global.LOCAL_URL = "https://" + IP_Address + ":" + Port_Number;
+                Global.TOKEN = "/?X-Plex-Token=" + Plex_Token;
             }
         }
 
@@ -650,7 +648,7 @@ namespace DatPlex.ViewModel
 
         public void Get_Libraries()
         {
-            XmlDocument libraries = Get_Request(PlexApp.LocalURL + Global.GET_LIBRARIES + PlexApp.PlexToken);
+            XmlDocument libraries = Get_Request(Global.LOCAL_URL + Global.GET_LIBRARIES + Global.TOKEN);
             XmlNodeList lib_nodes = libraries.GetElementsByTagName("Directory");
             Library lib;
 

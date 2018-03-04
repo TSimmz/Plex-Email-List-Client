@@ -76,17 +76,6 @@ namespace DatPlex.DataModel
             _libraryList.Add(l);
         }
 
-        public Tuple<string, string, string> ServerInfo
-        {
-            get { return _serverInfo; }
-            set
-            {
-                _serverInfo = value;
-                LocalURL = "https://" + _serverInfo.Item1 + ":" + _serverInfo.Item2;
-                PlexToken = "/?X-Plex-Token=" + _serverInfo.Item3;
-            }
-        }
-
         public string LocalURL
         {
             get { return _localURL; }
@@ -203,9 +192,9 @@ namespace DatPlex.DataModel
             writer.WriteStartElement("Plex");
 
             writer.WriteStartElement("Server");
-            writer.WriteAttributeString("ip", ServerInfo.Item1);
-            writer.WriteAttributeString("port", ServerInfo.Item2);
-            writer.WriteAttributeString("token", ServerInfo.Item3);
+            //writer.WriteAttributeString("ip", ServerInfo.Item1);
+            //writer.WriteAttributeString("port", ServerInfo.Item2);
+            //writer.WriteAttributeString("token", ServerInfo.Item3);
             writer.WriteEndElement();
 
             _owner.WriteXml(writer);

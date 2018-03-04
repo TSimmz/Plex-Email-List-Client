@@ -7,9 +7,10 @@ namespace DatPlex.Common
     public class Global
     {
         public static string PLEX_URL = "https://plex.tv";                             //Plex Base url
-        //public static string LOCAL_URL = "https://" + Plex_IP + ":" + Plex_Port + "/";  //Local plex url
-        //public static string TOKEN = "/?X-Plex-Token=yedx66JT2HqyEd2xxf4m";                                 //Plex Account Token 
+        public static string LOCAL_URL;                                                //Local Url         
+        public static string TOKEN;                                                    //Plex Account Token 
 
+        
         //###########################################
         // Plex URL Requests
         //###########################################
@@ -21,9 +22,12 @@ namespace DatPlex.Common
         //###########################################
         //Local URL Requests
         //###########################################
-        public static string GET_LIBRARIES = "/library/sections";
+        public static string GET_LIBRARIES = "/library/sections";                //Gets library details
         public static string GET_METADATA = "/library/metadata";
 
+        //###########################################
+        //Save Locations
+        //###########################################
         public static string APPDATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string XML_SAVE_PATH = APPDATA + @"\Plex Email Updater\";
         public static string LOG_SAVE_PATH = APPDATA + @"\Plex Email Updater\Logging\";
@@ -31,10 +35,5 @@ namespace DatPlex.Common
 
         public static string FOUND_LIBRARY = "**FOUND NEW LIBRARY** : ";
         public static string FOUND_FRIEND = "**FOUND NEW FRIEND** : ";
-
-        public static int MINUTES { get { return 60000; } }
-        public static int HOURS { get { return 3600000; } }
-        public static int DAYS { get { return 86400000; } }
-
     }
 }
