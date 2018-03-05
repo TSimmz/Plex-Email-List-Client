@@ -88,9 +88,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="5,10"/>
-                            
-                            <toolkit:DateTimePicker Format="FullDateTime" ShowButtonSpinner="False" Height="25" Width="135" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                            
+                            <toolkit:TimePicker Value="{Binding UpdateTime, Mode=TwoWay}" Width="135" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"/>
                             <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" Height="Auto" Width="Auto" Margin="18" Grid.Row="2"/>
                         </Grid>
                     </Grid>
