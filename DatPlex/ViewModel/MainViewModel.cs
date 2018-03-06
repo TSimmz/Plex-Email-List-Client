@@ -8,6 +8,7 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Threading;
+using System.Timers;
 using System.Collections.ObjectModel;
 using DatPlex.DataModel;
 using DatPlex.Common;
@@ -20,6 +21,7 @@ namespace DatPlex.ViewModel
         #region Data Fields
         
         BackgroundWorker BgWorker;
+        private Dictionary<string, bool> CurrentSchedule;
 
         #endregion
 
@@ -32,6 +34,8 @@ namespace DatPlex.ViewModel
 
             // Scan Tab
             ScanViewVisibility = Visibility.Visible;
+            InitializeDaysofWeek();
+            CurrentSchedule = new Dictionary<string, bool>();
 
             // Sharing Tab
             LibraryList = new ObservableCollection<Library>();
@@ -76,7 +80,7 @@ namespace DatPlex.ViewModel
             return true;
         }
 
-        public void Scan_Plex(object obj)
+        public void Scan_Plex(object obj, ElapsedEventArgs e)
         {
             //App.MainViewModel.Get_Libraries();
             //App.MainViewModel.Get_Media();
@@ -113,9 +117,6 @@ namespace DatPlex.ViewModel
                 Scan_Label = "Scan Complete!";
             });
             t.Start();
-
-
-
         }
 
         public void ImportExport()
@@ -187,6 +188,17 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private void InitializeDaysofWeek()
+        {
+            DaysofWeek.Add("Sunday", false);
+            DaysofWeek.Add("Monday", false);
+            DaysofWeek.Add("Tuesday", false);
+            DaysofWeek.Add("Wednesday", false);
+            DaysofWeek.Add("Thursday", false);
+            DaysofWeek.Add("Friday", false);
+            DaysofWeek.Add("Saturday", false);
+        }
+
         private void ExitApp(object obj)
         {
             App.Current.Shutdown();
@@ -221,6 +233,9 @@ namespace DatPlex.ViewModel
                     LogEntry("Manual State Enabled");
                 else
                     LogEntry("Automatic State Enabled");
+
+
+                Scan_Timer.Enabled = false;
             }
         }
 
@@ -233,6 +248,8 @@ namespace DatPlex.ViewModel
                 _Automatic_State = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Manual_State");
+
+                Scan_Timer.Enabled = true;
             }
         }
 
@@ -270,8 +287,38 @@ namespace DatPlex.ViewModel
             //}
             #endregion
 
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
 
+            CurrentSchedule = DaysofWeek;
+
+            Scan_Timer.Elapsed += new ElapsedEventHandler(Scan_Plex);
+            Scan_Timer.Interval = GetNextTimer();          
+
+        }
+
+        public int GetNextTimer()
+        {
+            string today = DateTime.Now.DayOfWeek.ToString();
+
+            foreach (string day in CurrentSchedule.Keys)
+            {
+                if (day == today && DaysofWeek[day] == true)
+                {
+
+                }
+            }
+
+            return 0;
+        }
+
+        private System.Timers.Timer _Scan_Timer = new System.Timers.Timer();
+        public System.Timers.Timer Scan_Timer
+        {
+            get { return _Scan_Timer; }
+            set
+            {
+                _Scan_Timer = value;
+            }
         }
 
         private DateTime _UpdateTime;
@@ -285,47 +332,48 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private bool[] _IsChecked_Week = new bool[7];
+        private Dictionary<string, bool> DaysofWeek = new Dictionary<string, bool>();
+
         public bool IsChecked_Sun
         {
-            get { return _IsChecked_Week[0]; }
-            set { _IsChecked_Week[0] = value; }
+            get { return DaysofWeek["Sunday"]; }
+            set { DaysofWeek["Sunday"] = value; }
         }
 
         public bool IsChecked_Mon
         {
-            get { return _IsChecked_Week[1]; }
-            set { _IsChecked_Week[1] = value; }
+            get { return DaysofWeek["Monday"]; }
+            set { DaysofWeek["Monday"] = value; }
         }
 
         public bool IsChecked_Tue
         {
-            get { return _IsChecked_Week[2]; }
-            set { _IsChecked_Week[2] = value; }
+            get { return DaysofWeek["Tuesday"]; }
+            set { DaysofWeek["Tuesday"] = value; }
         }
 
         public bool IsChecked_Wed
         {
-            get { return _IsChecked_Week[3]; }
-            set { _IsChecked_Week[3] = value; }
+            get { return DaysofWeek["Wednesday"]; }
+            set { DaysofWeek["Wednesday"] = value; }
         }
 
         public bool IsChecked_Thu
         {
-            get { return _IsChecked_Week[4]; }
-            set { _IsChecked_Week[4] = value; }
+            get { return DaysofWeek["Thursday"]; }
+            set { DaysofWeek["Thursday"] = value; }
         }
 
         public bool IsChecked_Fri
         {
-            get { return _IsChecked_Week[5]; }
-            set { _IsChecked_Week[5] = value; }
+            get { return DaysofWeek["Friday"]; }
+            set { DaysofWeek["Friday"] = value; }
         }
 
         public bool IsChecked_Sat
         {
-            get { return _IsChecked_Week[6]; }
-            set { _IsChecked_Week[6] = value; }
+            get { return DaysofWeek["Saturday"]; }
+            set { DaysofWeek["Saturday"] = value; }
         }
 
         #region Progress Bar
