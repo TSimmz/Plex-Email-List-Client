@@ -80,7 +80,7 @@ namespace DatPlex.ViewModel
             return true;
         }
 
-        public void Scan_Plex(object obj, ElapsedEventArgs e)
+        public void Scan_Plex(object obj)
         {
             //App.MainViewModel.Get_Libraries();
             //App.MainViewModel.Get_Media();
@@ -230,9 +230,17 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged("Automatic_State");
 
                 if (Manual_State)
-                    LogEntry("Manual State Enabled");
+                {
+                    SubLogEntry("** MODE CHANGED **",
+                        new LogEntry() {DateTime = DateTime.Now, Index = LogIndex++, Message = "Manual State Enabled"},
+                        new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = "Scan Timer Disabled" });
+                }
                 else
-                    LogEntry("Automatic State Enabled");
+                {
+                    SubLogEntry("** MODE CHANGED **",
+                        new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = "Automatic State Enabled" },
+                        new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = "Scan Timer Enabled" });
+                }
 
 
                 Scan_Timer.Enabled = false;
@@ -291,7 +299,7 @@ namespace DatPlex.ViewModel
 
             CurrentSchedule = DaysofWeek;
 
-            Scan_Timer.Elapsed += new ElapsedEventHandler(Scan_Plex);
+            //Scan_Timer.Elapsed += new ElapsedEventHandler(Scan_Plex);
             Scan_Timer.Interval = GetNextTimer();          
 
         }
@@ -564,10 +572,19 @@ namespace DatPlex.ViewModel
 
                 using (StreamWriter file = File.CreateText(filePath))
                 {
-                    foreach (LogEntry log in LogEntryList)
+                    foreach (CollapsibleLogEntry log in LogEntryList)
                     {
                         string log_txt = log.DateTime.ToString() + "\t" + log.Message + "\n";
                         file.WriteLine(log_txt);
+
+                        if (log.Contents != null)
+                        {
+                            foreach (LogEntry l in log.Contents)
+                            {
+                                string sub_log_txt = "\t" + l.DateTime.ToString() + "\t" + l.Message + "\n";
+                                file.WriteLine(sub_log_txt);
+                            }
+                        }
                     }
                 }
 
@@ -614,6 +631,17 @@ namespace DatPlex.ViewModel
         public void LogEntry(string message)
         {
             LogEntryList.Add(new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message });
+        }
+
+        public void SubLogEntry(string message, params LogEntry [] logs)
+        {
+            List<LogEntry> sublogs = new List<LogEntry>();
+            foreach (LogEntry l in logs)
+            {
+                sublogs.Add(l);
+            }
+
+            LogEntryList.Add(new CollapsibleLogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message, Contents = sublogs });
         }
 
         #endregion Logging Tab
