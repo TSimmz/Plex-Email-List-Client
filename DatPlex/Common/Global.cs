@@ -38,5 +38,9 @@ namespace DatPlex.Common
 
         public static string FOUND_LIBRARY = "**FOUND NEW LIBRARY** : ";
         public static string FOUND_FRIEND = "**FOUND NEW FRIEND** : ";
+
+        public static int MINUTES { get { return 60000; } }
+        public static int HOURS { get { return 3600000; } }
+        public static int DAYS { get { return 86400000; } }
     }
 }

@@ -21,7 +21,8 @@ namespace DatPlex.ViewModel
         #region Data Fields
         
         BackgroundWorker BgWorker;
-        private Dictionary<string, bool> CurrentSchedule;
+        private bool [] CurrentSchedule;
+        private DateTime CurrentTimer;
 
         #endregion
 
@@ -34,8 +35,8 @@ namespace DatPlex.ViewModel
 
             // Scan Tab
             ScanViewVisibility = Visibility.Visible;
-            InitializeDaysofWeek();
-            CurrentSchedule = new Dictionary<string, bool>();
+            //InitializeDaysofWeek();
+            CurrentSchedule = new bool[7];
 
             // Sharing Tab
             LibraryList = new ObservableCollection<Library>();
@@ -117,6 +118,8 @@ namespace DatPlex.ViewModel
                 Scan_Label = "Scan Complete!";
             });
             t.Start();
+
+            SetNextTimer();
         }
 
         public void ImportExport()
@@ -188,16 +191,16 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private void InitializeDaysofWeek()
-        {
-            DaysofWeek.Add("Sunday", false);
-            DaysofWeek.Add("Monday", false);
-            DaysofWeek.Add("Tuesday", false);
-            DaysofWeek.Add("Wednesday", false);
-            DaysofWeek.Add("Thursday", false);
-            DaysofWeek.Add("Friday", false);
-            DaysofWeek.Add("Saturday", false);
-        }
+        //private void InitializeDaysofWeek()
+        //{
+        //    DaysofWeek.Add("Sunday", false);
+        //    DaysofWeek.Add("Monday", false);
+        //    DaysofWeek.Add("Tuesday", false);
+        //    DaysofWeek.Add("Wednesday", false);
+        //    DaysofWeek.Add("Thursday", false);
+        //    DaysofWeek.Add("Friday", false);
+        //    DaysofWeek.Add("Saturday", false);
+        //}
 
         private void ExitApp(object obj)
         {
@@ -298,7 +301,7 @@ namespace DatPlex.ViewModel
             //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
 
             CurrentSchedule = DaysofWeek;
-
+            CurrentTimer = UpdateTime;
             //Scan_Timer.Elapsed += new ElapsedEventHandler(Scan_Plex);
             Scan_Timer.Interval = GetNextTimer();          
 
@@ -306,17 +309,37 @@ namespace DatPlex.ViewModel
 
         public int GetNextTimer()
         {
-            string today = DateTime.Now.DayOfWeek.ToString();
+            DateTime today = DateTime.Now;
+            int today_index = (int)today.DayOfWeek;
 
-            foreach (string day in CurrentSchedule.Keys)
+            int days = 0;
+            int daysUntilNext = 0;
+            int hoursUntilNext = 0;
+            int minsUntilNext = 0;
+
+            for (int i = today_index; days < 7; i = (i + 1) % 7)
             {
-                if (day == today && DaysofWeek[day] == true)
+                if (CurrentSchedule[i])
                 {
-
+                    daysUntilNext = (i - today_index + 7) % 7;
+                    hoursUntilNext = (CurrentTimer.Hour - today.Hour + 24) % 24;
+                    minsUntilNext = (CurrentTimer.Minute - today.Minute + 60) % 60;
+                    break;                 
                 }
+
+                days++;
             }
 
-            return 0;
+            daysUntilNext *= Global.DAYS;
+            hoursUntilNext *= Global.HOURS;
+            minsUntilNext *= Global.MINUTES;
+
+            return daysUntilNext + hoursUntilNext + minsUntilNext;
+        }
+
+        public void SetNextTimer()
+        {
+            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
         }
 
         private System.Timers.Timer _Scan_Timer = new System.Timers.Timer();
@@ -339,49 +362,49 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        private Dictionary<string, bool> DaysofWeek = new Dictionary<string, bool>();
-
+        
+        //private Dictionary<string, bool> DaysofWeek = new Dictionary<string, bool>();
+        private bool[] DaysofWeek = new bool[7];
         public bool IsChecked_Sun
         {
-            get { return DaysofWeek["Sunday"]; }
-            set { DaysofWeek["Sunday"] = value; }
+            get { return DaysofWeek[0]; }
+            set { DaysofWeek[0] = value; }
         }
 
         public bool IsChecked_Mon
         {
-            get { return DaysofWeek["Monday"]; }
-            set { DaysofWeek["Monday"] = value; }
+            get { return DaysofWeek[1]; }
+            set { DaysofWeek[1] = value; }
         }
 
         public bool IsChecked_Tue
         {
-            get { return DaysofWeek["Tuesday"]; }
-            set { DaysofWeek["Tuesday"] = value; }
+            get { return DaysofWeek[2]; }
+            set { DaysofWeek[2] = value; }
         }
 
         public bool IsChecked_Wed
         {
-            get { return DaysofWeek["Wednesday"]; }
-            set { DaysofWeek["Wednesday"] = value; }
+            get { return DaysofWeek[3]; }
+            set { DaysofWeek[3] = value; }
         }
 
         public bool IsChecked_Thu
         {
-            get { return DaysofWeek["Thursday"]; }
-            set { DaysofWeek["Thursday"] = value; }
+            get { return DaysofWeek[4]; }
+            set { DaysofWeek[4] = value; }
         }
 
         public bool IsChecked_Fri
         {
-            get { return DaysofWeek["Friday"]; }
-            set { DaysofWeek["Friday"] = value; }
+            get { return DaysofWeek[5]; }
+            set { DaysofWeek[5] = value; }
         }
 
         public bool IsChecked_Sat
         {
-            get { return DaysofWeek["Saturday"]; }
-            set { DaysofWeek["Saturday"] = value; }
+            get { return DaysofWeek[6]; }
+            set { DaysofWeek[6] = value; }
         }
 
         #region Progress Bar
@@ -559,7 +582,6 @@ namespace DatPlex.ViewModel
 
         public bool SaveLogs()
         {
-            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
             try
             {
                 string timeStamp = DateTime.Now.ToShortDateString();
