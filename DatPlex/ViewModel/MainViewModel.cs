@@ -33,6 +33,7 @@ namespace DatPlex.ViewModel
             BgWorker = new BackgroundWorker();
             BgWorker.WorkerReportsProgress = true;
 
+
             // Scan Tab
             ScanViewVisibility = Visibility.Visible;
             //InitializeDaysofWeek();
@@ -60,6 +61,17 @@ namespace DatPlex.ViewModel
             set
             {
                 mWindowTitle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _UI_Enabled = true;
+        public bool UI_Enabled
+        {
+            get { return _UI_Enabled; }
+            set
+            {
+                _UI_Enabled = value;
                 OnPropertyChanged();
             }
         }
@@ -191,16 +203,42 @@ namespace DatPlex.ViewModel
             }
         }
 
-        //private void InitializeDaysofWeek()
-        //{
-        //    DaysofWeek.Add("Sunday", false);
-        //    DaysofWeek.Add("Monday", false);
-        //    DaysofWeek.Add("Tuesday", false);
-        //    DaysofWeek.Add("Wednesday", false);
-        //    DaysofWeek.Add("Thursday", false);
-        //    DaysofWeek.Add("Friday", false);
-        //    DaysofWeek.Add("Saturday", false);
-        //}
+        public void LockView (object obj)
+        {
+            UI_Enabled = false;
+            LockVisibilty = Visibility.Hidden;
+            UnlockVisibilty = Visibility.Visible;
+
+        }
+
+        public void UnlockView(object obj)
+        {
+            UI_Enabled = true;
+            UnlockVisibilty = Visibility.Hidden;
+            LockVisibilty = Visibility.Visible;
+        }
+
+        private Visibility _LockVisibilty = Visibility.Hidden;
+        public Visibility LockVisibilty
+        {
+            get { return _LockVisibilty; }
+            set
+            {
+                _LockVisibilty = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _UnlockVisibilty = Visibility.Visible;
+        public Visibility UnlockVisibilty
+        {
+            get { return _UnlockVisibilty; }
+            set
+            {
+                _UnlockVisibilty = value;
+                OnPropertyChanged();
+            }
+        }
 
         private void ExitApp(object obj)
         {
@@ -302,6 +340,7 @@ namespace DatPlex.ViewModel
 
             CurrentSchedule = DaysofWeek;
             CurrentTimer = UpdateTime;
+
             //Scan_Timer.Elapsed += new ElapsedEventHandler(Scan_Plex);
             Scan_Timer.Interval = GetNextTimer();          
 
@@ -309,8 +348,11 @@ namespace DatPlex.ViewModel
 
         public int GetNextTimer()
         {
+            TimeSpan timeUntilNext = new TimeSpan(0);
             DateTime today = DateTime.Now;
             int today_index = (int)today.DayOfWeek;
+
+            CurrentTimer = CurrentTimer.AddMonths(today.Month - 1).AddDays(today.Day - 1).AddYears(today.Year - 1);
 
             int days = 0;
             int daysUntilNext = 0;
@@ -322,17 +364,19 @@ namespace DatPlex.ViewModel
                 if (CurrentSchedule[i])
                 {
                     daysUntilNext = (i - today_index + 7) % 7;
-                    hoursUntilNext = (CurrentTimer.Hour - today.Hour + 24) % 24;
-                    minsUntilNext = (CurrentTimer.Minute - today.Minute + 60) % 60;
+                    CurrentTimer = CurrentTimer.AddDays(daysUntilNext);
+
+                    timeUntilNext = CurrentTimer - today;
+
                     break;                 
                 }
 
                 days++;
             }
 
-            daysUntilNext *= Global.DAYS;
-            hoursUntilNext *= Global.HOURS;
-            minsUntilNext *= Global.MINUTES;
+            daysUntilNext = timeUntilNext.Days * Global.DAYS;
+            hoursUntilNext = timeUntilNext.Hours * Global.HOURS;
+            minsUntilNext = timeUntilNext.Minutes * Global.MINUTES;
 
             return daysUntilNext + hoursUntilNext + minsUntilNext;
         }
@@ -363,7 +407,6 @@ namespace DatPlex.ViewModel
             }
         }
         
-        //private Dictionary<string, bool> DaysofWeek = new Dictionary<string, bool>();
         private bool[] DaysofWeek = new bool[7];
         public bool IsChecked_Sun
         {
@@ -869,16 +912,38 @@ namespace DatPlex.ViewModel
 
         #region Command Bindings
 
-        DelegateCommand _SendSel_Cmd;
-        public ICommand SendSel_Cmd
+        //DelegateCommand _SendSel_Cmd;
+        //public ICommand SendSel_Cmd
+        //{
+        //    get
+        //    {
+        //        if (_SendSel_Cmd == null)
+        //            _SendSel_Cmd = new DelegateCommand(SendSelectedUsers);
+        //        return _SendSel_Cmd;
+        //    }
+        //}
+        DelegateCommand _LockView_Cmd;
+        public ICommand LockView_Cmd
         {
             get
             {
-                if (_SendSel_Cmd == null)
-                    _SendSel_Cmd = new DelegateCommand(SendSelectedUsers);
-                return _SendSel_Cmd;
+                if (_LockView_Cmd == null)
+                    _LockView_Cmd = new DelegateCommand(LockView);
+                return _LockView_Cmd;
             }
         }
+
+        DelegateCommand _UnlockView_Cmd;
+        public ICommand UnlockView_Cmd
+        {
+            get
+            {
+                if (_UnlockView_Cmd == null)
+                    _UnlockView_Cmd = new DelegateCommand(UnlockView);
+                return _UnlockView_Cmd;
+            }
+        }
+
 
         DelegateCommand _SetPeriod_Cmd;
         public ICommand SetPeriod_Cmd
