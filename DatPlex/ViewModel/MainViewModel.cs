@@ -206,7 +206,7 @@ namespace DatPlex.ViewModel
         public void LockView (object obj)
         {
             UI_Enabled = false;
-            LockVisibilty = Visibility.Hidden;
+            LockVisibilty = Visibility.Collapsed;
             UnlockVisibilty = Visibility.Visible;
 
         }
@@ -214,7 +214,7 @@ namespace DatPlex.ViewModel
         public void UnlockView(object obj)
         {
             UI_Enabled = true;
-            UnlockVisibilty = Visibility.Hidden;
+            UnlockVisibilty = Visibility.Collapsed;
             LockVisibilty = Visibility.Visible;
         }
 
@@ -242,7 +242,13 @@ namespace DatPlex.ViewModel
 
         private void ExitApp(object obj)
         {
-            App.Current.Shutdown();
+            MessageBoxResult save = MessageBox.Show("Would you like to save your Plex server data before closing?", "Closing Plex Email Updater", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (save == MessageBoxResult.Yes)
+            {
+                //SAVE
+            }
+            else
+                App.Current.Shutdown();
         }
 
         #endregion
@@ -374,9 +380,12 @@ namespace DatPlex.ViewModel
                 days++;
             }
 
+            LogEntry(string.Format("** NEXT SCAN ** : {0} Days, {1} Hours, {2} Minutes", timeUntilNext.Days, timeUntilNext.Hours, timeUntilNext.Days));
+
             daysUntilNext = timeUntilNext.Days * Global.DAYS;
             hoursUntilNext = timeUntilNext.Hours * Global.HOURS;
             minsUntilNext = timeUntilNext.Minutes * Global.MINUTES;
+
 
             return daysUntilNext + hoursUntilNext + minsUntilNext;
         }

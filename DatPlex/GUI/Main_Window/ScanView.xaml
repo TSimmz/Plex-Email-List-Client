@@ -18,11 +18,11 @@
         <Grid Grid.Row="0">
             <Image Source="/Images/plex.jpg" Height="100" Width="175" Margin="10"
               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Background="#ebebeb" Command="{Binding LockView_Cmd}" Visibility="{Binding LockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,40,0">
+            <Button Background="#ebebeb" Command="{Binding LockView_Cmd}"  Panel.ZIndex="100"  Visibility="{Binding LockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,40,0">
                 <Image Source="/Images/lock.png" Height="24" Width="24"/>
             </Button>
-            <Button Command="{Binding UnlockView_Cmd}" Visibility="{Binding UnlockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
-                <Image Source="/Images/unlock.png" Height="24" Width="24"/>
+            <Button Command="{Binding UnlockView_Cmd}" Panel.ZIndex="100" Visibility="{Binding UnlockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+                <Image Source="/Images/unlock.png"/>
             </Button>
         </Grid>
         <Grid Grid.Row="1" IsEnabled="{Binding UI_Enabled, Mode=TwoWay}">
