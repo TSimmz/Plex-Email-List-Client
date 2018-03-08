@@ -470,7 +470,6 @@ namespace DatPlex.ViewModel
 
         #region Progress Bar
 
-
         private string _Scan_Label = "Test Label: This is only a test.";
         public string Scan_Label
         {
@@ -525,17 +524,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private bool _IsLibrarySelected = false;
-        public bool IsLibrarySelected
-        {
-            get { return _IsLibrarySelected; }
-            set
-            {
-                _IsLibrarySelected = value;
-                OnPropertyChanged();
-            }
-        }
-        
         public void RefreshLibraries()
         {
             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
@@ -549,17 +537,6 @@ namespace DatPlex.ViewModel
             {
                 _SelIndex_Library = value;
                 OnPropertyChanged();
-            }
-        }
-
-
-        private bool _Include_Library;
-        public bool Include_Library
-        {
-            get { return _Include_Library; }
-            set
-            {
-                _Include_Library = value;
             }
         }
 
@@ -591,47 +568,31 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private bool _Include_Friend;
-        public bool Include_Friend
-        {
-            get { return _Include_Friend; }
-            set
-            {
-                _Include_Friend = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _IsFriendSelected = false;
-        public bool IsFriendSelected
-        {
-            get { return _IsFriendSelected; }
-            set
-            {
-                _IsFriendSelected = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         public void AddFriends(object obj)
         {
             //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
-            CustomFriend wFriend = new CustomFriend();
-            wFriend.DataContext = this;
-            wFriend.Show();
-
-            if ((bool)wFriend.DialogResult)
+            try
             {
-                if (!Friend_Name.Equals("") && !Friend_Email.Equals(""))
+                CustomFriend wFriend = new CustomFriend();
+                wFriend.DataContext = this;
+                wFriend.ShowDialog();
+
+                if ((bool)wFriend.DialogResult)
                 {
-                    Friend newFriend = new Friend(Friend_Name, Friend_Email);
-                    FriendsList.Add(newFriend);
+                    if (!Friend_Name.Equals("") && !Friend_Email.Equals(""))
+                    {
+                        Friend newFriend = new Friend(Friend_Name, Friend_Email);
+                        FriendsList.Add(newFriend);
+                    }
+                    else
+                    {
+                        MessageBox.Show("New friend information is invalid.", "Add Friend Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("New friend information is invalid.", "Add Friend Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
 
