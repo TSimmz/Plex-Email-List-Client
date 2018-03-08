@@ -124,6 +124,9 @@
     <Compile Include="DataModel\Email.cs" />
     <Compile Include="DataModel\Friend.cs" />
     <Compile Include="DataModel\LogEntry.cs" />
+    <Compile Include="GUI\Child_Window\CustomFriend.xaml.cs">
+      <DependentUpon>CustomFriend.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Child_Window\LogEntryViewer.xaml.cs">
       <DependentUpon>LogEntryViewer.xaml</DependentUpon>
     </Compile>
@@ -214,6 +217,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GUI\Child_Window\CustomFriend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Child_Window\LogEntryViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

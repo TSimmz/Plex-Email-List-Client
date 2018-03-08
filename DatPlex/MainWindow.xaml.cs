@@ -35,9 +35,9 @@ namespace DatPlex
 
             _ViewModel = App.MainViewModel;
 
-            _ScanView.SetDataContext(_ViewModel);
-            _SharingView.SetDataContext(_ViewModel);
-            _LogView.SetDataContext(_ViewModel);
+            _ScanView.SetDataContext(App.MainViewModel);
+            _SharingView.SetDataContext(App.MainViewModel);
+            _LogView.SetDataContext(App.MainViewModel);
 
             //_ViewModel.TaskStarting += TaskStarted;
             //_ViewModel.ProgressChanged += ProgressChanged;

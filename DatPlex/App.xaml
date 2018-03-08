@@ -43,6 +43,12 @@
         <Style TargetType="ListView">
             <Setter Property="Background" Value="#4F4F4F"/>
             <Setter Property="Foreground" Value="#ebebeb"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#2F2F2F"/>
+                    <Setter Property="Foreground" Value="#e5ba1a"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="GridViewColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>

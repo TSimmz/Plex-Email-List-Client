@@ -12,6 +12,13 @@ namespace DatPlex.DataModel
     {
         
         #region Constructor
+        public Friend(string username, string email): base(null, username, email)
+        {
+            Include_Friend = false;
+            Title = "";
+            Username = username;
+            Email = email;
+        }
 
         public Friend(string title, string username, string email) : base(title, username, email)
         {

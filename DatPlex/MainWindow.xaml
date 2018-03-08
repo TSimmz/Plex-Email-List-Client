@@ -18,7 +18,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#202020">
-        <tb:TaskbarIcon ToolTipText="Plex Email Updater" IconSource="{Binding PlexIcon}">
+        <tb:TaskbarIcon ToolTipText="Plex Email Updater" IconSource="/Images/plex_icon.ico">
             <tb:TaskbarIcon.TrayPopup>
                 <childview:SystemTrayView x:Name="SystemTrayView" Height="300" Width="300"/>
             </tb:TaskbarIcon.TrayPopup>

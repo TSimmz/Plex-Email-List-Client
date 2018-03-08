@@ -32,22 +32,24 @@ namespace DatPlex.ViewModel
             // Background worker
             BgWorker = new BackgroundWorker();
             BgWorker.WorkerReportsProgress = true;
-
+            LockVisibility = Visibility.Visible;
+            UnlockVisibility = Visibility.Collapsed;
 
             // Scan Tab
             ScanViewVisibility = Visibility.Visible;
-            //InitializeDaysofWeek();
             CurrentSchedule = new bool[7];
 
             // Sharing Tab
+            SharingViewVisibility = Visibility.Hidden;
             LibraryList = new ObservableCollection<Library>();
             FriendsList = new ObservableCollection<Friend>();
-            SharingViewVisibility = Visibility.Hidden;
 
             // Logging Tab
             LogViewVisibility = Visibility.Hidden;
             LogEntryList = new ObservableCollection<LogEntry>();
             LogIndex++;
+
+            GenerateTestData();
         }
 
         #endregion
@@ -76,9 +78,16 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public string PlexIcon
+        public void GenerateTestData()
         {
-            get { return "/Images/plex_icon.ico"; }
+            for (int i = 0; i < 5; i++)
+            {
+                Library l = new Library(i, "movie" + i.ToString(), "title" + i.ToString());
+                LibraryList.Add(l);
+
+                Friend f = new Friend("title" + i.ToString(), "username" + i.ToString(), "email" + i.ToString());
+                FriendsList.Add(f);
+            }
         }
 
         //TODO: Open method
@@ -206,36 +215,36 @@ namespace DatPlex.ViewModel
         public void LockView (object obj)
         {
             UI_Enabled = false;
-            LockVisibilty = Visibility.Collapsed;
-            UnlockVisibilty = Visibility.Visible;
+            LockVisibility = Visibility.Collapsed;
+            UnlockVisibility = Visibility.Visible;
 
         }
 
         public void UnlockView(object obj)
         {
             UI_Enabled = true;
-            UnlockVisibilty = Visibility.Collapsed;
-            LockVisibilty = Visibility.Visible;
+            UnlockVisibility = Visibility.Collapsed;
+            LockVisibility = Visibility.Visible;
         }
 
-        private Visibility _LockVisibilty = Visibility.Hidden;
-        public Visibility LockVisibilty
+        private Visibility _LockVisibility;
+        public Visibility LockVisibility
         {
-            get { return _LockVisibilty; }
+            get { return _LockVisibility; }
             set
             {
-                _LockVisibilty = value;
+                _LockVisibility = value;
                 OnPropertyChanged();
             }
         }
 
-        private Visibility _UnlockVisibilty = Visibility.Visible;
-        public Visibility UnlockVisibilty
+        private Visibility _UnlockVisibility;
+        public Visibility UnlockVisibility
         {
-            get { return _UnlockVisibilty; }
+            get { return _UnlockVisibility; }
             set
             {
-                _UnlockVisibilty = value;
+                _UnlockVisibility = value;
                 OnPropertyChanged();
             }
         }
@@ -380,7 +389,7 @@ namespace DatPlex.ViewModel
                 days++;
             }
 
-            LogEntry(string.Format("** NEXT SCAN ** : {0} Days, {1} Hours, {2} Minutes", timeUntilNext.Days, timeUntilNext.Hours, timeUntilNext.Days));
+            LogEntry(string.Format("** NEXT SCAN ** : {0} Days, {1} Hours, {2} Minutes", timeUntilNext.Days, timeUntilNext.Hours, timeUntilNext.Minutes));
 
             daysUntilNext = timeUntilNext.Days * Global.DAYS;
             hoursUntilNext = timeUntilNext.Hours * Global.HOURS;
@@ -605,9 +614,39 @@ namespace DatPlex.ViewModel
         }
 
 
-        public void AddFriends()
+        public void AddFriends(object obj)
         {
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            CustomFriend wFriend = new CustomFriend();
+            wFriend.DataContext = this;
+            wFriend.Show();
+
+            if ((bool)wFriend.DialogResult)
+            {
+                if (!Friend_Name.Equals("") && !Friend_Email.Equals(""))
+                {
+                    Friend newFriend = new Friend(Friend_Name, Friend_Email);
+                    FriendsList.Add(newFriend);
+                }
+                else
+                {
+                    MessageBox.Show("New friend information is invalid.", "Add Friend Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private string _Friend_Name;
+        public string Friend_Name
+        {
+            get { return _Friend_Name; }
+            set { _Friend_Name = value; }
+        }
+
+        private string _Friend_Email;
+        public string Friend_Email
+        {
+            get { return _Friend_Email; }
+            set { _Friend_Email = value; }
         }
 
         public void UpdateFriends()
