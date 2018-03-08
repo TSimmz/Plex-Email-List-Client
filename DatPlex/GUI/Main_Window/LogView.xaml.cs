@@ -13,28 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DatPlex.ViewModel;
-using DatPlex.Common;
 
-namespace DatPlex.GUI.Child_Window
+namespace DatPlex.GUI.Main_Window
 {
-    /// <summary>
-    /// Interaction logic for ScanComplete.xaml
-    /// </summary>
-    public partial class ScanComplete : UserControl
+    public partial class LogView : UserControl
     {
-        public ScanComplete()
+        public LogView()
         {
             InitializeComponent();
         }
 
-        private MainViewModel _ViewModel;
-        public MainViewModel ViewModel
+        public void SetDataContext(MainViewModel context)
         {
-            set { _ViewModel = value; }
-        }
-        public void SetDataContext(PlexScannerVM iViewModel)
-        {
-            this.DataContext = iViewModel;
+            this.DataContext = context;
         }
     }
 }

@@ -6,6 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mainview="clr-namespace:DatPlex.GUI.Main_Window"
         xmlns:childview="clr-namespace:DatPlex.GUI.Child_Window"
+        xmlns:vm="clr-namespace:DatPlex.ViewModel"
         xmlns:common="clr-namespace:DatPlex.Common"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         Title="{Binding WindowTitle}" Width="750" Height="500" Icon="/Images/plex_icon.png"
@@ -13,11 +14,11 @@
         WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding File_ExitCommand}" />
+            <i:InvokeCommandAction Command="{Binding FileExit_Cmd}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="#202020">
-        <tb:TaskbarIcon ToolTipText="Plex Email Updater">
+        <tb:TaskbarIcon ToolTipText="Plex Email Updater" IconSource="/Images/plex_icon.ico">
             <tb:TaskbarIcon.TrayPopup>
                 <childview:SystemTrayView x:Name="SystemTrayView" Height="300" Width="300"/>
             </tb:TaskbarIcon.TrayPopup>
@@ -47,10 +48,13 @@
                 </Style>
             </TabControl.Resources>
             <TabItem Header="   Scan    " Foreground="White" >
-                <mainview:ScanView x:Name="_ScanView"/>
+                <mainview:ScanView x:Name="_ScanView" Visibility="{Binding ScanViewVisibility, Mode=TwoWay}"/>
             </TabItem>
             <TabItem Header="  Sharing  " Foreground="White" >
-                <mainview:SharingView x:Name="_SharingView"/>
+                <mainview:SharingView x:Name="_SharingView" Visibility="{Binding SharingViewVisibility, Mode=TwoWay}"/>
+            </TabItem>
+            <TabItem Header="  Logging  " Foreground="White">
+                <mainview:LogView x:Name="_LogView" Visibility="{Binding LogViewVisibility, Mode=TwoWay}"/>
             </TabItem>
         </TabControl>
     </Grid>

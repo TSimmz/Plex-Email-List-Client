@@ -16,26 +16,16 @@ using DatPlex.ViewModel;
 
 namespace DatPlex.GUI.Main_Window
 {
-    /// <summary>
-    /// Interaction logic for SharingView.xaml
-    /// </summary>
     public partial class SharingView : UserControl
     {
-        private MainViewModel _ViewModel;
-
         public SharingView()
         {
             InitializeComponent();
         }
 
-        public MainViewModel ViewModel
+        public void SetDataContext(MainViewModel context)
         {
-            set { _ViewModel = value; }
-        }
-
-        public void SetDataContext(SharingTabVM iViewModel)
-        {
-            this.DataContext = iViewModel;
+            this.DataContext = context;
         }
     }
 }

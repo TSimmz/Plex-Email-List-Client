@@ -14,6 +14,14 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
+            <Button x:Name="ScanLock" Command="{Binding LockView_Cmd}" Visibility="{Binding LockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
+                    ToolTip="Lock User Interface">
+                <Image Source="/Images/lock.png" Height="24" Width="24"/>
+            </Button>
+            <Button x:Name="ScanUnlock" Command="{Binding UnlockView_Cmd}" Visibility="{Binding UnlockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
+                    ToolTip="Unlock User Interface">
+                <Image Source="/Images/unlock.png"/>
+            </Button>
             <ListView Height="180" Width="500" TextElement.FontSize="15" ItemsSource="{Binding LibraryList}" SelectedIndex="{Binding SelIndex_Library}"
                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Grid.Row="0">
                 <ListView.View>
@@ -33,7 +41,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Refresh Libraries" Command="{Binding RefreshLibraries_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
+            <Button Content="Refresh Libraries" Command="{Binding RefreshLibraries_Cmd}"  IsEnabled="{Binding UI_Enabled}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
                             Width="150" Height="40" TextElement.FontSize="18"/>
         </Grid>
         <Grid Grid.Row="1">
@@ -45,7 +53,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <CheckBox Tag="{Binding Include_Friend}" IsChecked="{Binding IsSelected, Mode=Twoway}"/>
+                                        <CheckBox Tag="{Binding Include_Friend}" IsChecked="{Binding Include_Friend, Mode=Twoway}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -56,9 +64,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Add Friends" Command="{Binding AddFriends_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,75"
+            <Button Content="Add Friends" Command="{Binding AddFriends_Cmd}" IsEnabled="{Binding UI_Enabled}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,75"
                             Width="150" Height="40" TextElement.FontSize="18"/>
-            <Button Content="Update Friends" Command="{Binding UpdateFriends_Cmd}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
+            <Button Content="Update Friends" Command="{Binding UpdateFriends_Cmd}" IsEnabled="{Binding UI_Enabled}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,25,25"
                             Width="150" Height="40" TextElement.FontSize="18"/>
         </Grid>
     </Grid>

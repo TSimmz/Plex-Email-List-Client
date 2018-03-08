@@ -18,21 +18,14 @@ namespace DatPlex.GUI.Main_Window
 {
     public partial class ScanView : UserControl
     {
-        private MainViewModel _ViewModel;
-
         public ScanView()
         {
             InitializeComponent();
         }
 
-        public MainViewModel ViewModel
+        public void SetDataContext(MainViewModel context)
         {
-            set { _ViewModel = value; }
-        }
-
-        public void SetDataContext(ScanTabVM iViewModel)
-        {
-            this.DataContext = iViewModel;
+            this.DataContext = context;
         }
 
     }
