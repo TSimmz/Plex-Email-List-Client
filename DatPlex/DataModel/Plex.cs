@@ -79,7 +79,7 @@ namespace DatPlex.DataModel
 
                 using (XmlWriter writer = XmlWriter.Create(Global.XML_SAVE_PATH, settings))
                 {
-                    this.WriteXml(writer, false);
+                    this.WriteXml(writer);
                     writer.Flush();
                     writer.Close();
                 }
@@ -100,18 +100,21 @@ namespace DatPlex.DataModel
 
         public void ReadXml(XmlReader reader)
         {
+            // Plex 
             reader.MoveToContent();
             reader.ReadStartElement("Plex");
 
+            // Server information
             reader.ReadStartElement("Server");
             ServerInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"),
                                                             reader.GetAttribute("port"),
                                                             reader.GetAttribute("token"));
             reader.ReadEndElement();
 
+            // Account information
             Owner.ReadXml(reader);
-            //_friendList.ReadXml(reader);
 
+            // Libraries and media
             reader.ReadStartElement("LibraryList");
             while (reader.Name.Equals("Library") && reader.NodeType == XmlNodeType.Element)
             {
@@ -119,6 +122,7 @@ namespace DatPlex.DataModel
             }
             reader.ReadEndElement();
 
+            // Friends list 
             reader.ReadStartElement("FriendsList");
             while (reader.Name.Equals("Friend") && reader.NodeType == XmlNodeType.Element)
             {
@@ -133,26 +137,38 @@ namespace DatPlex.DataModel
             reader.ReadEndElement();
         }
 
-        public void WriteXml(XmlWriter writer, bool hasWrittenVersion)
+        public void WriteXml(XmlWriter writer)
         {
+            // Plex
             writer.WriteStartElement("Plex");
 
+            // Server Information 
             writer.WriteStartElement("Server");
-            //writer.WriteAttributeString("ip", ServerInfo.Item1);
-            //writer.WriteAttributeString("port", ServerInfo.Item2);
-            //writer.WriteAttributeString("token", ServerInfo.Item3);
+            writer.WriteAttributeString("ip", ServerInfo.Item1);
+            writer.WriteAttributeString("port", ServerInfo.Item2);
+            writer.WriteAttributeString("token", ServerInfo.Item3);
             writer.WriteEndElement();
 
-            _owner.WriteXml(writer);
-            //_friendList.WriteXml(writer);
-
-            writer.WriteStartElement("Libraries");
-            foreach (Library library in _libraryList)
+            // Account information
+            Owner.WriteXml(writer);
+            
+            // Libraries and media
+            writer.WriteStartElement("LibraryList");
+            foreach (Library library in LibraryList)
             {
                 library.WriteXml(writer);
             }
             writer.WriteEndElement();
 
+            // Friends list
+            writer.WriteStartElement("FriendsList");
+            foreach (Friend friend in FriendsList)
+            {
+                friend.WriteXml(writer);
+            }
+
+            writer.WriteEndElement();
+            
             writer.WriteEndElement();
 
         }

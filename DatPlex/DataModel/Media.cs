@@ -105,7 +105,7 @@ namespace DatPlex.DataModel
             //_itemCount = count;
             Type = type;
             Title = title;
-            _MediaList = new List<Media>();
+            MediaList = new List<Media>();
         }
 
         public bool Include_Library { get; set; }
@@ -183,10 +183,10 @@ namespace DatPlex.DataModel
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("Library");
-            writer.WriteAttributeString("key", _key.ToString());
-            writer.WriteAttributeString("title", _title);
+            writer.WriteAttributeString("key", KeyID.ToString());
+            writer.WriteAttributeString("title", Title);
 
-            foreach (Media m in _mediaList)
+            foreach (Media m in MediaList)
             {
                 writer.WriteStartElement("Media");
 

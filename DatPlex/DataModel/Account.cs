@@ -78,10 +78,10 @@ namespace DatPlex.DataModel
             writer.WriteAttributeString("username", Username);
             writer.WriteAttributeString("email", Email);
 
-            if (RememberMe)
-                writer.WriteAttributeString("password", Password);
-            else
-                writer.WriteAttributeString("password", "");
+            //if (RememberMe)
+            //    writer.WriteAttributeString("password", Password);
+            //else
+            //    writer.WriteAttributeString("password", "");
 
             writer.WriteEndElement();
         }

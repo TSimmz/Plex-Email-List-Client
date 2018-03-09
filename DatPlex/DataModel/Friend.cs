@@ -65,21 +65,14 @@ namespace DatPlex.DataModel
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartElement("SharedUserList");
+            writer.WriteStartElement("Friend");
 
-            foreach (Friend f in _friendList)
-            {
-                writer.WriteStartElement("SharedUser");
-
-                writer.WriteAttributeString("title", f.Title);
-                writer.WriteAttributeString("username", f.Username);
-                writer.WriteAttributeString("email", f.Email);
-
-                writer.WriteEndElement();
-            }
+            writer.WriteAttributeString("title", Title);
+            writer.WriteAttributeString("username", Username);
+            writer.WriteAttributeString("email", Email);
 
             writer.WriteEndElement();
-
+            
         }
 
         #endregion
