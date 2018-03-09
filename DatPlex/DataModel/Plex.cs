@@ -28,9 +28,23 @@ namespace DatPlex.DataModel
             Owner = new Account();
             LibraryList = new List<Library>();
             FriendsList = new List<Friend>();
+
+            GenerateTestData();
         }
 
         #endregion
+
+        public void GenerateTestData()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Library l = new Library(i+1, "movie" + (i+1).ToString(), "title" + (i+1).ToString());
+                LibraryList.Add(l);
+
+                Friend f = new Friend("title" + i.ToString(), "username" + i.ToString(), "email" + i.ToString());
+                FriendsList.Add(f);
+            }
+        }
 
         #region Load/Save
 

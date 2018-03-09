@@ -31,6 +31,8 @@ namespace DatPlex.ViewModel
         #region Constructor
         public MainViewModel()
         {
+            _Plex = new Plex();
+
             // Background worker
             BgWorker = new BackgroundWorker();
             BgWorker.WorkerReportsProgress = true;
@@ -51,13 +53,18 @@ namespace DatPlex.ViewModel
             LogEntryList = new ObservableCollection<LogEntry>();
             LogIndex++;
 
-            GenerateTestData();
+            //GenerateTestData();
         }
 
         #endregion
 
         #region General
-        public Plex Plex { get; set; }
+        private Plex _Plex;
+        public Plex Plex
+        {
+            get { return _Plex; }
+            set { _Plex = value; }
+        }
 
         private string mWindowTitle = "Plex Email Updater";
         public string WindowTitle
