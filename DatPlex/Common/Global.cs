@@ -31,6 +31,8 @@ namespace DatPlex.Common
         public static string APPDATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string XML_SAVE_PATH = APPDATA + @"\Plex Email Updater\";
         public static string LOG_SAVE_PATH = APPDATA + @"\Plex Email Updater\Logging\";
+        public static string PLEX_FILE_NAME = "Plex_Data";
+        public static string PLEX_EXT = ".plex";
 
         public static string SUCCESS = "**   SUCCESS   **";
         public static string FAILURE = "**   FAILURE   **";

@@ -23,7 +23,8 @@ namespace DatPlex.ViewModel
         BackgroundWorker BgWorker;
         private bool [] CurrentSchedule;
         private DateTime CurrentTimer;
-        private bool IsChanged;
+        private bool IsChanged = false;
+        private bool IsSettingsConfigured = false;
 
         #endregion
 
@@ -106,10 +107,6 @@ namespace DatPlex.ViewModel
 
         public void Scan_Plex(object obj)
         {
-            //App.MainViewModel.Get_Libraries();
-            //App.MainViewModel.Get_Media();
-            //App.MainViewModel.Get_Friends();
-
             //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
             //return;
 
@@ -120,29 +117,36 @@ namespace DatPlex.ViewModel
             // **   SUCCESS   **
             // **   COMPLETE  **
 
-            // Test connection to Plex
-
-            Thread t = new Thread(() =>
+            if (IsSettingsConfigured)
             {
-                // Get Libraries
-                Scan_Label = "Checking for new libraries...";
-                LogEntry(Get_Libraries());
 
-                // Get Media
+                Thread t = new Thread(() =>
+                {
+                    // Get Libraries
+                    Scan_Label = "Checking for new libraries...";
+                    LogEntry(Get_Libraries());
 
-                Scan_Label = "Checking for new media...";
-                LogEntry(Get_Media());
+                    // Get Media
 
-                // Get Friends
-                Scan_Label = "Checking for new friends...";
-                LogEntry(Get_Friends());
+                    Scan_Label = "Checking for new media...";
+                    LogEntry(Get_Media());
 
-                // Scan complete
-                Scan_Label = "Scan Complete!";
-            });
-            t.Start();
+                    // Get Friends
+                    Scan_Label = "Checking for new friends...";
+                    LogEntry(Get_Friends());
 
-            SetNextTimer();
+                    // Scan complete
+                    Scan_Label = "Scan Complete!";
+                });
+                t.Start();
+
+                SetNextTimer();
+            }
+            else
+            {
+                MessageBox.Show("Server settings have not been configured. Add server IP address, port, and Plex token in Settings in order to continue.", "Scan Plex Unavailable",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public bool OnSave()
@@ -743,6 +747,12 @@ namespace DatPlex.ViewModel
             {
                 Global.LOCAL_URL = "https://" + IP_Address + ":" + Port_Number;
                 Global.TOKEN = "/?X-Plex-Token=" + Plex_Token;
+
+                Plex.Owner = Get_Account_Info();
+                Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+
+                IsSettingsConfigured = true;
             }
         }
 
@@ -818,17 +828,21 @@ namespace DatPlex.ViewModel
         }
 
 
-        public void Get_Account_Info()
+        public Account Get_Account_Info()
         {
-            //XmlDocument account = Get_Request(Global.PLEX_URL + Global.GET_ACCOUNT_INFO + PlexApp.PlexToken);
+            XmlDocument account = Get_Request(Global.PLEX_URL + Global.GET_ACCOUNT_INFO + Global.TOKEN);
+            XmlNodeList acct_nodes = account.GetElementsByTagName("");
 
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
 
-            // Add Window title update here. 
+            
+
+            return null;
         }
 
         public string Get_Libraries()
         {
+            List<Library> NewLibraries = new List<Library>();
             try
             {
                 XmlDocument libraries = Get_Request(Global.LOCAL_URL + Global.GET_LIBRARIES + Global.TOKEN);
@@ -842,8 +856,11 @@ namespace DatPlex.ViewModel
 
                     lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
 
-                    LibraryList.Add(lib);
+                    NewLibraries.Add(lib);
                 }
+
+                
+
 
                 OnPropertyChanged("LibraryList");
 
@@ -871,7 +888,7 @@ namespace DatPlex.ViewModel
                     media_nodes = mediaList.GetElementsByTagName("MediaContainer");
                     lib.ItemCount = Convert.ToInt32(media_nodes[0].Attributes["size"].Value);
 
-                    media_nodes = mediaList.GetElementsByTagName(MediaType(lib.GetLibType));
+                    media_nodes = mediaList.GetElementsByTagName(MediaType(lib.Type));
 
                     foreach (XmlNode i in media_nodes)
                     {
@@ -927,16 +944,6 @@ namespace DatPlex.ViewModel
 
         #region Command Bindings
 
-        //DelegateCommand _SendSel_Cmd;
-        //public ICommand SendSel_Cmd
-        //{
-        //    get
-        //    {
-        //        if (_SendSel_Cmd == null)
-        //            _SendSel_Cmd = new DelegateCommand(SendSelectedUsers);
-        //        return _SendSel_Cmd;
-        //    }
-        //}
         DelegateCommand _LockView_Cmd;
         public ICommand LockView_Cmd
         {
@@ -1003,17 +1010,6 @@ namespace DatPlex.ViewModel
                 return _ImportExport_Cmd;
             }
         }
-
-        //DelegateCommand _SaveLogs_Cmd;
-        //public ICommand SaveLogs_Cmd
-        //{
-        //    get
-        //    {
-        //        if (_SaveLogs_Cmd == null)
-        //            _SaveLogs_Cmd = new DelegateCommand(SaveLogs);
-        //        return _SaveLogs_Cmd;
-        //    }
-        //}
 
         DelegateCommand _ClearLogs_Cmd;
         public ICommand ClearLogs_Cmd

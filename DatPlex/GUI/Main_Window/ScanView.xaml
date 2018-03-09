@@ -20,11 +20,11 @@
               VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button x:Name="ScanLock" Command="{Binding LockView_Cmd}" Visibility="{Binding LockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
                     ToolTip="Lock User Interface">
-                <Image Source="/Images/lock.png" Height="24" Width="24"/>
+                <Image Source="/Images/unlock.png" Height="24" Width="24"/>
             </Button>
             <Button x:Name="ScanUnlock" Command="{Binding UnlockView_Cmd}" Visibility="{Binding UnlockVisibility, Mode=TwoWay}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
                      ToolTip="Unlock User Interface">
-                <Image Source="/Images/unlock.png"/>
+                <Image Source="/Images/lock.png"/>
             </Button>
         </Grid>
         <Grid Grid.Row="1" IsEnabled="{Binding UI_Enabled, Mode=TwoWay}">

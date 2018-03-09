@@ -13,6 +13,7 @@ namespace DatPlex.DataModel
     {
         #region Properties
 
+        public string Filename { get; set; }
         public Account Owner { get; set; }
         public Tuple<string, string, string> ServerInfo { get; set; }
         public List<Library> LibraryList { get; set; }
