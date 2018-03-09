@@ -11,15 +11,12 @@ namespace DatPlex.DataModel
 {
     public class Plex
     {
-        #region Data Fields
+        #region Properties
 
-        private string _plexdata;
-        private string _localURL;
-        private string _plexToken;
-        private Tuple<string, string, string> _serverInfo;
-        private Account _owner;
-        private List<Friend> _friendsList;
-        private List<Library> _libraryList;
+        public Account Owner { get; set; }
+        public Tuple<string, string, string> ServerInfo { get; set; }
+        public List<Library> LibraryList { get; set; }
+        public List<Friend> FriendsList { get; set; }
 
         #endregion
 
@@ -27,72 +24,10 @@ namespace DatPlex.DataModel
 
         public Plex()
         {
-            _libraryList = new List<Library>();
+            Owner = new Account();
+            LibraryList = new List<Library>();
+            FriendsList = new List<Friend>();
         }
-
-        #endregion
-
-        #region Setters/Getters
-
-        public string PlexSaveData
-        {
-            get { return _plexdata; }
-            set
-            {
-                _plexdata = value;
-            }
-        }
-
-        public Account Owner
-        {
-            get { return _owner; }
-            set
-            {
-                _owner = value;
-                _plexdata = "PlexData_" + _owner.Email + ".xml";
-            }
-        }
-
-        public List<Friend> FriendsList
-        {
-            get { return _friendsList; }
-            set
-            {
-                _friendsList = value;
-            }
-        }
-
-        public List<Library> LibraryList
-        {
-            get { return _libraryList; }
-            set
-            {
-                _libraryList = value;
-            }
-        }
-
-        public void AddLibrary(Library l)
-        {
-            _libraryList.Add(l);
-        }
-
-        public string LocalURL
-        {
-            get { return _localURL; }
-            set
-            {
-                _localURL = value;
-            }
-        }
-        public string PlexToken
-        {
-            get { return _plexToken; }
-            set
-            {
-                _plexToken = value;
-            }
-        }
-
 
         #endregion
 
@@ -107,7 +42,7 @@ namespace DatPlex.DataModel
 
                 try
                 {
-                    using (XmlReader reader = XmlReader.Create(PlexSaveData, settings))
+                    using (XmlReader reader = XmlReader.Create(Global.XML_SAVE_PATH, settings))
                     {
                         this.ReadXml(reader);
                     }
@@ -115,7 +50,7 @@ namespace DatPlex.DataModel
                 catch
                 {
                     Thread.Sleep(50);
-                    using (XmlReader reader = XmlReader.Create(PlexSaveData, settings))
+                    using (XmlReader reader = XmlReader.Create(Global.XML_SAVE_PATH, settings))
                     {
                         this.ReadXml(reader);
                     }
@@ -142,7 +77,7 @@ namespace DatPlex.DataModel
 
                 Directory.CreateDirectory(Global.XML_SAVE_PATH);
 
-                using (XmlWriter writer = XmlWriter.Create(PlexSaveData, settings))
+                using (XmlWriter writer = XmlWriter.Create(Global.XML_SAVE_PATH, settings))
                 {
                     this.WriteXml(writer, false);
                     writer.Flush();
@@ -169,20 +104,31 @@ namespace DatPlex.DataModel
             reader.ReadStartElement("Plex");
 
             reader.ReadStartElement("Server");
-            _serverInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"),
+            ServerInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"),
                                                             reader.GetAttribute("port"),
                                                             reader.GetAttribute("token"));
             reader.ReadEndElement();
 
-            _owner.ReadXml(reader);
+            Owner.ReadXml(reader);
             //_friendList.ReadXml(reader);
 
-            reader.ReadStartElement("Libraries");
-            foreach (Library library in _libraryList)
+            reader.ReadStartElement("LibraryList");
+            while (reader.Name.Equals("Library") && reader.NodeType == XmlNodeType.Element)
             {
-                library.ReadXml(reader);
+                LibraryList.Add(Library.ReadXml(reader));
             }
             reader.ReadEndElement();
+
+            reader.ReadStartElement("FriendsList");
+            while (reader.Name.Equals("Friend") && reader.NodeType == XmlNodeType.Element)
+            {
+                Friend friend = new Friend(
+                    reader.GetAttribute("title"),
+                    reader.GetAttribute("username"),
+                    reader.GetAttribute("email"));
+
+                FriendsList.Add(friend);
+            }
 
             reader.ReadEndElement();
         }

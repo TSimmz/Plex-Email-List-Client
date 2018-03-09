@@ -89,53 +89,37 @@ namespace DatPlex.DataModel
     {
         #region Data Fields
 
-        private bool _include;
-        private int _key;
-        private string _type;
-        private int _itemCount;
-        private string _title;
-
-        private List<Media> _mediaList;
-
         #endregion
 
         #region Constructor
 
+        public Library ()
+        {
+
+        }
+        
         public Library(int key, string type, string title)
         {
-            _include = false;
-            _key = key;
+            Include_Library = false;
+            KeyID = key;
             //_itemCount = count;
-            _type = type;
-            _title = title;
-            _mediaList = new List<Media>();
+            Type = type;
+            Title = title;
+            _MediaList = new List<Media>();
         }
 
-        public int GetLibKey { get { return _key; } }
+        public bool Include_Library { get; set; }
 
-        public string GetLibType { get { return _type; } }
+        public int KeyID { get; set; }
 
-        public int ItemCount
-        {
-            get { return _itemCount; }
-            set { _itemCount = value; }
-        }
+        public string Type { get; set; }
 
-        public string GetLibTitle { get { return _title; } }
+        public int ItemCount { get; set; }
+
+        public string Title { get; set; }
+
+        public List<Media> MediaList { get; set; }
         
-        #endregion
-
-        #region General
-
-        public bool Include_Library
-        {
-            get { return _include; }
-            set
-            {
-                _include = value;
-            }
-        }
-
         #endregion
 
         #region Add/Remove Logic
@@ -144,7 +128,7 @@ namespace DatPlex.DataModel
         {
             try
             {
-                _mediaList.Add(media);
+                MediaList.Add(media);
                 return true;
             }
             catch
@@ -157,7 +141,7 @@ namespace DatPlex.DataModel
         {
             try
             {
-                _mediaList.Remove(media);
+                MediaList.Remove(media);
                 return true;
             }
             catch
@@ -170,12 +154,14 @@ namespace DatPlex.DataModel
 
         #region Read/Write Xml
 
-        public void ReadXml(XmlReader reader)
+        public static Library ReadXml(XmlReader reader)
         {
+            Library library = new Library();
 
             reader.ReadStartElement("Library");
-            _key = Convert.ToInt32(reader.GetAttribute("key"));
-            _title = reader.GetAttribute("title");
+
+            library.KeyID = Convert.ToInt32(reader.GetAttribute("key"));
+            library.Title = reader.GetAttribute("title");
 
             while (reader.Name.Equals("Media") && reader.NodeType == XmlNodeType.Element)
             {
@@ -186,10 +172,12 @@ namespace DatPlex.DataModel
                     reader.GetAttribute("contentRating"),
                     reader.GetAttribute("summary"));
 
-                _mediaList.Add(m);
+                library.MediaList.Add(m);
             }
 
             reader.ReadEndElement();
+
+            return library;
         }
 
         public void WriteXml(XmlWriter writer)

@@ -10,9 +10,9 @@ namespace DatPlex.DataModel
 {
     public class Friend : User
     {
-        
+
         #region Constructor
-        public Friend(string username, string email): base(null, username, email)
+        public Friend(string username, string email) : base(null, username, email)
         {
             Include_Friend = false;
             Title = "";
@@ -38,7 +38,50 @@ namespace DatPlex.DataModel
             get { return _Include_Friend; }
             set { _Include_Friend = value; }
         }
- 
+
+        #endregion
+
+        #region Read/Write Xml
+
+        public Friend ReadXml(XmlReader reader)
+        {
+            Friend friend = null;
+
+            try
+            {
+                friend = new Friend(
+                    reader.GetAttribute("title"),
+                    reader.GetAttribute("username"),
+                    reader.GetAttribute("email"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: " + e.ToString());
+            }
+
+            return friend;
+        }
+
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteStartElement("SharedUserList");
+
+            foreach (Friend f in _friendList)
+            {
+                writer.WriteStartElement("SharedUser");
+
+                writer.WriteAttributeString("title", f.Title);
+                writer.WriteAttributeString("username", f.Username);
+                writer.WriteAttributeString("email", f.Email);
+
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+
+        }
+
         #endregion
 
     }
@@ -61,7 +104,7 @@ namespace DatPlex.DataModel
     //    #endregion
 
     //    #region General
-        
+
     //    #region Add/Remove Logic
 
     //    public bool AddUser(Friend friend)

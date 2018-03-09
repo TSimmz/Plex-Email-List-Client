@@ -18,6 +18,11 @@ namespace DatPlex.DataModel
 
         #region Constructors
 
+        public Account() : base(null, null, null)
+        {
+
+        }
+
         public Account(string title, string username, string email, string password) : base(title, username, email)   
         {
             Title = title;

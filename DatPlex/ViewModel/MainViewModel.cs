@@ -23,6 +23,7 @@ namespace DatPlex.ViewModel
         BackgroundWorker BgWorker;
         private bool [] CurrentSchedule;
         private DateTime CurrentTimer;
+        private bool IsChanged;
 
         #endregion
 
@@ -55,8 +56,9 @@ namespace DatPlex.ViewModel
         #endregion
 
         #region General
+        public Plex Plex { get; set; }
 
-        private string mWindowTitle = "Plex Email Updates";
+        private string mWindowTitle = "Plex Email Updater";
         public string WindowTitle
         {
             get { return mWindowTitle; }
@@ -143,6 +145,20 @@ namespace DatPlex.ViewModel
             SetNextTimer();
         }
 
+        public bool OnSave()
+        {
+            try
+            {
+                
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void ImportExport()
         {
             Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
@@ -162,16 +178,6 @@ namespace DatPlex.ViewModel
                 //    break;
                 default:
                     return "MediaList";
-            }
-        }
-
-        private Plex _PlexApp;
-        public Plex PlexApp
-        {
-            get { return _PlexApp; }
-            set
-            {
-                _PlexApp = value;
             }
         }
 
@@ -857,10 +863,10 @@ namespace DatPlex.ViewModel
                 XmlDocument mediaList;
                 XmlNodeList media_nodes;
 
-                foreach (Library lib in PlexApp.LibraryList)
+                foreach (Library lib in LibraryList)
                 {
-                    string section = "/" + lib.GetLibKey + "/all";
-                    mediaList = Get_Request(PlexApp.LocalURL + Global.GET_LIBRARIES + section + PlexApp.PlexToken);
+                    string section = "/" + lib.KeyID + "/all";
+                    mediaList = Get_Request(Global.LOCAL_URL + Global.GET_LIBRARIES + section + Global.TOKEN);
 
                     media_nodes = mediaList.GetElementsByTagName("MediaContainer");
                     lib.ItemCount = Convert.ToInt32(media_nodes[0].Attributes["size"].Value);
@@ -892,7 +898,7 @@ namespace DatPlex.ViewModel
         {
             try
             {
-                XmlDocument friends = Get_Request(Global.PLEX_URL + Global.GET_SERVER_SHARES + PlexApp.PlexToken);
+                XmlDocument friends = Get_Request(Global.PLEX_URL + Global.GET_SERVER_SHARES + Global.TOKEN);
                 XmlNodeList friend_nodes = friends.GetElementsByTagName("User");
                 Friend friend;
 
