@@ -25,6 +25,8 @@ namespace DatPlex.ViewModel
         private DateTime CurrentTimer;
         private bool IsChanged = false;
         private bool IsSettingsConfigured = false;
+        private bool LibraryScanSuccess = false;
+        private bool FriendScanSuccess = false;
 
         #endregion
 
@@ -141,6 +143,13 @@ namespace DatPlex.ViewModel
                     // Get Friends
                     Scan_Label = "Checking for new friends...";
                     LogEntry(Get_Friends());
+
+                    // Check for new items
+                    Scan_Label = "Updating users...";
+                    LogEntry(CheckforNewItems());
+
+                    // Email users if new items are found
+                    Scan_Label = "Updating users...";
 
                     // Scan complete
                     Scan_Label = "Scan Complete!";
@@ -263,6 +272,28 @@ namespace DatPlex.ViewModel
             {
                 _UnlockVisibility = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string CheckforNewItems()
+        {
+            List<Library> NewLibraries = new List<Library>();
+            List<Friend> NewFriends = new List<Friend>();
+
+            try
+            {
+                // Get subset of new libraries from Librarylist
+
+                // Get subset of new media from each Librarylist
+
+                // Get subset of new friends from Friendslist
+
+
+                return Global.SUCCESS;
+            }
+            catch
+            {
+                return Global.FAILURE;
             }
         }
 
@@ -849,7 +880,6 @@ namespace DatPlex.ViewModel
 
         public string Get_Libraries()
         {
-            List<Library> NewLibraries = new List<Library>();
             try
             {
                 XmlDocument libraries = Get_Request(Global.LOCAL_URL + Global.GET_LIBRARIES + Global.TOKEN);
@@ -863,19 +893,17 @@ namespace DatPlex.ViewModel
 
                     lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
 
-                    NewLibraries.Add(lib);
+                    LibraryList.Add(lib);
                 }
 
-                
+                //OnPropertyChanged("LibraryList");
 
-
-                OnPropertyChanged("LibraryList");
-
+                LibraryScanSuccess = true;
                 return "Library Scan : " + Global.SUCCESS;
             }
             catch (Exception e)
             {
-
+                LibraryScanSuccess = false;
                 return "Library Scan : " + Global.FAILURE + " " + e.ToString();
             }
         }
@@ -937,12 +965,14 @@ namespace DatPlex.ViewModel
                     FriendsList.Add(friend);
                 }
 
-                OnPropertyChanged("FriendsList");
+                //OnPropertyChanged("FriendsList");
 
+                FriendScanSuccess = true;
                 return "Friend Scan : " + Global.SUCCESS;
             }
             catch (Exception e)
             {
+                FriendScanSuccess = false;
                 return "Friend Scan : " + Global.FAILURE + " " + e.ToString();
             }
         }
