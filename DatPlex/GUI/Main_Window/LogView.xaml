@@ -21,6 +21,10 @@
                 ToolTip="Unlock User Interface">
             <Image Source="/Images/lock.png"/>
         </Button>
+        <Button x:Name="Settings" Command="{Binding Settings_Cmd}" Height="25" Width="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,10,0"
+                ToolTip="Settings">
+            <Image Source="/Images/settings.png"/>
+        </Button>
         <UserControl Grid.Row="0" Margin="25,25,50,0">
             <childview:LogEntryViewer x:Name="_LogViewer"/>
         </UserControl>

@@ -23,7 +23,7 @@ namespace DatPlex.DataModel
 
         }
 
-        public Account(string title, string username, string email, string password) : base(title, username, email)   
+        public Account(string title, string username, string email) : base(title, username, email)   
         {
             Title = title;
             Username = username;

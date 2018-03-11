@@ -29,7 +29,7 @@ namespace DatPlex.DataModel
             LibraryList = new List<Library>();
             FriendsList = new List<Friend>();
 
-            GenerateTestData();
+            //GenerateTestData();
         }
 
         #endregion

@@ -20,14 +20,16 @@ namespace DatPlex.ViewModel
     {
         #region Data Fields
         
-        BackgroundWorker BgWorker;
+        
         private bool [] CurrentSchedule;
-        private DateTime CurrentTimer;
+        
         private bool IsChanged = false;
         private bool IsSettingsConfigured = false;
         private bool LibraryScanSuccess = false;
         private bool FriendScanSuccess = false;
 
+        private BackgroundWorker BgWorker;
+        private DateTime CurrentTimer;
         #endregion
 
         #region Constructor
@@ -61,6 +63,7 @@ namespace DatPlex.ViewModel
         #endregion
 
         #region General
+
         private Plex _Plex;
         public Plex Plex
         {
@@ -128,35 +131,36 @@ namespace DatPlex.ViewModel
 
             if (IsSettingsConfigured)
             {
+                var UI_Context = SynchronizationContext.Current;
 
-                Thread t = new Thread(() =>
+                Thread t = new Thread(new ThreadStart(() =>
                 {
                     // Get Libraries
                     Scan_Label = "Checking for new libraries...";
-                    LogEntry(Get_Libraries());
+                    UI_Context.Send(x => LogEntry(Get_Libraries()), null);
 
                     // Get Media
 
                     Scan_Label = "Checking for new media...";
-                    LogEntry(Get_Media());
+                    UI_Context.Send(x => LogEntry(Get_Media()), null);
 
                     // Get Friends
                     Scan_Label = "Checking for new friends...";
-                    LogEntry(Get_Friends());
+                    UI_Context.Send(x => LogEntry(Get_Friends()), null);
 
                     // Check for new items
                     Scan_Label = "Updating users...";
-                    LogEntry(CheckforNewItems());
+                    UI_Context.Send(x => LogEntry(CheckforNewItems()), null);
 
                     // Email users if new items are found
                     Scan_Label = "Updating users...";
 
                     // Scan complete
                     Scan_Label = "Scan Complete!";
-                });
+                }));
                 t.Start();
 
-                SetNextTimer();
+                //SetNextTimer();
             }
             else
             {
@@ -805,7 +809,8 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string _IP_Address = "75.115.71.34";
+        //private string _IP_Address = "75.115.71.34";
+        private string _IP_Address = "192.168.0.4";
         public string IP_Address
         {
             get { return _IP_Address; }
@@ -868,14 +873,17 @@ namespace DatPlex.ViewModel
 
         public Account Get_Account_Info()
         {
-            XmlDocument account = Get_Request(Global.PLEX_URL + Global.GET_ACCOUNT_INFO + Global.TOKEN);
-            XmlNodeList acct_nodes = account.GetElementsByTagName("");
-
             //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
 
-            
+            XmlDocument account = Get_Request(Global.PLEX_URL + Global.GET_ACCOUNT_INFO + Global.TOKEN);
+            XmlNode acct_node = account.GetElementsByTagName("user")[0];
 
-            return null;
+            Account acct = new Account(
+                acct_node.Attributes["title"].Value,
+                acct_node.Attributes["username"].Value,
+                acct_node.Attributes["email"].Value);
+
+            return acct;
         }
 
         public string Get_Libraries()
@@ -894,6 +902,7 @@ namespace DatPlex.ViewModel
                     lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
 
                     LibraryList.Add(lib);
+                    Plex.LibraryList.Add(lib);
                 }
 
                 //OnPropertyChanged("LibraryList");
@@ -963,6 +972,7 @@ namespace DatPlex.ViewModel
                         );
 
                     FriendsList.Add(friend);
+                    Plex.FriendsList.Add(friend);
                 }
 
                 //OnPropertyChanged("FriendsList");
