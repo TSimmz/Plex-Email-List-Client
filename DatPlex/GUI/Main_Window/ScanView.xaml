@@ -58,11 +58,8 @@
                 </Grid>
                 <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                         Margin="0,0,0,100" Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
-                
-                <Button Content="Settings" Command="{Binding Settings_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
-
-                <Button Content="Import/Export" Command="{Binding ImportExport_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0"
+            
+                <Button Content="Import/Export" Command="{Binding ImportExport_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
 
                 <Label Name="_ScanLabel" Content="{Binding Scan_Label}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,45" Height="25" Width="300" HorizontalContentAlignment="Left"
@@ -99,9 +96,9 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="5,10"/>
-                            <toolkit:TimePicker Value="{Binding UpdateTime, Mode=TwoWay}" Width="135" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"/>
-                            <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" Height="Auto" Width="Auto" Margin="18" Grid.Row="2"/>
+                            <TextBlock Text="Time :" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="5,10" Grid.Row="1"/>
+                            <toolkit:TimePicker Value="{Binding UpdateTime, Mode=TwoWay}" Width="135" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5,0,0,5" Grid.Row="1"/>
+                            <Button Content="Set Period" Command="{Binding SetPeriod_Cmd}" Height="Auto" Width="135" Margin="18" Grid.Row="2"/>
                         </Grid>
                     </Grid>
                 </GroupBox>
