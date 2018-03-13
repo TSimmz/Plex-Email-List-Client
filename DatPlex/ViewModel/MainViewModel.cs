@@ -24,6 +24,7 @@ namespace DatPlex.ViewModel
         private bool [] CurrentSchedule;
         
         private bool IsChanged = false;
+        private bool LogsSaved = false;
         private bool IsSettingsConfigured = false;
         private bool LibraryScanSuccess = false;
         private bool FriendScanSuccess = false;
@@ -140,7 +141,6 @@ namespace DatPlex.ViewModel
                     UI_Context.Send(x => LogEntry(Get_Libraries()), null);
 
                     // Get Media
-
                     Scan_Label = "Checking for new media...";
                     UI_Context.Send(x => LogEntry(Get_Media()), null);
 
@@ -173,8 +173,30 @@ namespace DatPlex.ViewModel
         {
             try
             {
-                Plex.Save();
+                if(Plex.Save())
+                    MessageBox.Show("Saved Successfully!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
+                    MessageBox.Show("Saved Failed!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Error);
 
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool OnLoad(string filename)
+        {
+            try
+            {
+                if (Plex.Load(filename))
+                {
+                    MessageBox.Show("Loaded Successfully!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    RefreshData();
+                }
+                else
+                    MessageBox.Show("Loaded Failed!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Error);
                 return true;
             }
             catch
@@ -203,6 +225,13 @@ namespace DatPlex.ViewModel
                 default:
                     return "MediaList";
             }
+        }
+
+        public void RefreshData()
+        {
+            IP_Address = Plex.ServerInfo.Item1;
+            Port_Number = Plex.ServerInfo.Item2;
+            Plex_Token = Plex.ServerInfo.Item3;
         }
 
         private int _SelectedTabIndex = 0;
@@ -684,7 +713,43 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public bool SaveLogs()
+        public void SaveLogs(object obj)
+        {
+            if (OnSaveLogs(true))
+            {
+                MessageBox.Show("Logs saved successfully.", "Logs Saved!", MessageBoxButton.OK, MessageBoxImage.Information);
+                LogsSaved = true;
+            }
+            else
+                MessageBox.Show("Logs were unable to be saved.", "Saving Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        public void ClearLogs()
+        {
+            if (LogsSaved)
+            {
+                LogEntryList.Clear();
+            }
+            else
+            {
+                if (MessageBox.Show("Would you like to save the logs first?", "Clear Logs", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+                    LogEntryList.Clear();
+                else
+                {
+                    if (OnSaveLogs(false))
+                    {
+                        MessageBox.Show("Logs saved successfully.", "Logs Saved!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LogEntryList.Clear();
+                    }
+                    else
+                        MessageBox.Show("Logs were unable to be saved.", "Saving Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+        }
+
+        public bool OnSaveLogs(bool append)
         {
             try
             {
@@ -696,7 +761,7 @@ namespace DatPlex.ViewModel
                 DirectoryInfo dir = Directory.CreateDirectory(Global.LOG_SAVE_PATH);
                 string filePath = Path.Combine(Global.LOG_SAVE_PATH, fileName);
 
-                using (StreamWriter file = File.CreateText(filePath))
+                using (StreamWriter file = (append) ? File.AppendText(filePath) : File.CreateText(filePath))
                 {
                     foreach (CollapsibleLogEntry log in LogEntryList)
                     {
@@ -722,25 +787,6 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public void ClearLogs()
-        {
-            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
-            if (MessageBox.Show("Would you like to save the logs first?", "Clear Logs", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
-                LogEntryList.Clear();
-            else
-            {
-                if (SaveLogs())
-                {
-                    MessageBox.Show("Logs saved successfully.", "Logs Saved!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    LogEntryList.Clear();
-                }
-                else
-                    MessageBox.Show("Logs were unable to be saved.", "Saving Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-            }
-
-        }
-
         public static int LogIndex { get; set; }
 
         private ObservableCollection<LogEntry> _LogEntryList;
@@ -757,6 +803,7 @@ namespace DatPlex.ViewModel
         public void LogEntry(string message)
         {
             LogEntryList.Add(new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message });
+            LogsSaved = false;
         }
 
         public void SubLogEntry(string message, params LogEntry [] logs)
@@ -787,15 +834,32 @@ namespace DatPlex.ViewModel
 
             if ((bool)wInfo.DialogResult)
             {
-                Global.LOCAL_URL = "https://" + IP_Address + ":" + Port_Number;
-                Global.TOKEN = "/?X-Plex-Token=" + Plex_Token;
+                if (CheckUserName != "")
+                {
+                    string filename = Global.PLEX_FILE_NAME + "_" + CheckUserName + Global.PLEX_EXT;
 
-                Plex.Owner = Get_Account_Info();
-                Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
-                Plex.ServerInfo = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
-                WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+                    Directory.SetCurrentDirectory(Global.XML_SAVE_PATH);
+                    if (File.Exists(filename))
+                    {
+                       OnLoad(filename);
+                    }
+                    Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                    WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+                    IsSettingsConfigured = true;
+                }
+                else
+                {
 
-                IsSettingsConfigured = true;
+                    Global.LOCAL_URL = "https://" + IP_Address + ":" + Port_Number;
+                    Global.TOKEN = "/?X-Plex-Token=" + Plex_Token;
+
+                    Plex.Owner = Get_Account_Info();
+                    Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                    Plex.ServerInfo = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
+                    WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+                    IsSettingsConfigured = true;
+                }
+
             }
         }
 
@@ -810,8 +874,15 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private string _CheckUserName = "TSimmz";
+        public string CheckUserName
+        {
+            get { return _CheckUserName; }
+            set { _CheckUserName = value; }
+        }
+
         //private string _IP_Address = "75.115.71.34";
-        private string _IP_Address = "192.168.0.4";
+        private string _IP_Address;// = "192.168.0.4";
         public string IP_Address
         {
             get { return _IP_Address; }
@@ -821,7 +892,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string _Port_Number = "32400";
+        private string _Port_Number;// = "32400";
         public string Port_Number
         {
             get { return _Port_Number; }
@@ -831,7 +902,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        private string _Plex_Token = "yedx66JT2HqyEd2xxf4m";
+        private string _Plex_Token;// = "yedx66JT2HqyEd2xxf4m";
         public string Plex_Token
         {
             get { return _Plex_Token; }
@@ -1056,6 +1127,17 @@ namespace DatPlex.ViewModel
                 if (_ImportExport_Cmd == null)
                     _ImportExport_Cmd = new DelegateCommand(ImportExport);
                 return _ImportExport_Cmd;
+            }
+        }
+
+        DelegateCommand _SaveLogs_Cmd;
+        public ICommand SaveLogs_Cmd
+        {
+            get
+            {
+                if (_SaveLogs_Cmd == null)
+                    _SaveLogs_Cmd = new DelegateCommand(SaveLogs);
+                return _SaveLogs_Cmd;
             }
         }
 

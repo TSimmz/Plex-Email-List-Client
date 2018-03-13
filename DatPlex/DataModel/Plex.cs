@@ -48,7 +48,7 @@ namespace DatPlex.DataModel
 
         #region Load/Save
 
-        public bool Load()
+        public bool Load(string filename)
         {
             try
             {
@@ -57,9 +57,10 @@ namespace DatPlex.DataModel
 
                 try
                 {
-                    using (XmlReader reader = XmlReader.Create(Global.XML_SAVE_PATH, settings))
+                    using (XmlReader reader = XmlReader.Create(filename, settings))
                     {
                         this.ReadXml(reader);
+                        reader.Close();
                     }
                 }
                 catch
@@ -68,9 +69,11 @@ namespace DatPlex.DataModel
                     using (XmlReader reader = XmlReader.Create(Global.XML_SAVE_PATH, settings))
                     {
                         this.ReadXml(reader);
+                        reader.Close();
                     }
                 }
 
+                
                 return true;
             }
             catch (Exception e)
@@ -105,7 +108,7 @@ namespace DatPlex.DataModel
             }
             catch (Exception e)
             {
-                MessageBox.Show("Failed to read the input file. Returning with error: " + e.ToString(), "Error Reading File",
+                MessageBox.Show("Failed to read the output file. Returning with error: " + e.ToString(), "Error Reading File",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
@@ -120,13 +123,16 @@ namespace DatPlex.DataModel
             // Plex 
             reader.MoveToContent();
             reader.ReadStartElement("Plex");
+            //reader.MoveToContent();
 
             // Server information
-            reader.ReadStartElement("Server");
+            //reader.ReadStartElement("Server");
+            reader.MoveToContent();
             ServerInfo = new Tuple<string, string, string>(reader.GetAttribute("ip"),
                                                             reader.GetAttribute("port"),
                                                             reader.GetAttribute("token"));
-            reader.ReadEndElement();
+            reader.ReadStartElement("Server");
+            //reader.ReadEndElement();
 
             // Account information
             Owner.ReadXml(reader);
@@ -149,8 +155,11 @@ namespace DatPlex.DataModel
                     reader.GetAttribute("email"));
 
                 FriendsList.Add(friend);
+                reader.ReadStartElement("Friend");
+
             }
 
+            reader.ReadEndElement();
             reader.ReadEndElement();
         }
 

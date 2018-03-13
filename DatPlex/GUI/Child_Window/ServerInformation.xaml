@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock Text="Username:" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="5,0,0,0" Height="24" Width="70"/>
-            <TextBox Text="{Binding CheckUsername}" TextWrapping="NoWrap" Margin="40,0,0,0" Height="20" Width="215"/>
+            <TextBox Text="{Binding CheckUserName}" TextWrapping="NoWrap" Margin="40,0,0,0" Height="20" Width="215"/>
             <Separator VerticalAlignment="Bottom"/>
         </Grid>
         <Grid Grid.Row="1">

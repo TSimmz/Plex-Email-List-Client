@@ -60,14 +60,14 @@ namespace DatPlex.DataModel
 
         public void ReadXml(XmlReader reader)
         {
-            reader.ReadStartElement("Account");
+            
 
             this.Title = reader.GetAttribute("title");
             this.Username = reader.GetAttribute("username");
             this.Email = reader.GetAttribute("email");
             this.Password = reader.GetAttribute("password");
 
-            reader.ReadEndElement();
+            reader.ReadStartElement("Account");
         }
 
         public void WriteXml(XmlWriter writer)

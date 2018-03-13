@@ -95,7 +95,7 @@ namespace DatPlex.DataModel
 
         public Library ()
         {
-
+            MediaList = new List<Media>();
         }
         
         public Library(int key, string type, string title)
@@ -158,10 +158,13 @@ namespace DatPlex.DataModel
         {
             Library library = new Library();
 
-            reader.ReadStartElement("Library");
+            
 
             library.KeyID = Convert.ToInt32(reader.GetAttribute("key"));
+            library.ItemCount = Convert.ToInt32(reader.GetAttribute("count"));
             library.Title = reader.GetAttribute("title");
+
+            reader.ReadStartElement("Library");
 
             while (reader.Name.Equals("Media") && reader.NodeType == XmlNodeType.Element)
             {
@@ -173,9 +176,16 @@ namespace DatPlex.DataModel
                     reader.GetAttribute("summary"));
 
                 library.MediaList.Add(m);
+
+                reader.ReadStartElement("Media");
+
             }
 
+
+
             reader.ReadEndElement();
+
+            //reader.ReadStartElement("Library");
 
             return library;
         }
@@ -184,6 +194,7 @@ namespace DatPlex.DataModel
         {
             writer.WriteStartElement("Library");
             writer.WriteAttributeString("key", KeyID.ToString());
+            writer.WriteAttributeString("count", ItemCount.ToString());
             writer.WriteAttributeString("title", Title);
 
             foreach (Media m in MediaList)

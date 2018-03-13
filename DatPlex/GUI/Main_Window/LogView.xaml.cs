@@ -27,5 +27,10 @@ namespace DatPlex.GUI.Main_Window
         {
             this.DataContext = context;
         }
+
+        private void _LogViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
