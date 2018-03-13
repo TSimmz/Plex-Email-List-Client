@@ -2,6 +2,7 @@
 using System.Net;
 using System.IO;
 using System.Xml;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Reflection;
@@ -19,10 +20,10 @@ namespace DatPlex.ViewModel
     public class MainViewModel : BaseViewModel
     {
         #region Data Fields
-        
-        
-        private bool [] CurrentSchedule;
-        
+
+
+        private bool[] CurrentSchedule;
+
         private bool IsChanged = false;
         private bool LogsSaved = false;
         private bool IsSettingsConfigured = false;
@@ -50,8 +51,8 @@ namespace DatPlex.ViewModel
 
             // Sharing Tab
             SharingViewVisibility = Visibility.Hidden;
-            LibraryList = new ObservableCollection<Library>();
-            FriendsList = new ObservableCollection<Friend>();
+            LibraryList = new List<Library>();
+            FriendsList = new List<Friend>();
 
             // Logging Tab
             LogViewVisibility = Visibility.Hidden;
@@ -173,7 +174,7 @@ namespace DatPlex.ViewModel
         {
             try
             {
-                if(Plex.Save())
+                if (Plex.Save())
                     MessageBox.Show("Saved Successfully!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                     MessageBox.Show("Saved Failed!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -271,7 +272,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public void LockView (object obj)
+        public void LockView(object obj)
         {
             UI_Enabled = false;
             LockVisibility = Visibility.Collapsed;
@@ -310,15 +311,22 @@ namespace DatPlex.ViewModel
 
         public string CheckforNewItems()
         {
+            return Global.FAILURE;
+
             List<Library> NewLibraries = new List<Library>();
+            List<Media> NewMedia = new List<Media>();
             List<Friend> NewFriends = new List<Friend>();
 
             try
             {
                 // Get subset of new libraries from Librarylist
+                NewLibraries = LibraryList.Except(Plex.LibraryList).ToList();
 
                 // Get subset of new media from each Librarylist
-
+                foreach (Library lib in LibraryList)
+                {
+                    //NewMedia = lib.MediaList.Except(Plex.LibraryList[0].MediaList);
+                }
                 // Get subset of new friends from Friendslist
 
 
@@ -332,10 +340,14 @@ namespace DatPlex.ViewModel
 
         private void ExitApp(object obj)
         {
-            MessageBoxResult save = MessageBox.Show("Would you like to save your Plex server data before closing?", "Closing Plex Email Updater", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-            if (save == MessageBoxResult.Yes)
+            if (IsChanged)
             {
-                OnSave();
+                MessageBoxResult save = MessageBox.Show("Would you like to save your Plex server data and logs before closing?", "Closing Plex Email Updater", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (save == MessageBoxResult.Yes)
+                {
+                    OnSave();
+                    OnSaveLogs();
+                }
             }
             else
                 App.Current.Shutdown();
@@ -369,7 +381,7 @@ namespace DatPlex.ViewModel
                 if (Manual_State)
                 {
                     SubLogEntry("** MODE CHANGED **",
-                        new LogEntry() {DateTime = DateTime.Now, Index = LogIndex++, Message = "Manual State Enabled"},
+                        new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = "Manual State Enabled" },
                         new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = "Scan Timer Disabled" });
                 }
                 else
@@ -438,7 +450,7 @@ namespace DatPlex.ViewModel
             CurrentTimer = UpdateTime;
 
             //Scan_Timer.Elapsed += new ElapsedEventHandler(Scan_Plex);
-            Scan_Timer.Interval = GetNextTimer();          
+            Scan_Timer.Interval = GetNextTimer();
 
         }
 
@@ -464,7 +476,7 @@ namespace DatPlex.ViewModel
 
                     timeUntilNext = CurrentTimer - today;
 
-                    break;                 
+                    break;
                 }
 
                 days++;
@@ -505,7 +517,7 @@ namespace DatPlex.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+
         private bool[] DaysofWeek = new bool[7];
         public bool IsChecked_Sun
         {
@@ -592,8 +604,8 @@ namespace DatPlex.ViewModel
 
         #region Library List
 
-        private ObservableCollection<Library> _LibraryList;
-        public ObservableCollection<Library> LibraryList
+        private List<Library> _LibraryList;
+        public List<Library> LibraryList
         {
             get { return _LibraryList; }
             set
@@ -625,8 +637,8 @@ namespace DatPlex.ViewModel
 
         #region Friends List
 
-        private ObservableCollection<Friend> _FriendsList;
-        public ObservableCollection<Friend> FriendsList
+        private List<Friend> _FriendsList;
+        public List<Friend> FriendsList
         {
             get { return _FriendsList; }
             set
@@ -715,7 +727,7 @@ namespace DatPlex.ViewModel
 
         public void SaveLogs(object obj)
         {
-            if (OnSaveLogs(true))
+            if (OnSaveLogs())
             {
                 MessageBox.Show("Logs saved successfully.", "Logs Saved!", MessageBoxButton.OK, MessageBoxImage.Information);
                 LogsSaved = true;
@@ -737,7 +749,7 @@ namespace DatPlex.ViewModel
                     LogEntryList.Clear();
                 else
                 {
-                    if (OnSaveLogs(false))
+                    if (OnSaveLogs())
                     {
                         MessageBox.Show("Logs saved successfully.", "Logs Saved!", MessageBoxButton.OK, MessageBoxImage.Information);
                         LogEntryList.Clear();
@@ -749,7 +761,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public bool OnSaveLogs(bool append)
+        public bool OnSaveLogs()
         {
             try
             {
@@ -757,11 +769,11 @@ namespace DatPlex.ViewModel
                 timeStamp = timeStamp.Replace("/", "-");
 
                 string fileName = "Plex_Logs_" + timeStamp + ".txt";
-                
+
                 DirectoryInfo dir = Directory.CreateDirectory(Global.LOG_SAVE_PATH);
                 string filePath = Path.Combine(Global.LOG_SAVE_PATH, fileName);
 
-                using (StreamWriter file = (append) ? File.AppendText(filePath) : File.CreateText(filePath))
+                using (StreamWriter file = File.AppendText(filePath))
                 {
                     foreach (CollapsibleLogEntry log in LogEntryList)
                     {
@@ -806,7 +818,7 @@ namespace DatPlex.ViewModel
             LogsSaved = false;
         }
 
-        public void SubLogEntry(string message, params LogEntry [] logs)
+        public void SubLogEntry(string message, params LogEntry[] logs)
         {
             List<LogEntry> sublogs = new List<LogEntry>();
             foreach (LogEntry l in logs)
@@ -841,11 +853,19 @@ namespace DatPlex.ViewModel
                     Directory.SetCurrentDirectory(Global.XML_SAVE_PATH);
                     if (File.Exists(filename))
                     {
-                       OnLoad(filename);
+                        OnLoad(filename);
+                        Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                        WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+                        IsSettingsConfigured = true;
                     }
-                    Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
-                    WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
-                    IsSettingsConfigured = true;
+                    else
+                    {
+                        MessageBox.Show("Plex Data for " + CheckUserName + " not found. Check the spelling or try another username.", "Username Not Found",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+
+
                 }
                 else
                 {
