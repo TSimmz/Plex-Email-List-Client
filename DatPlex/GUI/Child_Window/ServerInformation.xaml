@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatPlex.GUI.Child_Window"
         mc:Ignorable="d"
-     	Title="Plex Media Server Information" Height="200" Width="350" Icon="/Images/plex_icon.png" 
+     	Title="Plex Media Server Information" Height="275" Width="350" Icon="/Images/plex_icon.png" 
         BorderBrush="Black" BorderThickness="4" ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen">
     <Grid Background="#202020">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1.6*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
+            <TextBlock Text="Username:" Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="5,0,0,0" Height="24" Width="70"/>
+            <TextBox Text="{Binding CheckUsername}" TextWrapping="NoWrap" Margin="40,0,0,0" Height="20" Width="215"/>
+            <Separator VerticalAlignment="Bottom"/>
+        </Grid>
+        <Grid Grid.Row="1">
             <TextBlock Text="IP Address: " Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="5,0,0,20" Height="24" Width="70"/>
             <TextBox Text="{Binding IP_Address}" TextWrapping="NoWrap" Margin="0,0,90,25" Height="20" Width="85"/>
             <TextBlock Text="Port: " Foreground="White" FontSize="14" HorizontalAlignment="Right" Margin="0,0,110,20" Height="24" Width="50"/>
@@ -21,7 +27,7 @@
             <TextBlock Text="Token: " Foreground="White" FontSize="14" HorizontalAlignment="Left" Margin="30,45,0,0" Height="24" Width="50"/>
             <TextBox Text="{Binding Plex_Token}" TextWrapping="NoWrap" Height="20" Width="215" Margin="40,45,0,0"/>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
