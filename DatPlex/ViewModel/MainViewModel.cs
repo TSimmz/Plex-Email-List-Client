@@ -173,7 +173,7 @@ namespace DatPlex.ViewModel
         {
             try
             {
-                
+                Plex.Save();
 
                 return true;
             }
@@ -306,7 +306,7 @@ namespace DatPlex.ViewModel
             MessageBoxResult save = MessageBox.Show("Would you like to save your Plex server data before closing?", "Closing Plex Email Updater", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (save == MessageBoxResult.Yes)
             {
-                //SAVE
+                OnSave();
             }
             else
                 App.Current.Shutdown();
@@ -792,6 +792,7 @@ namespace DatPlex.ViewModel
 
                 Plex.Owner = Get_Account_Info();
                 Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                Plex.ServerInfo = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
                 WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
 
                 IsSettingsConfigured = true;

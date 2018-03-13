@@ -26,7 +26,7 @@
                 ToolTip="Settings">
                 <Image Source="/Images/settings.png"/>
             </Button>
-            <ListView Height="180" Width="500" TextElement.FontSize="15" ItemsSource="{Binding Plex.LibraryList}" SelectedIndex="{Binding SelIndex_Library}"
+            <ListView Height="180" Width="490" TextElement.FontSize="15" ItemsSource="{Binding Plex.LibraryList}" SelectedIndex="{Binding SelIndex_Library}"
                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,25" Grid.Row="0">
                 <ListView.View>
                     <GridView>

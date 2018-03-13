@@ -90,9 +90,11 @@ namespace DatPlex.DataModel
                 settings.IndentChars = "\t";
                 settings.ConformanceLevel = ConformanceLevel.Fragment;
 
-                Directory.CreateDirectory(Global.XML_SAVE_PATH);
+                string path = Global.XML_SAVE_PATH + Filename;
+                
+                Directory.SetCurrentDirectory(Global.XML_SAVE_PATH);
 
-                using (XmlWriter writer = XmlWriter.Create(Global.XML_SAVE_PATH, settings))
+                using (XmlWriter writer = XmlWriter.Create(Filename, settings))
                 {
                     this.WriteXml(writer);
                     writer.Flush();
