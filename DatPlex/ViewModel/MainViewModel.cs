@@ -837,12 +837,18 @@ namespace DatPlex.ViewModel
 
         public void LogEntry(string message)
         {
+            AutoScroll = true;
+
             LogEntryList.Add(new LogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message });
             LogsSaved = false;
+
+            AutoScroll = false;
         }
 
         public void SubLogEntry(string message, params LogEntry[] logs)
         {
+            AutoScroll = true;
+
             List<LogEntry> sublogs = new List<LogEntry>();
             foreach (LogEntry l in logs)
             {
@@ -850,6 +856,19 @@ namespace DatPlex.ViewModel
             }
 
             LogEntryList.Add(new CollapsibleLogEntry() { DateTime = DateTime.Now, Index = LogIndex++, Message = message, Contents = sublogs });
+
+            AutoScroll = false;
+        }
+
+        private bool _AutoScroll = false;
+        public bool AutoScroll
+        {
+            get { return _AutoScroll; }
+            set
+            {
+                _AutoScroll = value;
+                OnPropertyChanged();
+            }
         }
 
         #endregion Logging Tab
