@@ -23,7 +23,7 @@ namespace DatPlex.ViewModel
 
 
         private bool[] CurrentSchedule;
-
+        
         private bool IsChanged = false;
         private bool LogsSaved = false;
         private bool IsSettingsConfigured = false;
@@ -95,6 +95,17 @@ namespace DatPlex.ViewModel
             }
         }
 
+        private bool _IsInitialized = false;
+        public bool IsInitialized
+        {
+            get { return !_IsInitialized; }
+            set
+            {
+                _IsInitialized = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void GenerateTestData()
         {
             for (int i = 0; i < 5; i++)
@@ -119,18 +130,22 @@ namespace DatPlex.ViewModel
             return true;
         }
 
+        public void Initialize_Scan(object obj)
+        {
+            OnScan(true);
+
+            if(OnSave())
+                IsInitialized = true;
+        }
+
+
         public void Scan_Plex(object obj)
         {
-            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
-            //return;
+            OnScan(false);
+        }
 
-            // PROGRESS UPDATES
-            // **   SCANNING  **
-            // ** IN PROGRESS **
-            // **   FAILURE   **
-            // **   SUCCESS   **
-            // **   COMPLETE  **
-
+        public void OnScan(bool initialize)
+        {
             if (IsSettingsConfigured)
             {
                 var UI_Context = SynchronizationContext.Current;
@@ -139,15 +154,15 @@ namespace DatPlex.ViewModel
                 {
                     // Get Libraries
                     Scan_Label = "Checking for new libraries...";
-                    UI_Context.Send(x => LogEntry(Get_Libraries()), null);
+                    UI_Context.Send(x => LogEntry(Get_Libraries(initialize)), null);
 
                     // Get Media
                     Scan_Label = "Checking for new media...";
-                    UI_Context.Send(x => LogEntry(Get_Media()), null);
+                    UI_Context.Send(x => LogEntry(Get_Media(initialize)), null);
 
                     // Get Friends
                     Scan_Label = "Checking for new friends...";
-                    UI_Context.Send(x => LogEntry(Get_Friends()), null);
+                    UI_Context.Send(x => LogEntry(Get_Friends(initialize)), null);
 
                     // Check for new items
                     Scan_Label = "Updating users...";
@@ -159,8 +174,9 @@ namespace DatPlex.ViewModel
                     // Scan complete
                     Scan_Label = "Scan Complete!";
                 }));
-                t.Start();
 
+                t.Start();
+                t.Join();
                 //SetNextTimer();
             }
             else
@@ -175,11 +191,16 @@ namespace DatPlex.ViewModel
             try
             {
                 if (Plex.Save())
+                {
                     MessageBox.Show("Saved Successfully!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return true;
+                }
                 else
+                {
                     MessageBox.Show("Saved Failed!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                return true;
+                    return false;
+                }
+                
             }
             catch
             {
@@ -195,6 +216,8 @@ namespace DatPlex.ViewModel
                 {
                     MessageBox.Show("Loaded Successfully!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     RefreshData();
+
+                    IsInitialized = true;
                 }
                 else
                     MessageBox.Show("Loaded Failed!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -978,7 +1001,7 @@ namespace DatPlex.ViewModel
             return acct;
         }
 
-        public string Get_Libraries()
+        public string Get_Libraries(bool initialize)
         {
             try
             {
@@ -993,8 +1016,10 @@ namespace DatPlex.ViewModel
 
                     lib = new Library(Convert.ToInt32(i.Attributes["key"].Value), type, title);
 
-                    LibraryList.Add(lib);
-                    Plex.LibraryList.Add(lib);
+                    if (initialize)
+                        Plex.LibraryList.Add(lib);
+                    else
+                        LibraryList.Add(lib);
                 }
 
                 //OnPropertyChanged("LibraryList");
@@ -1009,7 +1034,7 @@ namespace DatPlex.ViewModel
             }
         }
 
-        public string Get_Media()
+        public string Get_Media(bool initialize)
         {
             try
             {
@@ -1047,7 +1072,7 @@ namespace DatPlex.ViewModel
         }
 
 
-        public string Get_Friends()
+        public string Get_Friends(bool initialize)
         {
             try
             {
@@ -1063,8 +1088,10 @@ namespace DatPlex.ViewModel
                        i.Attributes["email"].Value
                         );
 
-                    FriendsList.Add(friend);
-                    Plex.FriendsList.Add(friend);
+                    if (initialize)
+                        Plex.FriendsList.Add(friend);
+                    else
+                        FriendsList.Add(friend);
                 }
 
                 //OnPropertyChanged("FriendsList");
@@ -1114,6 +1141,17 @@ namespace DatPlex.ViewModel
                 if (_SetPeriod_Cmd == null)
                     _SetPeriod_Cmd = new DelegateCommand(SetPeriod);
                 return _SetPeriod_Cmd;
+            }
+        }
+
+        DelegateCommand _Initialize_Cmd;
+        public ICommand Initialize_Cmd
+        {
+            get
+            {
+                if (_Initialize_Cmd == null)
+                    _Initialize_Cmd = new DelegateCommand(Initialize_Scan);
+                return _Initialize_Cmd;
             }
         }
 

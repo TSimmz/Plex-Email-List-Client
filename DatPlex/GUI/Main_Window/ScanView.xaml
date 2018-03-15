@@ -56,11 +56,14 @@
                         </Grid>
                     </GroupBox>
                 </Grid>
-                <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                <Button Content="Initialize Plex Data" Command="{Binding Initialize_Cmd}" IsEnabled="{Binding IsInitialized}" HorizontalAlignment="Center" VerticalAlignment="Center" 
                         Margin="0,0,0,100" Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
+                
+                <Button Content="Scan Plex" Command="{Binding Scan_Plex_Cmd}" IsEnabled="{Binding Manual_State}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0"  Grid.Row="1"/>
             
                 <Button Content="Import/Export" Command="{Binding ImportExport_Cmd}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
+                         Margin="0,100,0,0" Width="235" Height="40" TextElement.FontSize="18" Grid.Column="0" Grid.Row="1"/>
 
                 <Label Name="_ScanLabel" Content="{Binding Scan_Label}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,0,0,45" Height="25" Width="300" HorizontalContentAlignment="Left"
                         Grid.Column="0" Grid.Row="2" Foreground="White"/>
