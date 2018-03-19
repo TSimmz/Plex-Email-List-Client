@@ -35,6 +35,22 @@ namespace DatPlex.DataModel
 
         #endregion
 
+        #region General
+
+        public override bool Equals(object other)
+        {
+            if (!(other is Media)) return false;
+
+            return this.Title.Equals((other as Media).Title);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Title.GetHashCode();
+        }
+
+        #endregion General
+
         #region Setters/Getters
 
         public int ID
@@ -119,8 +135,23 @@ namespace DatPlex.DataModel
         public string Title { get; set; }
 
         public List<Media> MediaList { get; set; }
-        
+
         #endregion
+
+        #region General
+
+        public override bool Equals(object other)
+        {
+            if (!(other is Library)) return false;
+            return this.Title.Equals((other as Library).Title);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Title.GetHashCode();
+        }
+
+        #endregion General
 
         #region Add/Remove Logic
 

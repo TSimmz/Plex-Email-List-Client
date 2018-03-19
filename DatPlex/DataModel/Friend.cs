@@ -30,6 +30,22 @@ namespace DatPlex.DataModel
 
         #endregion
 
+        #region General
+
+        public override bool Equals(object other)
+        {
+            if (!(other is Friend)) return false;
+
+            return this.Title.Equals((other as Friend).Title);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Title.GetHashCode();
+        }
+
+        #endregion General
+
         #region Setters/Getters
 
         private bool _Include_Friend;

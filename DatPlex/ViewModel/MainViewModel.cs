@@ -23,7 +23,7 @@ namespace DatPlex.ViewModel
 
 
         private bool[] CurrentSchedule;
-        
+
         private bool IsChanged = false;
         private bool LogsSaved = false;
         private bool IsSettingsConfigured = false;
@@ -134,7 +134,7 @@ namespace DatPlex.ViewModel
         {
             OnScan(true);
 
-            if(OnSave())
+            if (OnSave())
                 IsInitialized = true;
         }
 
@@ -164,19 +164,22 @@ namespace DatPlex.ViewModel
                     Scan_Label = "Checking for new friends...";
                     UI_Context.Send(x => LogEntry(Get_Friends(initialize)), null);
 
-                    // Check for new items
-                    Scan_Label = "Updating users...";
-                    UI_Context.Send(x => LogEntry(CheckforNewItems()), null);
+                    if (!initialize)
+                    {
+                        // Check for new items
+                        Scan_Label = "Updating users...";
+                        UI_Context.Send(x => LogEntry(CheckforNewItems()), null);
 
-                    // Email users if new items are found
-                    Scan_Label = "Updating users...";
+                        // Email users if new items are found
+                        Scan_Label = "Updating users...";
+                    }
 
                     // Scan complete
                     Scan_Label = "Scan Complete!";
                 }));
 
                 t.Start();
-                t.Join();
+                //t.Join();
                 //SetNextTimer();
             }
             else
@@ -200,7 +203,7 @@ namespace DatPlex.ViewModel
                     MessageBox.Show("Saved Failed!", "Plex Email Updater", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
-                
+
             }
             catch
             {
@@ -334,24 +337,36 @@ namespace DatPlex.ViewModel
 
         public string CheckforNewItems()
         {
-            return Global.FAILURE;
+            //return Global.FAILURE;
 
-            List<Library> NewLibraries = new List<Library>();
-            List<Media> NewMedia = new List<Media>();
-            List<Friend> NewFriends = new List<Friend>();
+            List<Library> NewLibraryList = new List<Library>();
+            //List<List<Media>> NewMediaList = new List<List<Media>>();
+            List<Friend> NewFriendsList = new List<Friend>();
 
             try
             {
                 // Get subset of new libraries from Librarylist
-                NewLibraries = LibraryList.Except(Plex.LibraryList).ToList();
+                NewLibraryList = LibraryList.Except<Library>(Plex.LibraryList).ToList();
 
                 // Get subset of new media from each Librarylist
                 foreach (Library lib in LibraryList)
                 {
-                    //NewMedia = lib.MediaList.Except(Plex.LibraryList[0].MediaList);
-                }
-                // Get subset of new friends from Friendslist
+                    foreach (Library pLib in Plex.LibraryList)
+                    {
+                        if (lib.Title == pLib.Title)
+                        {
+                            List<Media> media = new List<Media>();
+                            media = lib.MediaList.Except(pLib.MediaList).ToList();
 
+                            lib.MediaList = media;
+                        }
+
+                    }
+
+                }
+
+                // Get subset of new friends from Friendslist
+                NewFriendsList = FriendsList.Except<Friend>(Plex.FriendsList).ToList();
 
                 return Global.SUCCESS;
             }
@@ -896,31 +911,31 @@ namespace DatPlex.ViewModel
                     if (File.Exists(filename))
                     {
                         OnLoad(filename);
-                        Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
-                        WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
-                        IsSettingsConfigured = true;
+                        //Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                        //WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+                        //IsSettingsConfigured = true;
                     }
                     else
                     {
                         MessageBox.Show("Plex Data for " + CheckUserName + " not found. Check the spelling or try another username.", "Username Not Found",
                             MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
 
 
 
                 }
-                else
-                {
 
-                    Global.LOCAL_URL = "https://" + IP_Address + ":" + Port_Number;
-                    Global.TOKEN = "/?X-Plex-Token=" + Plex_Token;
 
-                    Plex.Owner = Get_Account_Info();
-                    Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
-                    Plex.ServerInfo = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
-                    WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
-                    IsSettingsConfigured = true;
-                }
+                Global.LOCAL_URL = "https://" + IP_Address + ":" + Port_Number;
+                Global.TOKEN = "/?X-Plex-Token=" + Plex_Token;
+
+                Plex.Owner = Get_Account_Info();
+                Plex.Filename = Global.PLEX_FILE_NAME + "_" + Plex.Owner.Username + Global.PLEX_EXT;
+                Plex.ServerInfo = new Tuple<string, string, string>(IP_Address, Port_Number, Plex_Token);
+                WindowTitle = WindowTitle + " - " + Plex.Owner.Username;
+                IsSettingsConfigured = true;
+
 
             }
         }
