@@ -234,7 +234,11 @@ namespace DatPlex.ViewModel
 
         public void ImportExport()
         {
-            Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+            //Utility.IMPLEMENT(MethodBase.GetCurrentMethod().Name);
+
+            Email test = new Email();
+            test.From = "tyler.simoni.8@gmail.com";
+            test.Send();
         }
 
         public string MediaType(string type)

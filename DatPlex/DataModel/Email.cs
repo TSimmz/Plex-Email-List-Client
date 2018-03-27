@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net;
-using System.Net.Mail;
-using System.Collections.ObjectModel;
+//using System.Net.Mail;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using Spire.Email;
+using Spire.Email.Smtp;
+using Spire.Email.IMap;
+using System.Threading;
 
 namespace DatPlex.DataModel
 {
@@ -17,7 +17,14 @@ namespace DatPlex.DataModel
         private string _from;
         private List<string> _to;
         private string _subject;
-        private string _body;
+        private string _body = @"<html>
+                                  <body>
+                                  <p>Dear Tyler,</p>
+                                  <p>This is only a test</p>
+                                  <p>Sincerely,<br>Tyler</br></p>
+                                  </body>
+                                  </html>
+                                 ";
 
         MailMessage message;
         SmtpClient gmail;
@@ -28,7 +35,6 @@ namespace DatPlex.DataModel
 
         public Email()
         {
-            message = new MailMessage();
             gmail = new SmtpClient("smtp.gmail.com");
         }
 
@@ -40,20 +46,40 @@ namespace DatPlex.DataModel
         {
             try
             {
-                message.From = new MailAddress(From);
-                foreach (string t in To)
+                new Thread(() =>
                 {
-                    message.To.Add(t);
-                }
-                message.Subject = Subject;
-                message.Body = Body;
+                    //message.From = new MailAddress(From);
 
-                gmail.Port = 25;
-                gmail.EnableSsl = true;
-                gmail.Credentials = new NetworkCredential(From, ConfirmPassword());
+                    MailAddress from = new MailAddress(From);
+                    //List<MailAddress> to_List = new List<MailAddress>();
+                    //foreach(string t in To)
+                    //{
+                    //    to_List.Add(new MailAddress(t));
+                    //}
+                    //MailAddress[] to = to_List.ToArray();
+                    MailAddress to = new MailAddress(From);
 
-                gmail.SendAsync(message, message.Subject);
+                    message = new MailMessage(from, to);
 
+                    message.Subject = "Test from Plex";
+                    message.BodyHtml = Body;
+
+                    gmail.Port = 587;
+                    gmail.Username = From;
+                    gmail.Password = "H4ckm3br0@";
+                    gmail.ConnectionProtocols = ConnectionProtocols.Ssl;
+
+                    gmail.SendOne(message);
+
+                    MessageBox.Show("Email sent successfully", "Email Test", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    //gmail.Credentials = new NetworkCredential(From, ConfirmPassword());
+
+                    //gmail.SendAsync(message, message.Subject);
+
+                }).Start();
+
+               
                 return true;
             }
             catch
